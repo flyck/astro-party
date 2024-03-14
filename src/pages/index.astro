@@ -1,5 +1,6 @@
 ---
-
+import {db, Parties} from "astro:db";
+const parties = await db.select().from(Parties);
 ---
 
 <html lang="en">
@@ -12,5 +13,9 @@
 	</head>
 	<body>
 		<h1>Astro</h1>
+                Parties:
+                <ul>
+                {parties.map((party) => <li>{party.title}</li>)}
+                </ul>
 	</body>
 </html>
