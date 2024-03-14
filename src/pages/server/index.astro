@@ -1,0 +1,9 @@
+---
+import {db, Parties} from "astro:db";
+const parties = await db.select().from(Parties);
+console.log(parties)
+---
+<h1>hello :)</h1>
+<ul class="mt-2">
+  {parties.map((party) => <li>{party.title}</li>)}
+</ul>

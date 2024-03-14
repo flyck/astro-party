@@ -1,0 +1,39 @@
+---
+import * as z from 'zod';
+const { request } = Astro;
+import { db, Parties } from 'astro:db';
+
+const inputSchema = z.object({
+  title: z.string().min(1).max(100),
+  description: z.string().max(100),
+  location: z.string().max(100),
+  date: z.string().max(100).transform((str) => new Date(str))
+});
+
+const data = await request.formData()
+let inputJson: {[key: string]: any} = {}
+data.forEach((value, key: string) => {inputJson[key] = value})
+
+const parsedInput = inputSchema.safeParse(inputJson)
+
+console.log("Input correct: " + parsedInput.success)
+if (parsedInput.success) {
+   const party = await db.insert(Parties).values([
+     {...parsedInput.data}
+   ])
+
+  const partyId = 5
+
+  return new Response(JSON.stringify({ ok: true }), {
+    status: 200,
+    headers: {
+      "hx-redirect": `/details?id=${partyId}`,
+    },
+  })
+}
+
+function parseError() {
+  return "Bad input"
+}
+---
+<div class="text-red-500">{parseError()}</div>

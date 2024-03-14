@@ -1,4 +1,4 @@
-import { db, Parties } from 'astro:db';
+import { db, Participants, Parties } from 'astro:db';
 
 export default async function seed() {
   // Seed local development data.
@@ -22,5 +22,23 @@ export default async function seed() {
       location: '789 Sunny Lane',
       date: new Date('2024-07-15')
     }
+  ])
+
+  await db.insert(Participants).values([
+    {
+      partyId: 1, name: 'John Doe', email: 'john@example.com', invitation_sent: true
+    },
+    {
+      partyId: 1, name: 'Jane Smith', email: 'jane@example.com', invitation_sent: false
+    },
+    {
+      partyId: 2, name: 'Bob Johnson', email: 'bob@example.com', invitation_sent: true
+    },
+    {
+      partyId: 3, name: 'Alice Anderson', email: 'alice@example.com', invitation_sent: false
+    },
+    {
+      partyId: 3, name: 'Charlie Brown', email: 'charlie@example.com', invitation_sent: true
+    },
   ])
 }

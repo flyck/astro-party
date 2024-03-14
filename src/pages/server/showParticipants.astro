@@ -1,0 +1,7 @@
+---
+import {db, Participants, eq} from "astro:db";
+const participants = await db.select().from(Participants).where(eq(Participants.partyId, 1));
+---
+<ul class="mt-2">
+  {participants.map((p) => <li>{p.name}</li>)}
+</ul>

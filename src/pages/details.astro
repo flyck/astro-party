@@ -1,0 +1,12 @@
+---
+import "../styles/global.css";
+import Layout from  "../layouts/PageLayout.astro"
+---
+
+<Layout title="Details" right="/participants">
+  <div
+    hx-trigger="load"
+    hx-get="/server/getParty"
+  >
+  </div>
+</Layout>

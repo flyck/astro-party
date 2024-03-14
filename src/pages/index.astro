@@ -1,13 +1,20 @@
 ---
-import "../styles/global.css";
-import Layout from  "../layouts/PageLayout.astro"
-
-import {db, Parties} from "astro:db";
-const parties = await db.select().from(Parties);
+import Layout from  "../layouts/Layout.astro"
 ---
 
-<Layout title="Parties">
-  <ul class="mt-2">
-    {parties.map((party) => <li>{party.title}</li>)}
-  </ul>
+<Layout>
+<main class="flex min-h-screen flex-col items-center justify-between">
+  <div class="flex flex-col items-center justify-center min-h-screen mt-auto">
+    <h1 class="text-2xl font-serif mb-10">Party Task Planner</h1>
+    <a href="/create">
+      <button
+        aria-label="New Party"
+        class="bg-blue-500 mx-auto flex items-center justify-center h-14 w-14 rounded text-xl"
+        variant="outline"
+      >
+        +
+      </Button>
+    </a>
+  </div>
+</main>
 </Layout>

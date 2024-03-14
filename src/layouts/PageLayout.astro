@@ -16,7 +16,7 @@ const { left, right, title } = Astro.props;
   <div class="flex min-h-screen flex-col items-center justify-between ">
     <div class="my-auto mx-auto p-4">
       <div class="mb-4 flex w-96 sm:w-80">
-        {left ? <a href={"asd"} onclick={`keepQueryParam('${left}'); return false;`} class="flex" aria-label="Go Left">
+        {left ? <a href={left} onclick={`keepQueryParam('${left}'); return false;`} class="flex" aria-label="Go Left">
           <ChevronLeftIcon class="h-7 w-7 self-center mr-2" />
         </a> : <div class="flex">
           <div class="h-7 w-7 self-center mr-2" />
