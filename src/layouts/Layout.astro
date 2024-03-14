@@ -1,0 +1,45 @@
+---
+import "../styles/global.css";
+---
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="description" content="Astro description" />
+		<meta name="viewport" content="width=device-width" />
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<meta name="generator" content={Astro.generator} />
+		<title>Astro Party</title>
+	</head>
+	<body>
+		<div>
+			<slot />
+		</div>
+	</body>
+</html>
+<style is:global>
+	:root {
+		color-scheme: light dark;
+
+	}
+	body {
+		display: flex;		justify-content: center;
+		height: 100vh;
+	}
+</style>
+<!-- based on: https://www.kevinzunigacuellar.com/blog/dark-mode-in-astro/ -->
+<script is:inline>
+  const theme = (() => {
+    console.log(window.matchMedia("(prefers-color-scheme: dark)"))
+    if (window.matchMedia("(prefers-color-scheme: dark)").matches) {
+      return "dark";
+    }
+    return "light";
+  })();
+
+  if (theme === "light") {
+    document.documentElement.classList.remove("dark");
+  } else {
+    document.documentElement.classList.add("dark");
+  }
+</script>
