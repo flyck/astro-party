@@ -1,6 +1,6 @@
 ---
 import {db, eq, Parties} from "astro:db";
-import Input from "../../components/mini/input.astro"
+import Input from "../../../components/mini/input.astro"
 
 const { request } = Astro
 const url = new URL(request.headers.get("Hx-Current-Url") || "")

@@ -8,12 +8,12 @@ import SubmitButton from "../components/submitButton.astro"
 <Layout title="Details" right="/participants">
   <div
     hx-trigger="load"
-    hx-get="/server/showParty"
+    hx-get="/server/party/read"
     hx-target="#content"
   >
   </div>
   <form
-    hx-post="/server/editParty"
+    hx-post="/server/party/update"
     hx-target="#action-feedback"
   >
     <Scrollable>
