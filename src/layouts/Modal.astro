@@ -1,37 +1,31 @@
 ---
+interface Props {
+  title: string
+}
+
+const { title } = Astro.props;
 ---
-<dialog data-modal>
-  <div
-    class="fixed inset-0 flex items-center justify-center dark:bg-red-900 bg-red-200"
-  >
-    <main class="flex min-h-screen flex-col items-center justify-between bg-orange-200">
-      <div class="p-4 mx-auto my-auto bg-green-200">
-        <div class="mb-4 flex w-80">
-          <div class="flex">
-            <div class="h-7 w-7 self-center mr-2" />
-          </div>
-          {/* TODO solve this problem with the height, creates a zone where the outside click wont close*/}
-          <div class="w-full modal-content h-96">
-            <div class="mb-4">
-              <div class="w-full dark:bg-gray-900 bg-gray-100 dark:border-gray-800 p-2 rounded-lg text-center border">
-                <div class="flex justify-between">
-                  <>create</>
-                  <button class="" id="closeModalButton">
-                    ✖
-                  </button>
-                </div>
-              </div>
-            </div>
-            <div class="rounded-lg border dark:bg-gray-900 bg-gray-100 dark:text-gray-100 text-gray-900 dark:border-gray-800 border-gray-200">
-              <slot />
-            </div>
-          </div>
-          <div class="flex">
-            <div class="flex h-7 w-7 self-center mr-2" />
+<dialog data-modal class="backdrop:bg-gray-200 bg-gray-200">
+  <div class="mb-4 flex w-80 my-auto mx-auto">
+    {/* TODO solve this problem with the width, creates a zone where the outside click wont close*/}
+    <div class="flex w-7 mr-2" />
+    <div class="w-full modal-content h-96">
+      <div class="mb-4">
+        <div class="w-full dark:bg-gray-900 bg-gray-100 dark:border-gray-800 p-2 rounded-lg text-center border">
+          <div class="flex justify-between">
+            <>{title}</>
+            <button class="" id="closeModalButton">
+              ✖
+            </button>
           </div>
         </div>
-      </div >
-    </main>
+      </div>
+      <div class="rounded-lg border dark:bg-gray-900 bg-gray-100 dark:text-gray-100 text-gray-900 dark:border-gray-800 border-gray-200">
+        <slot />
+      </div>
+      <div class="w-2" />
+    </div>
+    <div class="flex w-7 mr-2" />
   </div>
 </dialog>
 
