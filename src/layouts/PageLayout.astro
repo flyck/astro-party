@@ -29,16 +29,23 @@ const { left, right, title } = Astro.props;
             </div>
           </div>
           <div class="rounded-lg border dark:bg-gray-900 bg-gray-100 dark:text-gray-100 text-gray-900 dark:border-gray-800 border-gray-200 h-80">
-            <slot />
+              <slot />
           </div>
         </div>
 
         {right ? <a href={right} onclick={`keepQueryParam('${right}'); return false;`} class="flex" aria-label="Go Right">
-          <ChevronRightIcon class="h-7 w-7 self-center ml-2" />
+            <ChevronRightIcon class="h-7 w-7 self-center ml-2" />
         </a> : <div class="flex">
-          <div class="h-7 w-7 self-center ml-2" />
+            <div class="h-7 w-7 self-center ml-2" />
         </div>}
       </div>
     </div >
   </div>
 </Layout>
+
+<!-- keep query parameter -->
+<script is:inline>
+ function keepQueryParam(page) {
+     window.location = page + window.location.search;
+ }
+</script>

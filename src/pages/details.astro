@@ -1,12 +1,39 @@
 ---
 import "../styles/global.css";
 import Layout from  "../layouts/PageLayout.astro"
+import Scrollable from  "../layouts/Scrollable.astro"
+import SubmitButton from "../components/submitButton.astro"
 ---
 
 <Layout title="Details" right="/participants">
   <div
     hx-trigger="load"
-    hx-get="/server/getParty"
+    hx-get="/server/showParty"
+    hx-target="#content"
   >
   </div>
+  <form
+    hx-post="/server/editParty"
+    hx-target="#action-feedback"
+  >
+    <Scrollable>
+      <div id="content"></div>
+      <div class="p-2">
+        <button
+          aria-label="Delete Party"
+          class="bg-red-600 text-gray-200 rounded-sm w-full"
+          hx-post="/server/deleteParty"
+          hx-target="#action-feedback"
+          type="button"
+        >
+          Delete
+        </button>
+      </div>
+      <div id="action-feedback"></div>
+    </Scrollable>
+    <!-- TODO loading spinner -->
+    <SubmitButton id="submitButton">
+      Ok
+    </SubmitButton>
+  </form>
 </Layout>

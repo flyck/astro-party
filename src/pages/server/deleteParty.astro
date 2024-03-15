@@ -1,0 +1,35 @@
+---
+import * as z from 'zod';
+const { request } = Astro;
+import { db, eq, Parties } from 'astro:db';
+
+const url = new URL(request.headers.get("Hx-Current-Url") || "")
+const id = parseInt(url.searchParams.get("id") || "")
+
+if (!id) {
+  return new Response(JSON.stringify({message: "bad request"}),{status: 400})
+}
+
+try {
+  const party = await db.delete(Parties).where(eq(Parties.id, id))
+
+  if (party.rowsAffected == 0) {
+    throw new Error("Party not found")
+  }
+  console.info("Deleted party " + id)
+
+  return new Response(JSON.stringify({ ok: true }), {
+    status: 200,
+    headers: {
+      "hx-redirect": `/`,
+    },
+  })
+} catch(error) {
+  console.error(`Couldnt delete party ${id}`)
+}
+
+function parseError() {
+  return ":("
+}
+---
+<div class="text-red-500">{parseError()}</div>
