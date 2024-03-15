@@ -8,14 +8,14 @@ import SubmitButton from "../components/submitButton.astro"
 <Layout title="Create Party">
   <form
     hx-post="/server/party/create"
-    hx-target="#response-div"
+    hx-target="#action-response"
   >
     <Scrollable>
       <Input name="title" title="Title" class="w-full rounded-sm dark:bg-gray-800" type="text" value="25th Birthday"></Input>
       <Input name="description" title="Description" class="w-full rounded-sm dark:bg-gray-800" type="text" value="Lets go hard"></Input>
       <Input name="location" title="Where" class="w-full rounded-sm dark:bg-gray-800" type="text" value="Dunenberg"></Input>
       <Input name="date" title="When" class="w-full rounded-sm dark:bg-gray-800" type="text" value="2022-05-05"></Input>
-      <div id="response-div" class ="m-2"></div>
+      <div id="action-response" class ="m-2"></div>
     </Scrollable>
     <!-- TODO loading spinner -->
     <SubmitButton id="submitButton">

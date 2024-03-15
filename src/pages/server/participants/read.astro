@@ -11,8 +11,8 @@ if (!id ) {
 
 const participants = await db.select().from(Participants).where(eq(Participants.partyId, id));
 ---
-{participants.map((p) => <a key={p.id} href={`/123`}>
-  <div class="border-b border-gray-500 p-2">
+{participants.map((p) =>
+  <div key={p.id} class="border-b border-gray-500 p-2">
     <div class="text-sm">{p.name || "?"} ({p.email})</div>
   </div >
-</a>)}
+)}
