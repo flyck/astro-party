@@ -12,19 +12,12 @@ import "../styles/global.css";
 		<title>Astro Party</title>
 	</head>
 	<body>
-		<div>
-			<slot />
-		</div>
+		<slot />
 	</body>
 </html>
 <style is:global>
 	:root {
 		color-scheme: light dark;
-
-	}
-	body {
-		display: flex;		justify-content: center;
-		height: 100vh;
 	}
 </style>
 <!-- based on: https://www.kevinzunigacuellar.com/blog/dark-mode-in-astro/ -->

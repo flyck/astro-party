@@ -1,11 +1,11 @@
 ---
-import Layout from  "../layouts/PageLayout.astro"
+import PageLayout from  "../layouts/PageLayout.astro"
 import Scrollable from  "../layouts/Scrollable.astro"
 import Input from "../components/mini/input.astro"
 import SubmitButton from "../components/submitButton.astro"
 ---
 
-<Layout title="Create Party">
+<PageLayout title="Create Party">
   <form
     hx-post="/server/party/create"
     hx-target="#action-response"
@@ -22,4 +22,4 @@ import SubmitButton from "../components/submitButton.astro"
       Ok
     </SubmitButton>
   </form>
-</Layout>
+</PageLayout>
