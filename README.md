@@ -10,9 +10,10 @@ a simple astro database which has a great integration with astro db and drizzle 
 
 ## Plan
 - [x] Basic Layout
-- [ ] Create, Edit, List and Delete Party
-  - Create
+- [x] Create, Edit, List and Delete Party
 - [ ] Create, Edit, List and Delete Participant
+  - [x] Create
+  - [x] List
 - [ ] Create, Edit, List and Delete Task
 - [ ] Astro DB auth
 - [ ] Deploy Astro frontend to Netlify
