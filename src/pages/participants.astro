@@ -1,12 +1,25 @@
 ---
-import "../styles/global.css";
 import Layout from  "../layouts/PageLayout.astro"
+import Scrollable from  "../layouts/Scrollable.astro"
+import Modal from  "../layouts/Modal.astro"
+import Input from "../components/mini/input.astro"
 ---
 
 <Layout title="Participants" left="/details">
     <div
         hx-trigger="load"
         hx-get="/server/participants/read"
+        hx-target="#content"
     >
     </div>
+    <Scrollable>
+        <div id="content"></div>
+    </Scrollable>
+    <button id="createButton" class="disabled:bg-gray-800 bg-blue-700 text-gray-200 rounded-b-lg w-full h-8 flex justify-center items-center">
+        +
+    </button>
+    <Modal>
+        <Input name="name" title="Name" class="w-full rounded-sm dark:bg-gray-800" type="text" value="Johnny B"></Input>
+        <Input name="email" title="Email" class="w-full rounded-sm dark:bg-gray-800" type="text" value=""></Input>
+    </Modal>
 </Layout>

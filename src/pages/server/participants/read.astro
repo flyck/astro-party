@@ -1,7 +1,18 @@
 ---
 import {db, Participants, eq} from "astro:db";
-const participants = await db.select().from(Participants).where(eq(Participants.partyId, 1));
+
+const { request } = Astro
+const url = new URL(request.headers.get("Hx-Current-Url") || "")
+const id = parseInt(url.searchParams.get("id") || "")
+
+if (!id ) {
+  return new Response(JSON.stringify({message: "bad request"}),{status: 400})
+}
+
+const participants = await db.select().from(Participants).where(eq(Participants.partyId, id));
 ---
-<ul class="mt-2">
-  {participants.map((p) => <li>{p.name}</li>)}
-</ul>
+{participants.map((p) => <a key={p.id} href={`/123`}>
+  <div class="border-b border-gray-500 p-2">
+    <div class="text-sm">{p.name || "?"} ({p.email})</div>
+  </div >
+</a>)}
