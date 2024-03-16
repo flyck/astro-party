@@ -26,6 +26,9 @@ a simple astro database which has a great integration with astro db and drizzle 
   to work though for most of the pages.
   - I could definitely do some crazy navigation within a section (party / participant / task) via
     hx-boost which doesnt need deep linking
+- When I deploy from local there is a dependency missing from the build: `Cannot find module
+  '@libsql/linux-x64-gnu'`
+  - [ ] try to solve this for local deploys
 
 ## Powered by Astro
 

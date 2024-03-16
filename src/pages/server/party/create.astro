@@ -16,8 +16,10 @@ data.forEach((value, key: string) => {inputJson[key] = value})
 
 const parsedInput = inputSchema.safeParse(inputJson)
 
+console.log("Parse result: " + JSON.stringify(parsedInput))
 console.log("Input correct: " + parsedInput.success)
 if (parsedInput.success) {
+  console.log("Inserting party: " + JSON.stringify(parsedInput.data))
    const party = await db.insert(Parties).values([
      {...parsedInput.data}
    ])

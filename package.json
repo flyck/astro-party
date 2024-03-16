@@ -7,7 +7,8 @@
     "start": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
-    "astro": "astro"
+    "astro": "astro",
+    "deploy": "astro build --remote && netlify deploy --prod"
   },
   "dependencies": {
     "@astrojs/db": "^0.8.1",
@@ -19,6 +20,7 @@
   },
   "devDependencies": {
     "@astrojs/check": "^0.5.8",
+    "netlify-cli": "^17.19.4",
     "typescript": "^5.4.2"
   }
 }
