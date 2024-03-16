@@ -3,20 +3,24 @@ import * as z from 'zod';
 const { request } = Astro;
 import { db, eq, Parties } from 'astro:db';
 
+console.info("Deleting Party Request")
+
 const url = new URL(request.headers.get("Hx-Current-Url") || "")
 const id = parseInt(url.searchParams.get("id") || "")
 
 if (!id) {
+  console.info("id missing")
   return new Response(JSON.stringify({message: "bad request"}),{status: 400})
 }
 
 try {
-  const party = await db.delete(Parties).where(eq(Parties.id, id))
+  console.info("Deleting party...")
+  const party = await db.delete(Parties).where(eq(Parties.id, id)).returning()
+  console.info("Party deleted: " + JSON.stringify(party))
 
-  if (party.rowsAffected == 0) {
+  if (party[0].id != id) {
     throw new Error("Party not found")
   }
-  console.info("Deleted party " + id)
 
   return new Response(JSON.stringify({ ok: true }), {
     status: 200,

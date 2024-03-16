@@ -19,13 +19,15 @@ const parsedInput = inputSchema.safeParse(inputJson)
 console.log("Parse result: " + JSON.stringify(parsedInput))
 console.log("Input correct: " + parsedInput.success)
 if (parsedInput.success) {
-  console.log("Inserting party: " + JSON.stringify(parsedInput.data))
-   const party = await db.insert(Parties).values([
-     {...parsedInput.data}
-   ])
+  const newParty = {...parsedInput.data}
+  console.log("Inserting party: " + JSON.stringify(newParty))
+   const insertResult = await db.insert(Parties).values([
+     newParty
+   ]).returning()
 
-  const partyId = party.lastInsertRowid
-  console.log(party)
+  console.log("Insert result: " + JSON.stringify(insertResult))
+
+  const partyId = insertResult[0].id
 
   return new Response(JSON.stringify({ ok: true }), {
     status: 200,

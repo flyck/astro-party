@@ -32,6 +32,8 @@ if (parsedInput.success) {
       [newParticipant]
     )
 
+    console.info("Insert result: " + JSON.stringify(insertResult))
+
     return new Response(JSON.stringify({ message: "participant created" }), {
       status: 200,
       headers: {

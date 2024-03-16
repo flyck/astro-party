@@ -14,10 +14,10 @@ a simple astro database which has a great integration with astro db and drizzle 
 - [ ] Create, Edit, List and Delete Participant
   - [x] Create
   - [x] List
-- [ ] Create, Edit, List and Delete Task
-- [ ] Astro DB auth
-- [ ] Deploy Astro frontend to Netlify
+- [x] Astro DB auth for netlify
+- [x] Deploy Astro frontend to Netlify
   - https://docs.astro.build/en/guides/deploy/netlify/
+- [ ] Create, Edit, List and Delete Task
 
 ## Dev Notes
 
@@ -26,9 +26,12 @@ a simple astro database which has a great integration with astro db and drizzle 
   to work though for most of the pages.
   - I could definitely do some crazy navigation within a section (party / participant / task) via
     hx-boost which doesnt need deep linking
+- AstroDBs local behavior with sqlite is different from the prod deployment. Locally I always get
+  the insert / delete status back. On deployment that is always empty
+  - Fixed by request it specifically with `.returning()`
 - When I deploy from local there is a dependency missing from the build: `Cannot find module
   '@libsql/linux-x64-gnu'`
-  - [ ] try to solve this for local deploys
+  - Fixed by downgrading @libsql/client: https://github.com/tursodatabase/libsql-client-ts/issues/112
 
 ## Powered by Astro
 

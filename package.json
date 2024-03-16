@@ -22,5 +22,8 @@
     "@astrojs/check": "^0.5.8",
     "netlify-cli": "^17.19.4",
     "typescript": "^5.4.2"
+  },
+  "overrides": {
+    "@libsql/client": "0.3.2"
   }
 }
