@@ -11,9 +11,9 @@ interface Props {
 const { class: className, title, loading, ...rest } = Astro.props;
 ---
 <div class="border-b border-gray-500 p-2">
-  <div class="text-sm">{title}:</div>
-  { loading ?
-  <Skeleton /> :
-  <input class="w-full text-sm dark:bg-gray-800 px-2 rounded-sm" class={className} {...rest} />
-  }
+    <div class="text-sm">{title}:</div>
+    { loading ?
+    <div class="mt-1"><Skeleton class="rounded-sm" /></div> :
+    <input class="w-full text-sm dark:bg-gray-800 px-2 rounded-sm" class={className} {...rest} />
+    }
 </div>
