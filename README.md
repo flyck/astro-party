@@ -25,17 +25,13 @@ a simple astro database which has a great integration with astro db and drizzle 
   - [x] Loading Spinners
   - [x] Remove date type from party date
 - Nice things
-  - Transitions of buttons with slide-in
+  - [ ] Basic Transitions for buttons, fance slide-in of the whole menu
+  - [ ] Modal gets closed when outside-area is clicked (escape & close button already work)
 - [ ] Create, Edit, List and Delete Task
   - [x] List
 
 ## Dev Notes
 
-- To which extend to i need multiple pages in the frontend? In theory I could boost the new page
-  into the current page and only adjust the window.href. Entry points for deeplinking still need
-  to work though for most of the pages.
-  - I could definitely do some crazy navigation within a section (party / participant / task) via
-    hx-boost which doesnt need deep linking
 - Doing a db schema changes from date to string was as easy as changing the schema in the
   `db/config.ts`, removing the frontend type conversion and running a `npm run astro db push` 👏
 - AstroDBs local behavior with sqlite is different from the prod deployment. Locally I always get
