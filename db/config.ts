@@ -6,7 +6,7 @@ const Parties = defineTable({
     title: column.text({ optional: false }),
     description: column.text(),
     location: column.text(),
-    date: column.date()
+    date: column.text()
   }
 })
 
