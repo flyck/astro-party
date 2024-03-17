@@ -1,7 +1,6 @@
 ---
-import * as z from 'zod';
 const { request } = Astro;
-import { db, eq, Parties } from 'astro:db';
+import { db, eq, Parties, Participants, Tasks } from 'astro:db';
 
 console.info("Deleting Party Request")
 
@@ -15,6 +14,9 @@ if (!id) {
 
 try {
   console.info("Deleting party...")
+  // TODO switch to SQL cascading delete once it is available
+  const tasksResult = await db.delete(Tasks).where(eq(Tasks.partyId, id))
+  const participantsResult = await db.delete(Participants).where(eq(Participants.partyId, id))
   const party = await db.delete(Parties).where(eq(Parties.id, id)).returning()
   console.info("Party deleted: " + JSON.stringify(party))
 

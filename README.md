@@ -20,7 +20,7 @@ a simple astro database which has a great integration with astro db and drizzle 
 - [x] Deploy Astro frontend to Netlify
   - https://docs.astro.build/en/guides/deploy/netlify/
 - Issues
-  - [ ] On cascade delete
+  - [x] On cascade delete
   - [ ] Loading Skeletons
   - [x] Loading Spinners
   - [x] Remove date type from party date
