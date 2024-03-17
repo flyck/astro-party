@@ -4,11 +4,13 @@ import Scrollable from  "../layouts/Scrollable.astro"
 import Modal from  "../layouts/Modal.astro"
 import Input from "../components/mini/input.astro"
 import SubmitButton from "../components/submitButton.astro"
+
+export const prerender = true
 ---
-<Layout title="Participants" left="/details" right="/tasks">
+<Layout title="Tasks" left="/participants">
     <div
         hx-trigger="load"
-        hx-get="/server/participants/read"
+        hx-get="/server/tasks/read"
         hx-target="#content"
     >
     </div>
@@ -21,13 +23,14 @@ import SubmitButton from "../components/submitButton.astro"
         +
     </button>
 
-    <Modal title="Create Participant">
+    <Modal title="Create Task">
         <form
-            hx-post="/server/participant/create"
+            hx-post="/server/task/create"
             hx-target="#action-feedback"
         >
-            <Input name="name" title="Name" class="w-full rounded-sm dark:bg-gray-800" type="text" value="Johnny B"></Input>
-            <Input name="email" title="Email" class="w-full rounded-sm dark:bg-gray-800" type="text" value="john@john.de"></Input>
+            <Input name="title" title="Title" class="w-full rounded-sm dark:bg-gray-800" type="text" value="Buy Beer"></Input>
+            <Input name="assignee" title="Assignee" class="w-full rounded-sm dark:bg-gray-800" type="text" value=""></Input>
+            <Input name="description" title="Description" class="w-full rounded-sm dark:bg-gray-800" type="text" value=""></Input>
             <div id="action-feedback" />
             <SubmitButton>Ok</SubmitButton>
         <form>
