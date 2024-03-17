@@ -3,6 +3,7 @@ import Layout from  "../layouts/PageLayout.astro"
 import Scrollable from  "../layouts/Scrollable.astro"
 import Modal from  "../layouts/Modal.astro"
 import Input from "../components/mini/input.astro"
+import Skeleton from "../components/mini/skeleton.astro"
 import SubmitButton from "../components/submitButton.astro"
 
 export const prerender = true
@@ -16,7 +17,11 @@ export const prerender = true
     </div>
 
     <Scrollable>
-        <div id="content"></div>
+        <div id="content">
+          <div class="border-b border-gray-500">
+            <Skeleton class="h-9 mt-0" />
+          </div>
+        </div>
     </Scrollable>
 
     <button id="createButton" class="disabled:bg-gray-800 bg-blue-700 text-gray-200 rounded-b-lg w-full h-8 flex justify-center items-center">

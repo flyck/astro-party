@@ -1,5 +1,10 @@
 ---
+interface Props {
+  class?: string;
+}
+
+const { class: className, ...rest } = Astro.props;
 ---
 <div class="bg-white rounded-lg shadow-md animate-pulse rounded-sm">
-  <div class="bg-gray-300 h-5 px-2 mt-1"></div>
+  <div class:list={["bg-gray-300 h-5 px-2 mt-1", className]}></div>
 </div>
