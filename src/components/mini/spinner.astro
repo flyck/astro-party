@@ -5,54 +5,25 @@ class: string | undefined;
 
 const { class: className } = Astro.props;
 ---
-<!-- entirely copied from here: https://glennmccomb.com/articles/building-a-pure-css-animated-svg-spinner/ -->
-<svg class={className} viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-  <circle cx="50" cy="50" r="45"/>
+<svg
+  id="spinner"
+  class:list={[className, "animate-spin"]}
+  xmlns="http://www.w3.org/2000/svg"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  strokeWidth="2"
+  strokeLinecap="round"
+  strokeLinejoin="round"
+>
+  <line x1="12" x2="12" y1="2" y2="6" />
+  <line x1="12" x2="12" y1="18" y2="22" />
+  <line x1="4.93" x2="7.76" y1="4.93" y2="7.76" />
+  <line x1="16.24" x2="19.07" y1="16.24" y2="19.07" />
+  <line x1="2" x2="6" y1="12" y2="12" />
+  <line x1="18" x2="22" y1="12" y2="12" />
+  <line x1="4.93" x2="7.76" y1="19.07" y2="16.24" />
+  <line x1="16.24" x2="19.07" y1="7.76" y2="4.93" />
 </svg>
-<style>
-
-svg {
-  animation: 2s linear infinite svg-animation;
-  max-width: 100px;
-}
-
-@keyframes svg-animation {
-  0% {
-    transform: rotateZ(0deg);
-  }
-  100% {
-    transform: rotateZ(360deg)
-  }
-}
-
-circle {
-  animation: 1.4s ease-in-out infinite both circle-animation;
-  display: block;
-  fill: transparent;
-  stroke: #2f3d4c;
-  stroke-linecap: round;
-  stroke-dasharray: 283;
-  stroke-dashoffset: 280;
-  stroke-width: 10px;
-  transform-origin: 50% 50%;
-}
-
-@keyframes circle-animation {
-  0%,
-  25% {
-    stroke-dashoffset: 280;
-    transform: rotate(0);
-  }
-
-  50%,
-  75% {
-    stroke-dashoffset: 75;
-    transform: rotate(45deg);
-  }
-
-  100% {
-    stroke-dashoffset: 280;
-    transform: rotate(360deg);
-  }
-}
-</style>
