@@ -1,26 +1,23 @@
 ---
 import {db, eq, Parties} from "astro:db";
 import Input from "../../../components/mini/input.astro"
+import PartyDetails from "../../../components/forms/partyDetails.astro"
 
 const { request } = Astro
 const url = new URL(request.headers.get("Hx-Current-Url") || "")
 const id = parseInt(url.searchParams.get("id") || "")
 
 if (!id ) {
-    return new Response(JSON.stringify({message: "bad request"}),{status: 400})
+  return new Response(JSON.stringify({message: "bad request"}),{status: 400})
 }
 
 const party = await db.select().from(Parties).where(eq(Parties.id, id));
 
 if (party.length == 0) {
-    return new Response(JSON.stringify({message: "party not found"}),{status: 404})
+  return new Response(JSON.stringify({message: "party not found"}),{status: 404})
 }
 
 const {title, location, description, date} = party[0]
 ---
-<ul>
-     <Input name="title" title="Title" class="w-full rounded-sm dark:bg-gray-800" type="text" value={title}></Input>
-     <Input name="location" title="Where" class="w-full rounded-sm dark:bg-gray-800" type="text" value={location}></Input>
-     <Input name="date" title="When" class="w-full rounded-sm dark:bg-gray-800" type="text" value={date.toString()}></Input>
-     <Input name="description" title="Description" class="w-full rounded-sm dark:bg-gray-800" type="text" value={description}></Input>
-</ul>
+<!-- In a seperate components so we can have load skeletons -->
+<PartyDetails title={title} location={location} date={date} description={description} />

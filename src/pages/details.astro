@@ -3,6 +3,7 @@ import "../styles/global.css";
 import Layout from  "../layouts/PageLayout.astro"
 import Scrollable from  "../layouts/Scrollable.astro"
 import SubmitButton from "../components/submitButton.astro"
+import PartyDetails from "../components/forms/partyDetails.astro"
 
 export const prerender = true
 ---
@@ -19,7 +20,9 @@ export const prerender = true
     hx-target="#action-feedback"
   >
     <Scrollable>
-      <div id="content"></div>
+      <div id="content">
+         <PartyDetails loading={true}>
+      </div>
       <div class="p-2">
         <button
           aria-label="Delete Party"

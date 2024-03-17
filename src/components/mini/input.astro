@@ -1,13 +1,19 @@
 ---
+import Skeleton from "./skeleton.astro"
+
 interface Props {
-  class: string | undefined;
-  title: string
-  id: string | undefined
+    title: string
+    class?: string
+    id?: string
+    loading?: boolean
 }
 
-const { class: className, title, ...rest } = Astro.props;
+const { class: className, title, loading, ...rest } = Astro.props;
 ---
 <div class="border-b border-gray-500 p-2">
   <div class="text-sm">{title}:</div>
+  { loading ?
+  <Skeleton /> :
   <input class="w-full text-sm dark:bg-gray-800 px-2 rounded-sm" class={className} {...rest} />
+  }
 </div>

@@ -21,7 +21,7 @@ a simple astro database which has a great integration with astro db and drizzle 
   - https://docs.astro.build/en/guides/deploy/netlify/
 - Issues
   - [x] On cascade delete
-  - [ ] Loading Skeletons
+  - [x] Loading Skeletons
   - [x] Loading Spinners
   - [x] Remove date type from party date
 - Nice things
