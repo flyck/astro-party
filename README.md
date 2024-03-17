@@ -20,7 +20,7 @@ a simple astro database which has a great integration with astro db and drizzle 
 - [x] Deploy Astro frontend to Netlify
   - https://docs.astro.build/en/guides/deploy/netlify/
 - Issues
-  - [x] On cascade delete
+  - [x] On delete cascade
   - [x] Loading Skeletons
   - [x] Loading Spinners
   - [x] Remove date type from party date
@@ -29,6 +29,7 @@ a simple astro database which has a great integration with astro db and drizzle 
   - [ ] Modal gets closed when outside-area is clicked (escape & close button already work)
 - [ ] Create, Edit, List and Delete Task
   - [x] List
+  - [ ] Create
 
 ## Dev Notes
 
@@ -46,4 +47,13 @@ a simple astro database which has a great integration with astro db and drizzle 
 Used the Astro minimal starter kit:
 ```sh
 npm create astro@latest -- --template minimal
+```
+
+## Useful
+
+```typescript
+await new Promise<void>((res) => setTimeout(() => {console.log(":)"); res()}, 2000))
+return new Response(JSON.stringify({ ok: true }), {
+    status: 200,
+  })
 ```
