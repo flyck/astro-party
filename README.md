@@ -14,10 +14,19 @@ a simple astro database which has a great integration with astro db and drizzle 
 - [ ] Create, Edit, List and Delete Participant
   - [x] Create
   - [x] List
+  - [ ] Edit
+  - [ ] Delete
 - [x] Astro DB auth for netlify
 - [x] Deploy Astro frontend to Netlify
   - https://docs.astro.build/en/guides/deploy/netlify/
+- Issues
+  - On cascade delete
+  - Loading Skeletons
+  - Loading Spinners
+- Nice things
+  - Transitions of buttons with slide-in
 - [ ] Create, Edit, List and Delete Task
+  - [x] List
 
 ## Dev Notes
 
