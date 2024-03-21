@@ -29,6 +29,7 @@ a simple astro database which has a great integration with astro db and drizzle 
   - [x] Fix Dark Mode corner cases
   - [x] Move from query-params to dynamic routing
   - [ ] Have party ids be uuids instead of an incremental counter
+  - [ ] Figure out error handling & displaying
   - In general
     - [ ] Check that .astro backend sites wont expose secrets
     - [x] Make the code easier to read by introducing views / encapsulation
@@ -36,6 +37,8 @@ a simple astro database which has a great integration with astro db and drizzle 
 - Nice things
   - [ ] Basic Transitions for buttons, fance slide-in of the whole menu
   - [ ] Modal gets closed when outside-area is clicked (escape & close button already work)
+  - [ ] Do frontend input validation (not super relevant for this app)
+  - [ ] Have a decent 404 page
 - [ ] Create, Edit, List and Delete Task
   - [x] List
   - [ ] Create
