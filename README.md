@@ -1,5 +1,7 @@
 # Astro Party
 
+[![Netlify Status](https://api.netlify.com/api/v1/badges/386bf1a3-4b24-4181-8ddc-79ba6c952f20/deploy-status)](https://app.netlify.com/sites/flyck-astro-party/deploys)
+
 An experiment with the new astro db to re-implement the
 [party-task-planner](https://github.com/flyck/party-task-planner) with astro, astro server, astro
 db and htmx.
