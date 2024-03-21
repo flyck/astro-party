@@ -10,12 +10,24 @@ With this stack (hopefully) CRUD apps can be created easily, as all frontend act
 implemented via the htmx abstraction, the templates come from the astro server, and the data is in
 a simple astro database which has a great integration with astro db and drizzle ORM.
 
+## Powered by Astro
+
+Used the Astro minimal starter kit:
+```sh
+npm create astro@latest -- --template minimal
+```
+
 ## Plan
 - [x] Basic Layout
 - [x] Create, Edit, List and Delete Party
 - [ ] Create, Edit, List and Delete Participant
   - [x] Create
   - [x] List
+  - [ ] Edit
+  - [ ] Delete
+- [ ] Create, Edit, List and Delete Task
+  - [x] List
+  - [ ] Create
   - [ ] Edit
   - [ ] Delete
 - [x] Astro DB auth for netlify
@@ -39,11 +51,7 @@ a simple astro database which has a great integration with astro db and drizzle 
   - [ ] Modal gets closed when outside-area is clicked (escape & close button already work)
   - [ ] Do frontend input validation (not super relevant for this app)
   - [ ] Have a decent 404 page
-- [ ] Create, Edit, List and Delete Task
-  - [x] List
-  - [ ] Create
-  - [ ] Edit
-  - [ ] Delete
+
 
 ## Dev Notes
 
@@ -56,15 +64,9 @@ a simple astro database which has a great integration with astro db and drizzle 
   '@libsql/linux-x64-gnu'`
   - Fixed by downgrading @libsql/client: https://github.com/tursodatabase/libsql-client-ts/issues/112
 
-## Powered by Astro
+### Utils
 
-Used the Astro minimal starter kit:
-```sh
-npm create astro@latest -- --template minimal
-```
-
-## Useful
-
+Useful to verify skeletons:
 ```typescript
 await new Promise<void>((res) => setTimeout(() => {console.log(":)"); res()}, 2000))
 return new Response(JSON.stringify({ ok: true }), {
