@@ -3,8 +3,8 @@ interface Props {
   class?: string;
 }
 
-const { class: className, ...rest } = Astro.props;
+const { class: className } = Astro.props;
 ---
-<div class="bg-white rounded-lg shadow-md animate-pulse rounded-sm">
-  <div class:list={["bg-gray-300 h-5 px-2", className]}></div>
+<div class="bg-white dark:bg-black rounded-lg shadow-md animate-pulse rounded-sm">
+  <div class:list={["bg-gray-300 dark:bg-gray-700 h-5 px-2", className]}></div>
 </div>

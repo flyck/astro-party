@@ -15,6 +15,7 @@ export const prerender = true
     hx-target="#content"
   >
   </div>
+
   <form
     hx-post="/server/party/update"
     hx-target="#action-feedback"
@@ -23,6 +24,7 @@ export const prerender = true
       <div id="content">
          <PartyDetails loading={true}>
       </div>
+
       <div class="p-2">
         <button
           aria-label="Delete Party"
@@ -34,8 +36,10 @@ export const prerender = true
           Delete
         </button>
       </div>
+
       <div id="action-feedback"></div>
     </Scrollable>
+
     <SubmitButton>
       Ok
     </SubmitButton>
