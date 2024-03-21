@@ -37,8 +37,7 @@ if (parsedInput.success) {
     return new Response(JSON.stringify({ message: "participant created" }), {
       status: 200,
       headers: {
-        "hx-redirect": `participant
-s`,
+        "hx-redirect": `participants`,
       },
     })
   } catch (error) {
