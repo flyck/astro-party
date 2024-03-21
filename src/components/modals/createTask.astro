@@ -1,0 +1,24 @@
+---
+import Modal from  "../../layouts/Modal.astro"
+import Input from "../mini/input.astro"
+import SubmitButton from "../submitButton.astro"
+
+interface Props {
+  buttonId: string
+}
+
+const { buttonId } = Astro.props;
+---
+<Modal title="Create Task" buttonId={buttonId}>
+  <form
+    hx-post="/server/task/create"
+    hx-target="#action-feedback"
+  >
+    <Input name="title" title="Title" class="w-full rounded-sm dark:bg-gray-800" type="text" value="Buy Beer"></Input>
+    <Input name="assignee" title="Assignee" class="w-full rounded-sm dark:bg-gray-800" type="text" value=""></Input>
+    <Input name="description" title="Description" class="w-full rounded-sm dark:bg-gray-800" type="text" value=""></Input>
+    <div id="action-feedback" />
+
+    <SubmitButton>Ok</SubmitButton>
+    <form>
+</Modal>

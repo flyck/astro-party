@@ -1,10 +1,10 @@
 ---
 import Layout from  "../layouts/PageLayout.astro"
 import Scrollable from  "../layouts/Scrollable.astro"
-import Modal from  "../layouts/Modal.astro"
-import Input from "../components/mini/input.astro"
 import Skeleton from "../components/mini/skeleton.astro"
-import SubmitButton from "../components/submitButton.astro"
+import CreateTaskModal from "../components/modals/createTask.astro"
+
+const openModalId = "openModal"
 
 export const prerender = true
 ---
@@ -22,20 +22,9 @@ export const prerender = true
         </div>
     </Scrollable>
 
-    <button id="createButton" class="disabled:bg-gray-800 bg-blue-700 text-gray-200 rounded-b-lg w-full h-8 flex justify-center items-center">
+    <button id={openModalId} class="disabled:bg-gray-800 bg-blue-700 text-gray-200 rounded-b-lg w-full h-8 flex justify-center items-center">
         +
     </button>
 
-    <Modal title="Create Task">
-        <form
-            hx-post="/server/task/create"
-            hx-target="#action-feedback"
-        >
-            <Input name="title" title="Title" class="w-full rounded-sm dark:bg-gray-800" type="text" value="Buy Beer"></Input>
-            <Input name="assignee" title="Assignee" class="w-full rounded-sm dark:bg-gray-800" type="text" value=""></Input>
-            <Input name="description" title="Description" class="w-full rounded-sm dark:bg-gray-800" type="text" value=""></Input>
-            <div id="action-feedback" />
-            <SubmitButton>Ok</SubmitButton>
-        <form>
-    </Modal>
+    <CreateTaskModal buttonId={openModalId} />
 </Layout>
