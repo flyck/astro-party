@@ -17,7 +17,7 @@ const { left, right, title } = Astro.props;
   <div class="flex min-h-screen items-center">
       <div class="mx-auto my-auto">
       <div class="mb-4 flex w-96 sm:w-80">
-        {left ? <a href={left} onclick={`keepQueryParam('${left}'); return false;`} class="flex" aria-label="Go Left">
+        {left ? <a href={left} class="flex" aria-label="Go Left">
           <ChevronLeftIcon class="h-7 w-7 self-center mr-2" />
         </a> : <div class="flex">
           <div class="h-7 w-7 self-center mr-2" />
@@ -34,7 +34,7 @@ const { left, right, title } = Astro.props;
           </div>
         </div>
 
-        {right ? <a href={right} onclick={`keepQueryParam('${right}'); return false;`} class="flex" aria-label="Go Right">
+        {right ? <a href={right} class="flex" aria-label="Go Right">
             <ChevronRightIcon class="h-7 w-7 self-center ml-2" />
         </a> : <div class="flex">
             <div class="h-7 w-7 self-center ml-2" />
@@ -43,10 +43,3 @@ const { left, right, title } = Astro.props;
     </div >
   </div>
 </Layout>
-
-<!-- keep query parameter -->
-<script is:inline>
- function keepQueryParam(page) {
-     window.location = page + window.location.search;
- }
-</script>

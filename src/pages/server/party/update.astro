@@ -7,11 +7,11 @@ const inputSchema = z.object({
   title: z.string().min(1).max(100),
   description: z.string().max(100),
   location: z.string().max(100),
-  date: z.string().max(100).transform((str) => new Date(str))
+  date: z.string().max(100)
 });
 
 const url = new URL(request.headers.get("Hx-Current-Url") || "")
-const id = parseInt(url.searchParams.get("id") || "")
+const id = parseInt(url.pathname.split("/")[1] || "")
 
 if (!id ) {
     return new Response(JSON.stringify({message: "bad request"}),{status: 400})

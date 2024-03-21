@@ -1,11 +1,11 @@
 ---
 import {db, eq, Parties} from "astro:db";
-import Input from "../../../components/mini/input.astro"
 import PartyDetails from "../../../components/forms/partyDetails.astro"
 
 const { request } = Astro
+
 const url = new URL(request.headers.get("Hx-Current-Url") || "")
-const id = parseInt(url.searchParams.get("id") || "")
+const id = parseInt(url.pathname.split("/")[1] || "")
 
 if (!id ) {
   return new Response(JSON.stringify({message: "bad request"}),{status: 400})
@@ -20,4 +20,4 @@ if (party.length == 0) {
 const {title, location, description, date} = party[0]
 ---
 <!-- In a seperate components so we can have load skeletons -->
-<PartyDetails title={title} location={location} date={date} description={description} />
+<PartyDetails title={title} location={location} date={date} description={description} loading={false} />

@@ -1,0 +1,47 @@
+---
+import Layout from  "../../layouts/PageLayout.astro"
+import Scrollable from  "../../layouts/Scrollable.astro"
+import SubmitButton from "../../components/submitButton.astro"
+import PartyDetails from "../../components/forms/partyDetails.astro"
+
+const { partyId } = Astro.params
+console.log("hello", partyId)
+---
+
+<Layout title="Details" right="participants">
+  <div
+    hx-trigger="load"
+    hx-get="/server/party/read"
+    hx-target="#content"
+  >
+  </div>
+
+  <form
+    hx-post="/server/party/update"
+    hx-target="#action-feedback"
+  >
+    <Scrollable>
+      <div id="content">
+         <PartyDetails loading={true}>
+      </div>
+
+      <div class="p-2">
+        <button
+          aria-label="Delete Party"
+          class="bg-red-600 text-gray-100 rounded-sm w-full"
+          hx-post="/server/party/delete"
+          hx-target="#action-feedback"
+          type="button"
+        >
+          Delete
+        </button>
+      </div>
+
+      <div id="action-feedback"></div>
+    </Scrollable>
+
+    <SubmitButton>
+      Ok
+    </SubmitButton>
+  </form>
+</Layout>

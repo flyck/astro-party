@@ -26,12 +26,21 @@ a simple astro database which has a great integration with astro db and drizzle 
   - [x] Loading Skeletons
   - [x] Loading Spinners
   - [x] Remove date type from party date
+  - [x] Fix Dark Mode corner cases
+  - [x] Move from query-params to dynamic routing
+  - [ ] Have party ids be uuids instead of an incremental counter
+  - In general
+    - [ ] Check that .astro backend sites wont expose secrets
+    - [x] Make the code easier to read by introducing views / encapsulation
+    - [ ] Fix all type-errors
 - Nice things
   - [ ] Basic Transitions for buttons, fance slide-in of the whole menu
   - [ ] Modal gets closed when outside-area is clicked (escape & close button already work)
 - [ ] Create, Edit, List and Delete Task
   - [x] List
   - [ ] Create
+  - [ ] Edit
+  - [ ] Delete
 
 ## Dev Notes
 

@@ -4,7 +4,7 @@ const { request } = Astro;
 import { db, Participants } from 'astro:db';
 
 const url = new URL(request.headers.get("Hx-Current-Url") || "")
-const id = parseInt(url.searchParams.get("id") || "")
+const id = parseInt(url.pathname.split("/")[1] || "")
 
 if (!id ) {
   return new Response(JSON.stringify({message: "bad request"}),{status: 400})
@@ -37,7 +37,8 @@ if (parsedInput.success) {
     return new Response(JSON.stringify({ message: "participant created" }), {
       status: 200,
       headers: {
-        "hx-redirect": `/participants?id=${id}`,
+        "hx-redirect": `participant
+s`,
       },
     })
   } catch (error) {

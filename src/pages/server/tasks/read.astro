@@ -3,7 +3,7 @@ import {db, Tasks, eq} from "astro:db";
 
 const { request } = Astro
 const url = new URL(request.headers.get("Hx-Current-Url") || "")
-const id = parseInt(url.searchParams.get("id") || "")
+const id = parseInt(url.pathname.split("/")[1] || "")
 
 if (!id ) {
   return new Response(JSON.stringify({message: "bad request"}),{status: 400})
@@ -11,8 +11,8 @@ if (!id ) {
 
 const tasks = await db.select().from(Tasks).where(eq(Tasks.partyId, id));
 ---
-{tasks.map((t) =>
-  <div key={t.id} class="border-b border-gray-500 p-2">
+{tasks.map((t, index) =>
+  <div key={index} class="border-b border-gray-500 p-2">
     <div class="text-sm">{t.status}: {t.title || "?"}</div>
-  </div >
+  </div>
 )}

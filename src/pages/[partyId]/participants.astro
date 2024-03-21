@@ -1,0 +1,28 @@
+---
+import Layout from  "../../layouts/PageLayout.astro"
+import Scrollable from  "../../layouts/Scrollable.astro"
+import Skeleton from "../../components/mini/skeleton.astro"
+import CreateParticipantModal from "../../components/modals/createParticipant.astro"
+
+const openModalId = "openModal"
+---
+<Layout title="Participants" left="details" right="tasks">
+    <div
+        hx-trigger="load"
+        hx-get="/server/participants/read"
+        hx-target="#content"
+    >
+    </div>
+
+    <Scrollable>
+        <div id="content">
+            <Skeleton class="h-9 mt-0 rounded-t-lg" />
+        </div>
+    </Scrollable>
+
+    <button id={openModalId} class="disabled:bg-gray-800 bg-blue-700 text-gray-200 rounded-b-lg w-full h-8 flex justify-center items-center">
+        +
+    </button>
+
+    <CreateParticipantModal buttonId={openModalId} />
+</Layout>
