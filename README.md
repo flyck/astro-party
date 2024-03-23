@@ -18,6 +18,8 @@ npm create astro@latest -- --template minimal
 ```
 
 ## Plan
+
+V1 Release:
 - [x] Basic Layout
 - [x] Create, Edit, List and Delete Party
 - [ ] Create, Edit, List and Delete Participant
@@ -34,18 +36,23 @@ npm create astro@latest -- --template minimal
 - [x] Deploy Astro frontend to Netlify
   - https://docs.astro.build/en/guides/deploy/netlify/
 - Issues
-  - [x] On delete cascade
-  - [x] Loading Skeletons
-  - [x] Loading Spinners
+  - [x] On delete cascade (astro-db)
+  - [x] Loading Skeletons (htmx)
+  - [x] Loading Spinners (htmx)
   - [x] Remove date type from party date
   - [x] Fix Dark Mode corner cases
-  - [x] Move from query-params to dynamic routing
+  - [x] Move from query-params to dynamic routing (astro ssr)
   - [ ] Have party ids be uuids instead of an incremental counter
-  - [ ] Figure out error handling & displaying
+  - [ ] Figure out error handling & displaying (htmx)
   - In general
-    - [ ] Check that .astro backend sites wont expose secrets
+    - [ ] Check that .astro backend sites wont expose secrets (astro ssr)
     - [x] Make the code easier to read by introducing views / encapsulation
-    - [ ] Fix all type-errors
+
+Later Releases:
+- Layout
+  - [ ] Screen height on mobile behaves weirdly
+- Issues
+  - [ ] Fix all type-errors
 - Nice things
   - [ ] Basic Transitions for buttons, fance slide-in of the whole menu
   - [ ] Modal gets closed when outside-area is clicked (escape & close button already work)
