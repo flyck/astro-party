@@ -1,0 +1,100 @@
+---
+// https://tailwindcss.com/docs/functions-and-directives#using-apply-with-per-component-css
+import "../styles/toast.css"
+type ErrorLevel = "warning" | "info" | "success" | "danger"
+
+export class ToastError extends Error {
+  public level: ErrorLevel
+
+  constructor(level: ErrorLevel, message: string) {
+    super(message)
+    this.level = level
+  }
+}
+
+export function createToast(level: ErrorLevel, message: string) {
+  return {
+  "makeToast": {
+    level,
+    message
+  }
+}
+}
+
+export function toastResponse(level: ErrorLevel, message: string) {
+  const toastPayload = createToast(level, message)
+
+return new Response(null, {
+  status: 200,
+  headers: {
+    "hx-trigger": JSON.stringify(toastPayload),
+    "hx-reswap": "none"
+  },
+})
+}
+---
+
+<section id="toast-container" class="absolute left-0 right-0 m-4 flex flex-col gap-4 w-52 mx-auto">
+</section>
+
+<!-- Inspired from: https://dev.to/thisisthemurph/go-beyond-the-basics-mastering-toast-notifications-with-go-and-htmx-4ao3 -->
+<script is:inline>
+class Toast {
+    /**
+     * A class representing a Toast notification.
+     * @param level {("info"|"success"|"warning"|"danger")}
+     * @param message { string }
+     */
+    constructor(level, message) {
+        this.level = level;
+        this.message = message;
+    }
+
+   #makeToastContainerButton() {
+    const button = document.createElement("button");
+    button.classList.add("toast");
+    button.classList.add(`toast-${this.level}`);
+    button.setAttribute("role", "alert");
+    button.setAttribute("aria-label", "Close");
+     button.addEventListener("click", () => button.remove());
+    return button;
+   }
+   /**
+ * Makes the element containing the body of the toast notification.
+ * @returns {HTMLSpanElement}
+ */
+#makeToastContentElement() {
+    const messageContainer = document.createElement("span");
+    messageContainer.textContent = this.message;
+    return messageContainer;
+}
+   /**
+ * Presents the toast notification at the end of the given container.
+ * @param containerQuerySelector {string} a CSS query selector identifying the container for all toasts.
+ */
+show(containerQuerySelector = "#toast-container") {
+    const toast = this.#makeToastContainerButton();
+    const toastContent = this.#makeToastContentElement()
+    toast.appendChild(toastContent);
+
+    const toastContainer = document.querySelector(containerQuerySelector);
+   toastContainer.appendChild(toast);
+   setTimeout(() => {
+     toast.classList.add('opacity-0', 'transition-opacity', 'duration-1000');
+   }, 2000);
+   setTimeout(() => {
+     toast.remove();
+   }, 3000);
+}
+
+}
+/**
+ * Presents a toast notification when the `makeToast` event is triggered
+ * @param e {{detail: {level: string, message: string}}}
+ */
+function onMakeToast(e) {
+    const toast = new Toast(e.detail.level, e.detail.message);
+    toast.show();
+}
+document.body.addEventListener("makeToast", onMakeToast);
+</script>

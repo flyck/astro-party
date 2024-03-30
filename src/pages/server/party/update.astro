@@ -2,6 +2,7 @@
 import * as z from 'zod';
 const { request } = Astro;
 import { db, eq, Parties } from 'astro:db';
+import { toastResponse, ToastError } from "../../../components/toast.astro"
 
 const inputSchema = z.object({
   title: z.string().min(1).max(100),
@@ -10,34 +11,35 @@ const inputSchema = z.object({
   date: z.string().max(100)
 });
 
-const url = new URL(request.headers.get("Hx-Current-Url") || "")
-const id = parseInt(url.pathname.split("/")[1] || "")
+try {
+  const url = new URL(request.headers.get("Hx-Current-Url") || "")
+  const id = parseInt(url.pathname.split("/")[1] || "")
 
-if (!id ) {
-    return new Response(JSON.stringify({message: "bad request"}),{status: 400})
-}
+  if (!id ) {
+    throw new Error("PartyId not found in request")
+  }
 
-const data = await request.formData()
-let inputJson: {[key: string]: any} = {}
-data.forEach((value, key: string) => {inputJson[key] = value})
+  const data = await request.formData()
+  let inputJson: {[key: string]: any} = {}
+  data.forEach((value, key: string) => {inputJson[key] = value})
 
-const parsedInput = inputSchema.safeParse(inputJson)
+  const parsedInput = inputSchema.safeParse(inputJson)
 
-console.log("Input correct: " + parsedInput.success)
-if (parsedInput.success) {
+  console.log("Input correct: " + parsedInput.success)
+
+  if (!parsedInput.success) {
+    throw new ToastError("warning", "Bad input")
+  }
+
   const party = await db.update(Parties).set(
     {...parsedInput.data}
   ).where(eq(Parties.id, id))
 
   console.log(party)
-
-  return new Response(undefined, {
-    status: 200,
-  })
-}
-
-function parseError() {
-  return "Bad input"
+} catch(error) {
+  if (error instanceof ToastError) {
+    return toastResponse(error.level, error.message)
+  }
+  return toastResponse("error", "Something went wrong. :(")
 }
 ---
-<div class="text-red-500">{parseError()}</div>

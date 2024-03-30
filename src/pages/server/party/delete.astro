@@ -1,6 +1,7 @@
 ---
 const { request } = Astro;
 import { db, eq, Parties, Participants, Tasks } from 'astro:db';
+import {toastResponse, ToastError} from "../../../components/toast.astro"
 
 console.info("Deleting Party Request")
 
@@ -15,15 +16,14 @@ if (!id) {
 try {
   console.info("Deleting party...")
   // TODO switch to SQL cascading delete once it is available
-  const tasksResult = await db.delete(Tasks).where(eq(Tasks.partyId, id))
-  const participantsResult = await db.delete(Participants).where(eq(Participants.partyId, id))
-  const party = await db.delete(Parties).where(eq(Parties.id, id)).returning()
-  console.info("Party deleted: " + JSON.stringify(party))
+  await db.delete(Tasks).where(eq(Tasks.partyId, id))
+  await db.delete(Participants).where(eq(Participants.partyId, id))
+  const partyDeletionResult = await db.delete(Parties).where(eq(Parties.id, id)).returning()
+  console.info("Party deleted: " + JSON.stringify(partyDeletionResult))
 
-  if (party[0].id != id) {
-    throw new Error("Party not found")
+  if (partyDeletionResult[0].id != id) {
+    throw new ToastError("warning", "Party not found")
   }
-
   return new Response(JSON.stringify({ ok: true }), {
     status: 200,
     headers: {
@@ -31,11 +31,9 @@ try {
     },
   })
 } catch(error) {
-  console.error(`Couldnt delete party ${id}`)
-}
-
-function parseError() {
-  return ":("
+  if (error instanceof ToastError) {
+    return toastResponse(error.level, error.message)
+  }
+  return toastResponse("error", "Something went wrong. :(")
 }
 ---
-<div class="text-red-500">{parseError()}</div>

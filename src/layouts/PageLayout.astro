@@ -2,6 +2,7 @@
 import Layout from "./Layout.astro"
 import ChevronLeftIcon from "../components/mini/arrowLeft.astro"
 import ChevronRightIcon from "../components/mini/arrowRight.astro"
+import Toast from "../components/toast.astro"
 
 interface Props {
   left?: string;
@@ -40,6 +41,7 @@ const { left, right, title } = Astro.props;
             <div class="h-7 w-7 self-center ml-2" />
         </div>}
       </div>
+      <Toast />
     </div >
   </div>
 </Layout>

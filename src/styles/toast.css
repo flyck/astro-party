@@ -1,0 +1,15 @@
+.toast {
+  @apply w-full text-left text-sm p-4 border border-solid border-black border-l-4 rounded-lg shadow-md cursor-pointer;
+}
+
+.toast-success {
+  @apply bg-green-100 text-green-700 border-green-700;
+}
+
+.toast-warning {
+  @apply bg-yellow-200 text-yellow-800 border-yellow-800;
+}
+
+.toast-danger {
+  @apply bg-red-100 text-red-800 border-red-800;
+}

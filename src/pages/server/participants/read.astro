@@ -1,18 +1,28 @@
 ---
 import {db, Participants, eq} from "astro:db";
+import {toastResponse, ToastError} from "../../../components/toast.astro"
 
 const { request } = Astro
-const url = new URL(request.headers.get("Hx-Current-Url") || "")
-const id = parseInt(url.pathname.split("/")[1] || "")
 
-if (!id ) {
-  return new Response(JSON.stringify({message: "bad request"}),{status: 400})
+let participants = []
+try {
+  const url = new URL(request.headers.get("Hx-Current-Url") || "")
+  const id = parseInt(url.pathname.split("/")[1] || "")
+
+  if (!id ) {
+    throw new ToastError("warning", "bad request")
+  }
+
+  participants = await db.select().from(Participants).where(eq(Participants.partyId, id));
+} catch(error) {
+  if (error instanceof ToastError) {
+    return toastResponse(error.level, error.message)
+  }
+  return toastResponse("error", "Something went wrong. :(")
 }
-
-const participants = await db.select().from(Participants).where(eq(Participants.partyId, id));
 ---
-{participants.map((p) =>
-  <div key={p.id} class="border-b border-gray-500 p-2">
+{participants.map((p, index) =>
+<div id={index.toString()} class="border-b border-gray-500 p-2">
     <div class="text-sm">{p.name || "?"} ({p.email})</div>
   </div >
 )}

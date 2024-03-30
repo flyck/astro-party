@@ -1,5 +1,7 @@
 ---
 import * as z from 'zod';
+import {toastResponse, ToastError} from "../../../components/toast.astro"
+
 const { request } = Astro;
 import { db, Parties } from 'astro:db';
 
@@ -10,18 +12,24 @@ const inputSchema = z.object({
   date: z.string().max(100)
 });
 
-const data = await request.formData()
-let inputJson: {[key: string]: any} = {}
-data.forEach((value, key: string) => {inputJson[key] = value})
+try {
+  const data = await request.formData()
+  let inputJson: {[key: string]: any} = {}
+  data.forEach((value, key: string) => {inputJson[key] = value})
 
-const parsedInput = inputSchema.safeParse(inputJson)
+  const parsedInput = inputSchema.safeParse(inputJson)
 
-console.log("Parse result: " + JSON.stringify(parsedInput))
-console.log("Input correct: " + parsedInput.success)
-if (parsedInput.success) {
+  console.log("Parse result: " + JSON.stringify(parsedInput))
+  console.log("Input correct: " + parsedInput.success)
+
+  if (!parsedInput.success) {
+    throw new ToastError("warning", "Bad input")
+  }
+
   const newParty = {...parsedInput.data}
+
   console.log("Inserting party: " + JSON.stringify(newParty))
-   const insertResult = await db.insert(Parties).values([
+  const insertResult = await db.insert(Parties).values([
      newParty
    ]).returning()
 
@@ -35,10 +43,10 @@ if (parsedInput.success) {
       "hx-redirect": `/${partyId}/details`,
     },
   })
-}
-
-function parseError() {
-  return "Bad input"
+} catch(error) {
+  if (error instanceof ToastError) {
+    return toastResponse(error.level, error.message)
+  }
+  return toastResponse("error", "Something went wrong. :(")
 }
 ---
-<div class="text-red-500">{parseError()}</div>
