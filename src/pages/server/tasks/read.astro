@@ -7,7 +7,7 @@ const { request } = Astro
 let tasks = []
 try {
   const url = new URL(request.headers.get("Hx-Current-Url") || "")
-  const id = parseInt(url.pathname.split("/")[1] || "")
+  const id = url.pathname.split("/")[1] || ""
 
   if (!id ) {
     throw new ToastError("warning", "Bad request", 400)

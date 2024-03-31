@@ -1,6 +1,10 @@
 ---
 import * as z from 'zod';
-import {toastResponse, ToastError} from "../../../components/toast.astro"
+import {toastResponse, ToastError} from "../../../components/toast.astro";
+import { customAlphabet } from 'nanoid';
+
+// "beautiful" ids without special characters
+const nanoid = customAlphabet('1234567890abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ', 8)
 
 const { request } = Astro;
 import { db, Parties } from 'astro:db';
@@ -26,7 +30,7 @@ try {
     throw new ToastError("warning", "Bad input", 400)
   }
 
-  const newParty = {...parsedInput.data}
+  const newParty = {...parsedInput.data, id: nanoid()}
 
   console.log("Inserting party: " + JSON.stringify(newParty))
   const insertResult = await db.insert(Parties).values([

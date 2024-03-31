@@ -2,7 +2,7 @@ import { column, defineDb, defineTable } from 'astro:db';
 
 const Parties = defineTable({
   columns: {
-    id: column.number({ primaryKey: true, unique: true }),
+    id: column.text({ primaryKey: true, unique: true }),
     title: column.text({ optional: false }),
     description: column.text(),
     location: column.text(),
@@ -13,7 +13,7 @@ const Parties = defineTable({
 const Participants = defineTable({
   columns: {
     id: column.number({ primaryKey: true, unique: true }),
-    partyId: column.number({ references: () => Parties.columns.id }),
+    partyId: column.text({ references: () => Parties.columns.id }),
     name: column.text({ optional: false }),
     email: column.text(),
     invitation_sent: column.boolean(),
@@ -23,7 +23,7 @@ const Participants = defineTable({
 const Tasks = defineTable({
   columns: {
     id: column.number({ primaryKey: true, unique: true }),
-    partyId: column.number({ references: () => Parties.columns.id }),
+    partyId: column.text({ references: () => Parties.columns.id }),
     title: column.text({ optional: false }),
     description: column.text(),
     status: column.text(),

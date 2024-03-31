@@ -7,7 +7,7 @@ console.info("Deleting Party Request")
 
 try {
   const url = new URL(request.headers.get("Hx-Current-Url") || "")
-  const id = parseInt(url.pathname.split("/")[1] || "")
+  const id = url.pathname.split("/")[1] || ""
 
   if (!id ) {
     throw new ToastError("danger", "bad request", 400)
