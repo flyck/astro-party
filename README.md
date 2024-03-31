@@ -42,7 +42,7 @@ V1 Release:
   - [x] Remove date type from party date
   - [x] Fix Dark Mode corner cases
   - [x] Move from query-params to dynamic routing (astro ssr)
-  - [x] Have party ids be uuids instead of an incremental counter
+  - [x] Have party ids be uuids instead of an incremental counter (astro db)
   - [x] Figure out error handling & displaying (htmx)
   - In general
     - [ ] Check that .astro backend sites wont expose secrets (astro ssr)
@@ -52,13 +52,16 @@ V1 Release:
 Later Releases:
 - Layout
   - [ ] Screen height on mobile behaves weirdly
+  - [ ] Flexible bigger text input boxes (i.e. party description)
 - Issues
   - [ ] Fix all type-errors
 - Nice things
   - [ ] Basic Transitions for buttons, fance slide-in of the whole menu
   - [ ] Modal gets closed when outside-area is clicked (escape & close button already work)
   - [ ] Do frontend input validation (not super relevant for this app)
-
+- Github Actions
+  - [ ] Biome Linting
+  - [ ] Nice releases
 
 ## Dev Notes
 
