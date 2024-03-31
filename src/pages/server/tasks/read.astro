@@ -10,7 +10,7 @@ try {
   const id = parseInt(url.pathname.split("/")[1] || "")
 
   if (!id ) {
-    throw new ToastError("warning", "bad request")
+    throw new ToastError("warning", "Bad request", 400)
   }
 
   tasks = await db.select().from(Tasks).where(eq(Tasks.partyId, id));
@@ -18,7 +18,7 @@ try {
   if (error instanceof ToastError) {
     return toastResponse(error.level, error.message)
   }
-  return toastResponse("error", "Something went wrong. :(")
+  return toastResponse("error", "Something went wrong. :(", 500)
 }
 ---
 {tasks.map((t, index) =>

@@ -14,7 +14,7 @@ try {
   const id = parseInt(url.pathname.split("/")[1] || "")
 
   if (!id ) {
-    throw new ToastError("danger", "bad request")
+    throw new ToastError("danger", "Bad request", 400)
   }
 
   const data = await request.formData()
@@ -26,7 +26,7 @@ try {
   console.info("Input correct: " + parsedInput.success)
 
   if (!parsedInput.success) {
-    throw new ToastError("warning", "Bad inputs")
+    throw new ToastError("warning", "Bad inputs", 400)
   }
 
   const newParticipant = {...parsedInput.data, partyId: id, invitation_sent: false}
@@ -46,8 +46,8 @@ try {
   })
 } catch(error) {
   if (error instanceof ToastError) {
-    return toastResponse(error.level, error.message)
+    return toastResponse(error)
   }
-  return toastResponse("error", "Something went wrong. :(")
+  return toastResponse(new ToastError("error", "Something went wrong. :(", 500))
 }
 ---

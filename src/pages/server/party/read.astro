@@ -12,19 +12,21 @@ try {
   const id = parseInt(url.pathname.split("/")[1] || "")
 
   if (!id ) {
-    throw new ToastError("danger", "bad request")
+    throw new ToastError("danger", "Bad request", 400)
   }
 
   party = await db.select().from(Parties).where(eq(Parties.id, id));
 
   if (party.length == 0) {
-    throw new ToastError("danger", "Party doesnt exist.")
+    // TODO should be a 404, but somehow the toast is not displayed then.
+    // only a few days ago, custom 404s didnt work at all: https://github.com/withastro/astro/issues/10590
+    throw new ToastError("danger", "Party doesnt exist.", 400)
   }
 } catch(error) {
   if (error instanceof ToastError) {
-    return toastResponse(error.level, error.message)
+    return toastResponse(error)
   }
-  return toastResponse("error", "Something went wrong. :(")
+  return toastResponse(new ToastError("error", "Something went wrong. :(", 500))
 }
 
 const {title, location, description, date} = party[0] || {}

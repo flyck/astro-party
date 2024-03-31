@@ -10,15 +10,15 @@ try {
   const id = parseInt(url.pathname.split("/")[1] || "")
 
   if (!id ) {
-    throw new ToastError("warning", "bad request")
+    throw new ToastError("warning", "Bad request", 400)
   }
 
   participants = await db.select().from(Participants).where(eq(Participants.partyId, id));
 } catch(error) {
   if (error instanceof ToastError) {
-    return toastResponse(error.level, error.message)
+    return toastResponse(error)
   }
-  return toastResponse("error", "Something went wrong. :(")
+  return toastResponse(new ToastError("error", "Something went wrong. :(", 500))
 }
 ---
 {participants.map((p, index) =>

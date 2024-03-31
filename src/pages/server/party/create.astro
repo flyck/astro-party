@@ -23,7 +23,7 @@ try {
   console.log("Input correct: " + parsedInput.success)
 
   if (!parsedInput.success) {
-    throw new ToastError("warning", "Bad input")
+    throw new ToastError("warning", "Bad input", 400)
   }
 
   const newParty = {...parsedInput.data}
@@ -45,8 +45,8 @@ try {
   })
 } catch(error) {
   if (error instanceof ToastError) {
-    return toastResponse(error.level, error.message)
+    return toastResponse(error)
   }
-  return toastResponse("error", "Something went wrong. :(")
+  return toastResponse(new ToastError("error", "Something went wrong. :(", 500))
 }
 ---

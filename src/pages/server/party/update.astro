@@ -16,7 +16,7 @@ try {
   const id = parseInt(url.pathname.split("/")[1] || "")
 
   if (!id ) {
-    throw new Error("PartyId not found in request")
+    throw new ToastError("danger", "Bad request", 400)
   }
 
   const data = await request.formData()
@@ -25,10 +25,8 @@ try {
 
   const parsedInput = inputSchema.safeParse(inputJson)
 
-  console.log("Input correct: " + parsedInput.success)
-
   if (!parsedInput.success) {
-    throw new ToastError("warning", "Bad input")
+    throw new ToastError("warning", "Bad input", 400)
   }
 
   const party = await db.update(Parties).set(

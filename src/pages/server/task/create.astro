@@ -2,50 +2,50 @@
 import * as z from 'zod';
 const { request } = Astro;
 import { db, Tasks } from 'astro:db';
-
-const url = new URL(request.headers.get("Hx-Current-Url") || "")
-const id = parseInt(url.pathname.split("/")[1] || "")
-
-if (!id ) {
-  return new Response(JSON.stringify({message: "bad request"}),{status: 400})
-}
+import {toastResponse, ToastError} from "../../../components/toast.astro"
 
 const inputSchema = z.object({
   title: z.string().min(1).max(100),
   description: z.string().max(100),
 });
 
-const data = await request.formData()
-let inputJson: {[key: string]: any} = {}
-data.forEach((value, key: string) => {inputJson[key] = value})
+try {
+  const url = new URL(request.headers.get("Hx-Current-Url") || "")
+  const id = parseInt(url.pathname.split("/")[1] || "")
 
-const parsedInput = inputSchema.safeParse(inputJson)
-
-console.info("Input correct: " + parsedInput.success)
-let error = "something went wrong"
-if (parsedInput.success) {
-  try {
-    const newTask = {...parsedInput.data, partyId: id, status: "TODO"}
-    console.info("Creating new task: " + JSON.stringify(newTask))
-
-    const insertResult = await db.insert(Tasks).values(
-      [newTask]
-    )
-
-    console.info("Insert result: " + JSON.stringify(insertResult))
-
-    return new Response(JSON.stringify({ message: "Task created" }), {
-      status: 200,
-      headers: {
-        "hx-redirect": `tasks`,
-      },
-    })
-  } catch (error) {
-    error = "Database Error"
-    console.error("Couldnt insert Task")
+  if (!id) {
+    throw new ToastError("danger", "Bad request", 400)
   }
-} else {
-  error = "Application Error"
+
+  const data = await request.formData()
+  let inputJson: {[key: string]: any} = {}
+  data.forEach((value, key: string) => {inputJson[key] = value})
+
+  const parsedInput = inputSchema.safeParse(inputJson)
+
+  if (!parsedInput.success) {
+    throw new ToastError("warning", "Bad input", 400)
+  }
+
+  const newTask = {...parsedInput.data, partyId: id, status: "TODO"}
+  console.info("Creating new task: " + JSON.stringify(newTask))
+
+  const insertResult = await db.insert(Tasks).values(
+    [newTask]
+  )
+
+  console.info("Insert result: " + JSON.stringify(insertResult))
+
+  return new Response(JSON.stringify({ message: "Task created" }), {
+    status: 200,
+    headers: {
+      "hx-redirect": `tasks`,
+    },
+  })
+} catch (error) {
+  if (error instanceof ToastError) {
+    return toastResponse(error)
+  }
+  return toastResponse(new ToastError("error", "Something went wrong. :(", 500))
 }
 ---
-<div class="text-red-500 text-center">{error}</div>
