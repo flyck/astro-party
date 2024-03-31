@@ -42,11 +42,12 @@ V1 Release:
   - [x] Remove date type from party date
   - [x] Fix Dark Mode corner cases
   - [x] Move from query-params to dynamic routing (astro ssr)
-  - [ ] Have party ids be uuids instead of an incremental counter
-  - [ ] Figure out error handling & displaying (htmx)
+  - [x] Have party ids be uuids instead of an incremental counter
+  - [x] Figure out error handling & displaying (htmx)
   - In general
     - [ ] Check that .astro backend sites wont expose secrets (astro ssr)
-    - [x] Make the code easier to read by introducing views / encapsulation
+    - [x] Make the html easier to read by introducing views / encapsulation
+    - [x] Have a decent 404 page
 
 Later Releases:
 - Layout
@@ -57,7 +58,6 @@ Later Releases:
   - [ ] Basic Transitions for buttons, fance slide-in of the whole menu
   - [ ] Modal gets closed when outside-area is clicked (escape & close button already work)
   - [ ] Do frontend input validation (not super relevant for this app)
-  - [ ] Have a decent 404 page
 
 
 ## Dev Notes
