@@ -24,7 +24,7 @@ try {
   return toastResponse(new ToastError("error", "Something went wrong. :(", 500))
 }
 ---
-<ul id="openModal">
+<ul id="openEditParticipantModal">
   {participants.map((p) =>
   <button id={p.id.toString()} class="border-b border-gray-500 p-2 w-full text-left text-sm"
           data-id={p.id.toString()} data-name={p.name} data-email={p.email}>
@@ -33,7 +33,7 @@ try {
   )}
 </ul>
 
-<Modal id="myModal" title="Edit Participant" buttonId="openModal">
+<Modal id="myModal" title="Edit Participant" buttonId="openEditParticipantModal">
   <form
     hx-post="/server/participant/update"
     hx-swap="none"
@@ -58,17 +58,17 @@ try {
   </form>
 </Modal>
 
-<script>
+<script is:inline>
     // Get the item list
-    var itemList = document.getElementById('openModal')!;
+    var itemList = document.getElementById('openEditParticipantModal');
 
     // When a list item is clicked, open the modal with the corresponding content
     itemList.addEventListener('click', function(e) {
-      var id = e.target?.getAttribute('data-id');
-      var name = e.target?.getAttribute('data-name');
-      var email = e.target?.getAttribute('data-email');
-      document.getElementById('modal-id')!.value = id;
-      document.getElementById('modal-name')!.value = name;
-      document.getElementById('modal-email')!.value = email;
+      var id = e.target.getAttribute('data-id');
+      var name = e.target.getAttribute('data-name');
+      var email = e.target.getAttribute('data-email');
+      document.getElementById('modal-id').value = id;
+      document.getElementById('modal-name').value = name;
+      document.getElementById('modal-email').value = email;
     });
 </script>
