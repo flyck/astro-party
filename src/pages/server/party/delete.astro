@@ -4,8 +4,6 @@ import { db, eq, Parties, Participants, Tasks } from 'astro:db';
 import {toastResponse, ToastError} from "../../../components/toast.astro"
 import { getPartyIdOrThrowToast } from "../../../utils/input.astro"
 
-console.info("Deleting Party Request")
-
 try {
   const id = getPartyIdOrThrowToast(request)
 

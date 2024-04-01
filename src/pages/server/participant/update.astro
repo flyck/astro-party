@@ -5,8 +5,6 @@ import { db, eq, and, Participants } from 'astro:db';
 import { toastResponse, ToastError } from "../../../components/toast.astro"
 import { getPartyIdOrThrowToast, validateFormOrThrowToast } from "../../../utils/input.astro"
 
-console.info("Update Participant Request")
-
 const inputSchema = z.object({
   id: z.string().transform(p => parseInt(p)),
   name: z.string().min(1).max(100),
