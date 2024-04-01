@@ -1,6 +1,7 @@
 ---
 import {db, Participants, eq} from "astro:db";
 import {toastResponse, ToastError} from "../../../components/toast.astro"
+import Modal from "../../../layouts/Modal.astro"
 
 const { request } = Astro
 
@@ -21,8 +22,34 @@ try {
   return toastResponse(new ToastError("error", "Something went wrong. :(", 500))
 }
 ---
-{participants.map((p, index) =>
-<div id={index.toString()} class="border-b border-gray-500 p-2">
-    <div class="text-sm">{p.name || "?"} ({p.email})</div>
-  </div >
-)}
+<ul id="openModal">
+  {participants.map((p, index) =>
+  <button id={index.toString()} class="border-b border-gray-500 p-2 w-full text-left">
+    <div class="text-sm" data-name={p.name} data-email={p.email}>
+      {p.name} ({p.email || "?"})
+    </div>
+  </button>
+  )}
+</ul>
+
+<Modal id="myModal" title="Edit Participant" buttonId="openModal">
+  <div id="modal-name">Init name</div>
+  <div id="modal-email">Init email</div>
+</Modal>
+
+<script>
+    // Get the modal
+    var modal = document.getElementById('myModal');
+
+    // Get the item list
+    /* var itemList = document.getElementById('item-list'); */
+    var itemList = document.getElementById('openModal')!;
+
+    // When a list item is clicked, open the modal with the corresponding content
+    itemList.addEventListener('click', function(e) {
+        var name = e.target?.getAttribute('data-name');
+        var email = e.target?.getAttribute('data-email');
+        document.getElementById('modal-name')!.innerHTML = "Name: " + name;
+        document.getElementById('modal-email')!.innerHTML = "Email: " + email;
+    });
+</script>

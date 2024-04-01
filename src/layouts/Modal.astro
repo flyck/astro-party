@@ -2,11 +2,12 @@
 interface Props {
   title: string
   buttonId: string
+  id?: string
 }
 
-const { title, buttonId } = Astro.props;
+const { title, buttonId, id } = Astro.props;
 ---
-<dialog data-modal class="backdrop:bg-gray-200 bg-gray-200 dark:backdrop:bg-gray-900 dark:bg-gray-900">
+<dialog data-modal class="backdrop:bg-white bg-white dark:backdrop:bg-gray-900 dark:bg-gray-900" id={id}>
   <div class="mb-4 flex w-80 my-auto mx-auto">
     {/* TODO solve this problem with the width, creates a zone where the outside click wont close*/}
     <div class="flex w-7 mr-2" />
@@ -39,4 +40,10 @@ const { title, buttonId } = Astro.props;
  document.getElementById("closeModalButton").addEventListener('click', () => {
    modal?.close()
  });
+
+ window.onclick = function(event) {
+  if (event.target == modal) {
+    modal?.close();
+  }
+ }
 </script>
