@@ -38,14 +38,14 @@ try {
     hx-post="/server/participant/update"
     hx-swap="none"
     >
-    <Input id="modal-id" name="id" title="Id" class="hidden" type="text" value=""></Input>
-    <Input id="modal-name" name="name" title="Name" type="text" value=""></Input>
-    <Input id="modal-email" name="email" title="Email" type="text" value="" ></Input>
+    <Input id="modal-id" name="id" title="Id" class="hidden" type="text" value="init"></Input>
+    <Input id="modal-name" name="name" title="Name" type="text" value="init"></Input>
+    <Input id="modal-email" name="email" title="Email" type="text" value="init" ></Input>
 
-  <div class="p-2 flex flex-col items-center justify-inbetween w-full ">
+  <div class="p-2">
     <button
       aria-label="Delete"
-      class="bg-red-600 text-gray-100 rounded-sm w-12"
+      class="bg-red-600 text-gray-100 rounded-sm w-full"
       hx-post="/server/participant/delete"
       hx-swap="none"
       type="button"
