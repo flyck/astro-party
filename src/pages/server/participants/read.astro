@@ -1,5 +1,7 @@
 ---
 import {db, Participants, eq} from "astro:db";
+import Input from "../../../components/mini/input.astro"
+import SubmitButton from "../../../components/submitButton.astro"
 import {toastResponse, ToastError} from "../../../components/toast.astro"
 import Modal from "../../../layouts/Modal.astro"
 
@@ -23,33 +25,50 @@ try {
 }
 ---
 <ul id="openModal">
-  {participants.map((p, index) =>
-  <button id={index.toString()} class="border-b border-gray-500 p-2 w-full text-left">
-    <div class="text-sm" data-name={p.name} data-email={p.email}>
+  {participants.map((p) =>
+  <button id={p.id.toString()} class="border-b border-gray-500 p-2 w-full text-left text-sm"
+          data-id={p.id.toString()} data-name={p.name} data-email={p.email}>
       {p.name} ({p.email || "?"})
-    </div>
   </button>
   )}
 </ul>
 
 <Modal id="myModal" title="Edit Participant" buttonId="openModal">
-  <div id="modal-name">Init name</div>
-  <div id="modal-email">Init email</div>
+  <form
+    hx-post="/server/participant/update"
+    hx-swap="none"
+    >
+    <Input id="modal-id" name="id" title="Id" class="hidden" type="text" value=""></Input>
+    <Input id="modal-name" name="name" title="Name" type="text" value=""></Input>
+    <Input id="modal-email" name="email" title="Email" type="text" value="" ></Input>
+
+  <div class="p-2 flex flex-col items-center justify-inbetween w-full ">
+    <button
+      aria-label="Delete"
+      class="bg-red-600 text-gray-100 rounded-sm w-12"
+      hx-post="/server/participant/delete"
+      hx-swap="none"
+      type="button"
+    >
+      -
+    </button>
+  </div>
+
+    <SubmitButton>Ok</SubmitButton>
+  </form>
 </Modal>
 
 <script>
-    // Get the modal
-    var modal = document.getElementById('myModal');
-
     // Get the item list
-    /* var itemList = document.getElementById('item-list'); */
     var itemList = document.getElementById('openModal')!;
 
     // When a list item is clicked, open the modal with the corresponding content
     itemList.addEventListener('click', function(e) {
-        var name = e.target?.getAttribute('data-name');
-        var email = e.target?.getAttribute('data-email');
-        document.getElementById('modal-name')!.innerHTML = "Name: " + name;
-        document.getElementById('modal-email')!.innerHTML = "Email: " + email;
+      var id = e.target?.getAttribute('data-id');
+      var name = e.target?.getAttribute('data-name');
+      var email = e.target?.getAttribute('data-email');
+      document.getElementById('modal-id')!.value = id;
+      document.getElementById('modal-name')!.value = name;
+      document.getElementById('modal-email')!.value = email;
     });
 </script>

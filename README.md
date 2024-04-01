@@ -22,11 +22,11 @@ npm create astro@latest -- --template minimal
 V1 Release:
 - [x] Basic Layout
 - [x] Create, Edit, List and Delete Party
-- [ ] Create, Edit, List and Delete Participant
+- [x] Create, Edit, List and Delete Participant
   - [x] Create
   - [x] List
-  - [ ] Edit
-  - [ ] Delete
+  - [x] Edit
+  - [x] Delete
 - [ ] Create, Edit, List and Delete Task
   - [x] List
   - [ ] Create
@@ -44,10 +44,11 @@ V1 Release:
   - [x] Move from query-params to dynamic routing (astro ssr)
   - [x] Have party ids be uuids instead of an incremental counter (astro db)
   - [x] Figure out error handling & displaying (htmx)
-  - In general
-    - [ ] Check that .astro backend sites wont expose secrets (astro ssr)
-    - [x] Make the html easier to read by introducing views / encapsulation
-    - [x] Have a decent 404 page
+  - [ ] How to display toast messages caused by a Modal?
+- In general
+  - [ ] Check that .astro backend sites wont expose secrets (astro ssr)
+  - [x] Make the html easier to read by introducing views / encapsulation
+  - [x] Have a decent 404 page
 
 Later Releases:
 - Layout
@@ -59,6 +60,7 @@ Later Releases:
   - [ ] Basic Transitions for buttons, fance slide-in of the whole menu
   - [ ] Modal gets closed when outside-area is clicked (escape & close button already work)
   - [ ] Do frontend input validation (not super relevant for this app)
+  - [ ] Have better toast messages with a proper library ([js-snackbar](https://www.michaelmickelson.com/js-snackbar/)?)
 - Github Actions
   - [ ] Biome Linting
   - [ ] Nice releases

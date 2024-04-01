@@ -1,0 +1,54 @@
+---
+import * as z from 'zod';
+const { request } = Astro;
+import { db, eq, and, Parties, Participants } from 'astro:db';
+import {toastResponse, ToastError} from "../../../components/toast.astro"
+
+console.info("Deleting Participant Request")
+
+const inputSchema = z.object({
+  id: z.string().transform(p => parseInt(p)),
+});
+
+try {
+  const url = new URL(request.headers.get("Hx-Current-Url") || "")
+  const partyId = url.pathname.split("/")[1] || ""
+
+  if (!partyId ) {
+    throw new ToastError("danger", "bad request", 400)
+  }
+
+  const data = await request.formData()
+  let inputJson: {[key: string]: any} = {}
+  data.forEach((value, key: string) => {inputJson[key] = value})
+
+  const parsedInput = inputSchema.safeParse(inputJson)
+
+  if (!parsedInput.success) {
+    throw new ToastError("warning", "Bad input", 400)
+  }
+
+  const id = parsedInput.data.id
+
+  console.info("Deleting participant...")
+
+  const participantDeletionResult = await db.delete(Participants).where(
+    and(eq(Participants.partyId, partyId), eq(Participants.id, id))
+  )
+
+  console.info("Participant deleted: " + JSON.stringify(participantDeletionResult))
+
+  return new Response(JSON.stringify({ ok: true }), {
+    status: 200,
+    headers: {
+      "hx-redirect": `participants`,
+    },
+  })
+} catch(error) {
+  console.log(error)
+  if (error instanceof ToastError) {
+    return toastResponse(error)
+  }
+  return toastResponse(new ToastError("error", "Something went wrong. :(", 500))
+}
+---

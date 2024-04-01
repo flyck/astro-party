@@ -11,7 +11,7 @@ interface Props {
 
 const { loading, title, location, date, description } = Astro.props
 ---
-<Input name="title" title="Title" class="w-full rounded-sm dark:bg-gray-800" type="text" value={title} loading={loading}></Input>
-<Input name="location" title="Where" class="w-full rounded-sm dark:bg-gray-800" type="text" value={location} loading={loading}></Input>
-<Input name="date" title="When" class="w-full rounded-sm dark:bg-gray-800" type="text" value={date} loading={loading}></Input>
-<Input name="description" title="Description" class="w-full rounded-sm dark:bg-gray-800" type="text" value={description} loading={loading}></Input>
+<Input name="title" title="Title" type="text" value={title} loading={loading}></Input>
+<Input name="location" title="Where" type="text" value={location} loading={loading}></Input>
+<Input name="date" title="When" type="text" value={date} loading={loading}></Input>
+<Input name="description" title="Description" type="text" value={description} loading={loading}></Input>

@@ -11,12 +11,11 @@ const { buttonId } = Astro.props;
 ---
 <Modal title="Create Participant" buttonId={buttonId}>
     <form
-        hx-post="/server/participant/create"
-        hx-target="#action-feedback"
+      hx-post="/server/participant/create"
+      hx-swap="none"
     >
-        <Input name="name" title="Name" class="w-full rounded-sm dark:bg-gray-800" type="text" value="Johnny B"></Input>
-        <Input name="email" title="Email" class="w-full rounded-sm dark:bg-gray-800" type="text" value="john@john.de"></Input>
-        <div id="action-feedback" />
+        <Input name="name" title="Name" type="text" value="Johnny B"></Input>
+        <Input name="email" title="Email" type="text" value="john@john.de"></Input>
         <SubmitButton>Ok</SubmitButton>
     <form>
 </Modal>
