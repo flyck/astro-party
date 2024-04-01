@@ -56,6 +56,7 @@ Later Releases:
   - [ ] Flexible bigger text input boxes (i.e. party description)
 - Issues
   - [ ] Fix all type-errors
+  - [ ] 404 page doesnt work in subdirectories
 - Nice things
   - [ ] Basic Transitions for buttons, fance slide-in of the whole menu
   - [ ] Modal gets closed when outside-area is clicked (escape & close button already work)
