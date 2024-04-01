@@ -1,17 +1,13 @@
 ---
 import {db, Tasks, eq} from "astro:db";
 import {toastResponse, ToastError} from "../../../components/toast.astro"
+import { getPartyIdOrThrowToast } from "../../../utils/input.astro"
 
 const { request } = Astro
 
 let tasks = []
 try {
-  const url = new URL(request.headers.get("Hx-Current-Url") || "")
-  const id = url.pathname.split("/")[1] || ""
-
-  if (!id ) {
-    throw new ToastError("warning", "Bad request", 400)
-  }
+  const id = getPartyIdOrThrowToast(request)
 
   tasks = await db.select().from(Tasks).where(eq(Tasks.partyId, id));
 } catch(error) {

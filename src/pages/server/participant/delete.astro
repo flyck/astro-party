@@ -1,34 +1,21 @@
 ---
 import * as z from 'zod';
 const { request } = Astro;
-import { db, eq, and, Parties, Participants } from 'astro:db';
-import {toastResponse, ToastError} from "../../../components/toast.astro"
+import { db, eq, and, Participants } from 'astro:db';
+import { toastResponse, ToastError } from "../../../components/toast.astro"
+import { getPartyIdOrThrowToast, validateFormOrThrowToast } from "../../../utils/input.astro"
 
-console.info("Deleting Participant Request")
+console.info("Delete Participant Request")
 
 const inputSchema = z.object({
   id: z.string().transform(p => parseInt(p)),
 });
 
 try {
-  const url = new URL(request.headers.get("Hx-Current-Url") || "")
-  const partyId = url.pathname.split("/")[1] || ""
+  const partyId = getPartyIdOrThrowToast(request)
+  const parsedInput = await validateFormOrThrowToast(request, inputSchema)
 
-  if (!partyId ) {
-    throw new ToastError("danger", "bad request", 400)
-  }
-
-  const data = await request.formData()
-  let inputJson: {[key: string]: any} = {}
-  data.forEach((value, key: string) => {inputJson[key] = value})
-
-  const parsedInput = inputSchema.safeParse(inputJson)
-
-  if (!parsedInput.success) {
-    throw new ToastError("warning", "Bad input", 400)
-  }
-
-  const id = parsedInput.data.id
+  const id = parsedInput.id
 
   console.info("Deleting participant...")
 

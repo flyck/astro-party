@@ -1,6 +1,7 @@
 ---
 import * as z from 'zod';
 import {toastResponse, ToastError} from "../../../components/toast.astro";
+import { validateFormOrThrowToast } from "../../../utils/input.astro"
 import { customAlphabet } from 'nanoid';
 
 // "beautiful" ids without special characters
@@ -17,20 +18,9 @@ const inputSchema = z.object({
 });
 
 try {
-  const data = await request.formData()
-  let inputJson: {[key: string]: any} = {}
-  data.forEach((value, key: string) => {inputJson[key] = value})
+  const parsedInput = await validateFormOrThrowToast(request, inputSchema)
 
-  const parsedInput = inputSchema.safeParse(inputJson)
-
-  console.log("Parse result: " + JSON.stringify(parsedInput))
-  console.log("Input correct: " + parsedInput.success)
-
-  if (!parsedInput.success) {
-    throw new ToastError("warning", "Bad input", 400)
-  }
-
-  const newParty = {...parsedInput.data, id: nanoid()}
+  const newParty = {...parsedInput, id: nanoid()}
 
   console.log("Inserting party: " + JSON.stringify(newParty))
   const insertResult = await db.insert(Parties).values([

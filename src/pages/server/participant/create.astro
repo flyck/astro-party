@@ -3,6 +3,7 @@ import * as z from 'zod';
 const { request } = Astro;
 import { db, Participants } from 'astro:db';
 import {toastResponse, ToastError} from "../../../components/toast.astro"
+import { getPartyIdOrThrowToast, validateFormOrThrowToast } from "../../../utils/input.astro"
 
 const inputSchema = z.object({
   name: z.string().min(1).max(100),
@@ -10,26 +11,10 @@ const inputSchema = z.object({
 });
 
 try {
-  const url = new URL(request.headers.get("Hx-Current-Url") || "")
-  const id = url.pathname.split("/")[1] || ""
+  const id = getPartyIdOrThrowToast(request)
+  const parsedInput = await validateFormOrThrowToast(request, inputSchema)
 
-  if (!id ) {
-    throw new ToastError("danger", "Bad request", 400)
-  }
-
-  const data = await request.formData()
-  let inputJson: {[key: string]: any} = {}
-  data.forEach((value, key: string) => {inputJson[key] = value})
-
-  const parsedInput = inputSchema.safeParse(inputJson)
-
-  console.info("Input correct: " + parsedInput.success)
-
-  if (!parsedInput.success) {
-    throw new ToastError("warning", "Bad inputs", 400)
-  }
-
-  const newParticipant = {...parsedInput.data, partyId: id, invitation_sent: false}
+  const newParticipant = {...parsedInput, partyId: id, invitation_sent: false}
   console.info("Creating new participant: " + JSON.stringify(newParticipant))
 
   const insertResult = await db.insert(Participants).values(

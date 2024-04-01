@@ -3,6 +3,9 @@ import * as z from 'zod';
 const { request } = Astro;
 import { db, eq, and, Participants } from 'astro:db';
 import { toastResponse, ToastError } from "../../../components/toast.astro"
+import { getPartyIdOrThrowToast, validateFormOrThrowToast } from "../../../utils/input.astro"
+
+console.info("Update Participant Request")
 
 const inputSchema = z.object({
   id: z.string().transform(p => parseInt(p)),
@@ -11,26 +14,12 @@ const inputSchema = z.object({
 });
 
 try {
-  const url = new URL(request.headers.get("Hx-Current-Url") || "")
-  const partyId = url.pathname.split("/")[1] || ""
-
-  if (!partyId ) {
-    throw new ToastError("danger", "Bad request", 400)
-  }
-
-  const data = await request.formData()
-  let inputJson: {[key: string]: any} = {}
-  data.forEach((value, key: string) => {inputJson[key] = value})
-
-  const parsedInput = inputSchema.safeParse(inputJson)
-
-  if (!parsedInput.success) {
-    throw new ToastError("warning", "Bad input", 400)
-  }
+  const partyId = getPartyIdOrThrowToast(request)
+  const parsedInput = await validateFormOrThrowToast(request, inputSchema)
 
   const updateResult = await db.update(Participants).set(
-    {...parsedInput.data}
-  ).where(and(eq(Participants.partyId, partyId), eq(Participants.id, parsedInput.data.id)))
+    {...parsedInput}
+  ).where(and(eq(Participants.partyId, partyId), eq(Participants.id, parsedInput.id)))
 
   console.log(updateResult)
 

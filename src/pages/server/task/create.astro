@@ -3,6 +3,7 @@ import * as z from 'zod';
 const { request } = Astro;
 import { db, Tasks } from 'astro:db';
 import {toastResponse, ToastError} from "../../../components/toast.astro"
+import { getPartyIdOrThrowToast, validateFormOrThrowToast } from "../../../utils/input.astro"
 
 const inputSchema = z.object({
   title: z.string().min(1).max(100),
@@ -10,24 +11,10 @@ const inputSchema = z.object({
 });
 
 try {
-  const url = new URL(request.headers.get("Hx-Current-Url") || "")
-  const id = url.pathname.split("/")[1] || ""
+  const id = getPartyIdOrThrowToast(request)
+  const parsedInput = await validateFormOrThrowToast(request, inputSchema)
 
-  if (!id) {
-    throw new ToastError("danger", "Bad request", 400)
-  }
-
-  const data = await request.formData()
-  let inputJson: {[key: string]: any} = {}
-  data.forEach((value, key: string) => {inputJson[key] = value})
-
-  const parsedInput = inputSchema.safeParse(inputJson)
-
-  if (!parsedInput.success) {
-    throw new ToastError("warning", "Bad input", 400)
-  }
-
-  const newTask = {...parsedInput.data, partyId: id, status: "TODO"}
+  const newTask = {...parsedInput, partyId: id, status: "TODO"}
   console.info("Creating new task: " + JSON.stringify(newTask))
 
   const insertResult = await db.insert(Tasks).values(

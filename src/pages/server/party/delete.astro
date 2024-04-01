@@ -2,16 +2,12 @@
 const { request } = Astro;
 import { db, eq, Parties, Participants, Tasks } from 'astro:db';
 import {toastResponse, ToastError} from "../../../components/toast.astro"
+import { getPartyIdOrThrowToast } from "../../../utils/input.astro"
 
 console.info("Deleting Party Request")
 
 try {
-  const url = new URL(request.headers.get("Hx-Current-Url") || "")
-  const id = url.pathname.split("/")[1] || ""
-
-  if (!id ) {
-    throw new ToastError("danger", "bad request", 400)
-  }
+  const id = getPartyIdOrThrowToast(request)
 
   console.info("Deleting party...")
 
