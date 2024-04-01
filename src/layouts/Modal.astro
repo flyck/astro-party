@@ -5,7 +5,9 @@ interface Props {
   id?: string
 }
 
-const { title, buttonId, id } = Astro.props;
+const { title, buttonId } = Astro.props;
+
+const id = Astro.props.id || `${title.replaceAll(" ", "")}Modal`
 ---
 <dialog data-modal class="backdrop:bg-white bg-white dark:backdrop:bg-gray-900 dark:bg-gray-900" id={id}>
   <div class="mb-4 flex w-80 my-auto mx-auto">
@@ -31,8 +33,8 @@ const { title, buttonId, id } = Astro.props;
   </div>
 </dialog>
 
-<script is:inline define:vars={{ buttonId }}>
- const modal = document.querySelector("dialog");
+<script is:inline define:vars={{ buttonId, id }}>
+ const modal = document.getElementById(id);
 
  document.getElementById(buttonId).addEventListener('click', () => {
    modal?.showModal()
