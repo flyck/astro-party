@@ -3,6 +3,7 @@ import Layout from "./Layout.astro"
 import ChevronLeftIcon from "../components/mini/arrowLeft.astro"
 import ChevronRightIcon from "../components/mini/arrowRight.astro"
 import Toast from "../components/toast.astro"
+import {mySlide} from "./MenuSlide.astro";
 import { slide } from 'astro:transitions';
 
 interface Props {
@@ -27,12 +28,13 @@ const { left, right, title } = Astro.props;
 
         <div id="centerMain" class="w-full h-96"><!-- class="w-full h-96 transition-all duration-700 transform ease-out"> -->
           <div class="mb-4">
-            <div class="w-full dark:bg-gray-900 bg-gray-100 dark:border-gray-800 p-2 rounded-lg text-center border" transition:name="pageLayoutTitle">
+            <div class="w-full dark:bg-gray-900 bg-gray-100 dark:border-gray-800 p-2 rounded-lg text-center border"
+                 transition:name="pageLayoutTitle">
               {title}
             </div>
           </div>
           <div class="rounded-lg border dark:bg-gray-900 bg-gray-100 dark:text-gray-100 text-gray-900 dark:border-gray-800 border-gray-200 h-80"
-            transition:animate={slide({ duration: '0.2s' })} >
+               transition:animate={mySlide()}>
               <slot />
           </div>
         </div>
