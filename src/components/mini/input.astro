@@ -12,7 +12,7 @@ interface Props {
 
 const { class: className, title, loading, type, ...rest } = Astro.props;
 ---
-<div class:list={[className, "border-b border-gray-500 p-2"]}>
+<div class:list={[className, "border-b border-gray-500 p-2 dark:bg-gray-900"]}>
     <div class="text-sm">{title}:</div>
     { loading ?
     <div class="mt-1"><Skeleton class="rounded-sm" /></div> :
