@@ -45,8 +45,10 @@ V1 Release:
   - [x] Have party ids be uuids instead of an incremental counter (astro db)
   - [x] Figure out error handling & displaying (htmx)
   - [ ] How to display toast messages caused by a Modal?
+  - [ ] Recover the lost types in the utils function (zod)
 - In general
   - [ ] Check that .astro backend sites wont expose secrets (astro ssr)
+  - [ ] View transition for fancy slide-in of the whole menu
   - [x] Make the html easier to read by introducing views / encapsulation
   - [x] Have a decent 404 page
 
@@ -58,7 +60,6 @@ Later Releases:
   - [ ] Fix all type-errors
   - [ ] 404 page doesnt work in subdirectories
 - Nice things
-  - [ ] Basic Transitions for buttons, fance slide-in of the whole menu
   - [ ] Modal gets closed when outside-area is clicked (escape & close button already work)
   - [ ] Do frontend input validation (not super relevant for this app)
   - [ ] Have better toast messages with a proper library ([js-snackbar](https://www.michaelmickelson.com/js-snackbar/)?)
@@ -76,6 +77,13 @@ Later Releases:
 - When I deploy from local there is a dependency missing from the build: `Cannot find module
   '@libsql/linux-x64-gnu'`
   - Fixed by downgrading @libsql/client: https://github.com/tursodatabase/libsql-client-ts/issues/112
+- Htmx with Astro View Transitions
+  - https://github.com/bigskysoftware/htmx/discussions/692 htmx.trigger works for multiple events,
+    the native browser events will only work once
+  - Using htmx.trigger() will send an event, but htmx will not process it. Only `htmx.process()`
+    works
+    - Supported by https://github.com/bigskysoftware/htmx/issues/2011
+  - https://github.com/bigskysoftware/htmx/issues/1761 a proper plugin?
 
 ### Utils
 

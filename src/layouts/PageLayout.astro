@@ -3,6 +3,7 @@ import Layout from "./Layout.astro"
 import ChevronLeftIcon from "../components/mini/arrowLeft.astro"
 import ChevronRightIcon from "../components/mini/arrowRight.astro"
 import Toast from "../components/toast.astro"
+import { slide } from 'astro:transitions';
 
 interface Props {
   left?: string;
@@ -13,29 +14,30 @@ interface Props {
 
 const { left, right, title } = Astro.props;
 ---
-<script is:inline src="https://unpkg.com/htmx.org"></script>
+<script src="https://unpkg.com/htmx.org"></script>
 <Layout>
-  <div class="flex min-h-screen items-center">
+  <div class="flex min-h-screen items-center" transition:animate="none">
       <div class="mx-auto my-auto">
       <div class="mb-4 flex w-96 sm:w-80">
-        {left ? <a href={left} class="flex" aria-label="Go Left">
+        {left ? <a id="leftId" href={left} class="flex" aria-label="Go Left">
           <ChevronLeftIcon class="h-7 w-7 self-center mr-2" />
         </a> : <div class="flex">
           <div class="h-7 w-7 self-center mr-2" />
         </div>}
 
-        <div class="w-full h-96">
+        <div id="centerMain" class="w-full h-96"><!-- class="w-full h-96 transition-all duration-700 transform ease-out"> -->
           <div class="mb-4">
-            <div class="w-full dark:bg-gray-900 bg-gray-100 dark:border-gray-800 p-2 rounded-lg text-center border">
+            <div class="w-full dark:bg-gray-900 bg-gray-100 dark:border-gray-800 p-2 rounded-lg text-center border" transition:name="pageLayoutTitle">
               {title}
             </div>
           </div>
-          <div class="rounded-lg border dark:bg-gray-900 bg-gray-100 dark:text-gray-100 text-gray-900 dark:border-gray-800 border-gray-200 h-80">
+          <div class="rounded-lg border dark:bg-gray-900 bg-gray-100 dark:text-gray-100 text-gray-900 dark:border-gray-800 border-gray-200 h-80"
+            transition:animate={slide({ duration: '0.2s' })} >
               <slot />
           </div>
         </div>
 
-        {right ? <a href={right} class="flex" aria-label="Go Right">
+        {right ? <a id="rightId" href={right} class="flex" aria-label="Go Right">
             <ChevronRightIcon class="h-7 w-7 self-center ml-2" />
         </a> : <div class="flex">
             <div class="h-7 w-7 self-center ml-2" />
@@ -45,3 +47,14 @@ const { left, right, title } = Astro.props;
     </div >
   </div>
 </Layout>
+
+<script is:inline>
+document.addEventListener(
+  "astro:after-swap",
+  () => {
+    console.log("loading after transition")
+    htmx.process(document.body || null)
+  },
+  { once: false }
+);
+</script>
