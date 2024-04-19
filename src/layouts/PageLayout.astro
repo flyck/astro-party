@@ -3,8 +3,7 @@ import Layout from "./Layout.astro"
 import ChevronLeftIcon from "../components/mini/arrowLeft.astro"
 import ChevronRightIcon from "../components/mini/arrowRight.astro"
 import Toast from "../components/toast.astro"
-import {mySlide} from "./MenuSlide.astro";
-import { slide } from 'astro:transitions';
+import { fade } from 'astro:transitions';
 
 interface Props {
   left?: string;
@@ -34,7 +33,7 @@ const { left, right, title } = Astro.props;
             </div>
           </div>
           <div class="rounded-lg border dark:bg-gray-900 bg-gray-100 dark:text-gray-100 text-gray-900 dark:border-gray-800 border-gray-200 h-80"
-               transition:animate={mySlide()}>
+               transition:animate={fade()}>
               <slot />
           </div>
         </div>
