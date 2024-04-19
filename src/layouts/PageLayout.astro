@@ -3,7 +3,8 @@ import Layout from "./Layout.astro"
 import ChevronLeftIcon from "../components/mini/arrowLeft.astro"
 import ChevronRightIcon from "../components/mini/arrowRight.astro"
 import Toast from "../components/toast.astro"
-import { fade } from 'astro:transitions';
+import { fade, slide } from 'astro:transitions';
+import { slideLeft, slideRight } from "./MenuSlide.astro"
 
 interface Props {
   left?: string;
@@ -17,11 +18,13 @@ const { left, right, title } = Astro.props;
 <script src="https://unpkg.com/htmx.org"></script>
 <Layout>
   <div class="flex min-h-screen items-center" transition:animate="none">
+<div id="slideLeftDiv" transition:animate={slideRight({duration: 300})}></div>
+<div id="slideRightDiv" transition:animate={slideLeft({duration: 300})}></div>
       <div class="mx-auto my-auto">
       <div class="mb-4 flex w-96 sm:w-80">
-        {left ? <a id="leftId" href={left} class="flex" aria-label="Go Left">
+        {left ? <div id="leftId" class="flex" aria-label="Go Left" data-link={left}>
           <ChevronLeftIcon class="h-7 w-7 self-center mr-2" />
-        </a> : <div class="flex">
+        </div> : <div class="flex">
           <div class="h-7 w-7 self-center mr-2" />
         </div>}
 
@@ -32,15 +35,14 @@ const { left, right, title } = Astro.props;
               {title}
             </div>
           </div>
-          <div class="rounded-lg border dark:bg-gray-900 bg-gray-100 dark:text-gray-100 text-gray-900 dark:border-gray-800 border-gray-200 h-80"
-               transition:animate={fade()}>
+          <div class="rounded-lg border dark:bg-gray-900 bg-gray-100 dark:text-gray-100 text-gray-900 dark:border-gray-800 border-gray-200 h-80">
               <slot />
           </div>
         </div>
 
-        {right ? <a id="rightId" href={right} class="flex" aria-label="Go Right">
+        {right ? <div id="rightId" class="flex" aria-label="Go Right"  data-link={right}>
             <ChevronRightIcon class="h-7 w-7 self-center ml-2" />
-        </a> : <div class="flex">
+        </div> : <div class="flex">
             <div class="h-7 w-7 self-center ml-2" />
         </div>}
       </div>
@@ -48,6 +50,42 @@ const { left, right, title } = Astro.props;
     </div >
   </div>
 </Layout>
+
+<script>
+ import { navigate } from 'astro:transitions/client';
+
+ function activateButtons() {
+const goRightButton = document.getElementById('rightId');
+const goLeftButton = document.getElementById('leftId');
+const slideLeftDiv = document.getElementById('slideLeftDiv')!;
+const slideRightDiv = document.getElementById('slideRightDiv')!;
+const target = document.getElementById('centerMain')!;
+
+
+   goLeftButton?.addEventListener("click", () => {
+   console.log("navigate left")
+     target.dataset.astroTransitionScope=slideLeftDiv.dataset.astroTransitionScope
+     slideLeftDiv.dataset.astroTransitionScope=undefined
+     navigate(goLeftButton.dataset.link!, {history: "push"})
+})
+
+goRightButton?.addEventListener("click", () => {
+   console.log("navigate right")
+   target.dataset.astroTransitionScope=slideRightDiv.dataset.astroTransitionScope
+     slideRightDiv.dataset.astroTransitionScope=undefined
+     navigate(goRightButton.dataset.link!, {history: "push"})
+})
+ }
+activateButtons()
+document.addEventListener(
+  "astro:after-swap",
+  () => {
+    console.log("activating buttons after transition")
+    activateButtons()
+  },
+  { once: false }
+);
+</script>
 
 <script is:inline>
 document.addEventListener(
