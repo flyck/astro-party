@@ -11,7 +11,7 @@ import { ViewTransitions } from 'astro:transitions';
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 		<meta name="generator" content={Astro.generator} />
 		<title>Astro Party</title>
-                <ViewTransitions />
+                <ViewTransitions  fallback="swap" />
 	</head>
 	<body>
 		<slot />
