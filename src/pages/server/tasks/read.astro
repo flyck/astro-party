@@ -26,7 +26,7 @@ try {
 <ul id="openEditTaskModal">
   {tasks.map((t, index) =>
   <div id={index.toString()} class="flex items-center justify-between border-b border-gray-500 p-2 cursor-pointer"
-       data-id={t.id.toString()} data-partyId={t.partyId.toString()} data-title={t.title.toString()}
+       data-id={t.id.toString()} data-title={t.title.toString()}
        data-status={t.status} data-description={t.description}>
     <div class="text-sm">{t.title || "?"}</div>
     <StatusBadge status={t.status as Status} />
