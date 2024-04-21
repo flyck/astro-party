@@ -1,5 +1,5 @@
 .toast {
-  @apply w-full text-left text-sm p-4 border border-solid border-black border-l-4 rounded-lg shadow-md cursor-pointer;
+  @apply w-full text-left text-sm p-2 border border-solid border-black border-b-2 border-t-2 rounded-lg shadow-md cursor-pointer;
 }
 
 .toast-success {
@@ -11,5 +11,21 @@
 }
 
 .toast-danger {
-  @apply bg-red-100 text-red-800 border-red-800;
+  @apply bg-red-100 text-red-900 border-red-700;
+}
+
+
+.animate-slide-in-from-bottom {
+  animation: slide-in-from-bottom 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.96) both;
+}
+
+@keyframes slide-in-from-bottom {
+  0% {
+    transform: translateY(200%);
+    opacity: 0;
+  }
+  100% {
+    transform: translateX(0);
+    opacity: 1;
+  }
 }

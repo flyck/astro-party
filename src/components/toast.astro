@@ -60,6 +60,7 @@ class Toast {
    #makeToastContainerButton() {
      const button = document.createElement("button");
      button.classList.add("toast");
+     button.classList.add("animate-slide-in-from-bottom");
      button.classList.add(`toast-${this.level}`);
      button.setAttribute("role", "alert");
      button.setAttribute("aria-label", "Close");
