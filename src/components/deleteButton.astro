@@ -1,0 +1,19 @@
+---
+interface Props {
+  class?: string;
+  url: string
+}
+
+const { class: className, url, ...rest } = Astro.props;
+---
+<div class="p-2">
+  <button
+    aria-label="Delete"
+    class="bg-red-600 text-gray-100 rounded-sm w-full"
+    hx-post={url}
+    hx-swap="none"
+    type="button"
+  >
+    -
+  </button>
+</div>

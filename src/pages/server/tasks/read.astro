@@ -7,6 +7,7 @@ import type {Status} from "../../../components/statusBadge.astro"
 import Modal from "../../../layouts/Modal.astro"
 import Input from "../../../components/mini/input.astro"
 import SubmitButton from "../../../components/submitButton.astro"
+import DeleteButton from "../../../components/deleteButton.astro"
 
 const { request } = Astro
 
@@ -44,18 +45,7 @@ try {
     <Input id="modal-status" name="status" title="Status" type="text" value="init" ></Input>
     <Input id="modal-description" name="description" title="Description" type="text" value="init" ></Input>
 
-  <div class="p-2">
-    <button
-      aria-label="Delete"
-      class="bg-red-600 text-gray-100 rounded-sm w-full"
-      hx-post="/server/task/delete"
-      hx-swap="none"
-      type="button"
-    >
-      -
-    </button>
-  </div>
-
+    <DeleteButton url="/server/task/delete" />
     <SubmitButton>Ok</SubmitButton>
   </form>
 </Modal>
@@ -68,6 +58,7 @@ try {
     itemList.addEventListener('click', function(e) {
       const properties = ["id", "title", "assignee", "status", "description"];
 
+      // transfer the task properties from the button metadata into the modal inputs
       properties.forEach((property) => {
         var value = e.target.getAttribute(`data-${property}`);
         document.getElementById(`modal-${property}`).value = value;

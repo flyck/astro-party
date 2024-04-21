@@ -3,6 +3,7 @@ import {db, Participants, eq} from "astro:db";
 const { request } = Astro;
 import Input from "../../../components/mini/input.astro"
 import SubmitButton from "../../../components/submitButton.astro"
+import DeleteButton from "../../../components/deleteButton.astro"
 import {toastResponse, ToastError} from "../../../components/toast.astro"
 import { getPartyIdOrThrowToast } from "../../../utils/input.astro"
 import Modal from "../../../layouts/Modal.astro"
@@ -22,8 +23,9 @@ try {
 <ul id="openEditParticipantModal">
   {participants.map((p) =>
   <button id={p.id.toString()} class="border-b border-gray-500 p-2 w-full text-left text-sm"
-          data-id={p.id.toString()} data-name={p.name} data-email={p.email}>
-      {p.name} ({p.email || "?"})
+          data-id={p.id.toString()} data-name={p.name} data-email={p.email}
+  >
+    {p.name} ({p.email || "?"})
   </button>
   )}
 </ul>
@@ -37,18 +39,7 @@ try {
     <Input id="modal-name" name="name" title="Name" type="text" value="init"></Input>
     <Input id="modal-email" name="email" title="Email" type="text" value="init" ></Input>
 
-  <div class="p-2">
-    <button
-      aria-label="Delete"
-      class="bg-red-600 text-gray-100 rounded-sm w-full"
-      hx-post="/server/participant/delete"
-      hx-swap="none"
-      type="button"
-    >
-      -
-    </button>
-  </div>
-
+    <DeleteButton url="/server/participant/delete" />
     <SubmitButton>Ok</SubmitButton>
   </form>
 </Modal>
