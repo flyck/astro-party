@@ -2,6 +2,8 @@
 import {db, Tasks, eq} from "astro:db";
 import {toastResponse, ToastError} from "../../../components/toast.astro"
 import { getPartyIdOrThrowToast } from "../../../utils/input.astro"
+import StatusBadge from "../../../components/statusBadge.astro"
+import type {Status} from "../../../components/statusBadge.astro"
 
 const { request } = Astro
 
@@ -18,7 +20,8 @@ try {
 }
 ---
 {tasks.map((t, index) =>
-<div id={index.toString()} class="border-b border-gray-500 p-2">
-    <div class="text-sm">{t.status}: {t.title || "?"}</div>
+<div id={index.toString()} class="flex items-center justify-between border-b border-gray-500 p-2">
+  <div class="text-sm">{t.title || "?"}</div>
+  <StatusBadge status={t.status as Status} />
   </div>
 )}
