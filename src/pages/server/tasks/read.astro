@@ -4,6 +4,9 @@ import {toastResponse, ToastError} from "../../../components/toast.astro"
 import { getPartyIdOrThrowToast } from "../../../utils/input.astro"
 import StatusBadge from "../../../components/statusBadge.astro"
 import type {Status} from "../../../components/statusBadge.astro"
+import Modal from "../../../layouts/Modal.astro"
+import Input from "../../../components/mini/input.astro"
+import SubmitButton from "../../../components/submitButton.astro"
 
 const { request } = Astro
 
@@ -19,9 +22,55 @@ try {
   return toastResponse("error", "Something went wrong. :(", 500)
 }
 ---
-{tasks.map((t, index) =>
-<div id={index.toString()} class="flex items-center justify-between border-b border-gray-500 p-2">
-  <div class="text-sm">{t.title || "?"}</div>
-  <StatusBadge status={t.status as Status} />
+<ul id="openEditTaskModal">
+  {tasks.map((t, index) =>
+  <div id={index.toString()} class="flex items-center justify-between border-b border-gray-500 p-2 cursor-pointer"
+       data-id={t.id.toString()} data-partyId={t.partyId.toString()} data-title={t.title.toString()}
+       data-status={t.status} data-description={t.description}>
+    <div class="text-sm">{t.title || "?"}</div>
+    <StatusBadge status={t.status as Status} />
   </div>
-)}
+  )}
+</ul>
+
+<Modal title="Edit Task" buttonId="openEditTaskModal">
+  <form
+    hx-post="/server/task/update"
+    hx-swap="none"
+    >
+    <Input id="modal-id" name="id" title="Id" class="hidden" type="text" value="init"></Input>
+    <Input id="modal-title" name="title" title="Title" type="text" value="init"></Input>
+    <Input id="modal-assignee" name="assignee" title="Assignee" type="text" value="init" ></Input>
+    <Input id="modal-status" name="status" title="Status" type="text" value="init" ></Input>
+    <Input id="modal-description" name="description" title="Description" type="text" value="init" ></Input>
+
+  <div class="p-2">
+    <button
+      aria-label="Delete"
+      class="bg-red-600 text-gray-100 rounded-sm w-full"
+      hx-post="/server/task/delete"
+      hx-swap="none"
+      type="button"
+    >
+      -
+    </button>
+  </div>
+
+    <SubmitButton>Ok</SubmitButton>
+  </form>
+</Modal>
+
+<script is:inline>
+    // Get the item list
+    var itemList = document.getElementById('openEditTaskModal');
+
+    // When a list item is clicked, open the modal with the corresponding content
+    itemList.addEventListener('click', function(e) {
+      const properties = ["id", "title", "assignee", "status", "description"];
+
+      properties.forEach((property) => {
+        var value = e.target.getAttribute(`data-${property}`);
+        document.getElementById(`modal-${property}`).value = value;
+      })
+    });
+</script>
