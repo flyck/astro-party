@@ -1,7 +1,7 @@
 ---
 import {db, eq, Parties} from "astro:db";
 import PartyDetails from "../../../components/forms/partyDetails.astro"
-import {toastResponse, ToastError} from "../../../components/toast.astro"
+import {toastResponse, ToastError} from "../../../utils/toast"
 import { getPartyIdOrThrowToast } from "../../../utils/input.astro"
 
 const { request } = Astro

@@ -1,6 +1,6 @@
 ---
 import {db, Tasks, eq} from "astro:db";
-import {toastResponse, ToastError} from "../../../components/toast.astro"
+import {toastResponse, ToastError} from "../../../utils/toast"
 import { getPartyIdOrThrowToast } from "../../../utils/input.astro"
 import StatusBadge from "../../../components/statusBadge.astro"
 import type {Status} from "../../../components/statusBadge.astro"
