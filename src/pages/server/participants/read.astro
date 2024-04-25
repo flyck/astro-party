@@ -50,11 +50,12 @@ try {
 
     // When a list item is clicked, open the modal with the corresponding content
     itemList.addEventListener('click', function(e) {
-      var id = e.target.getAttribute('data-id');
-      var name = e.target.getAttribute('data-name');
-      var email = e.target.getAttribute('data-email');
-      document.getElementById('modal-id').value = id;
-      document.getElementById('modal-name').value = name;
-      document.getElementById('modal-email').value = email;
+      const properties = ["id", "name", "email"];
+
+      // transfer the task properties from the button metadata into the modal inputs
+      properties.forEach((property) => {
+        var value = e.target.getAttribute(`data-${property}`);
+        document.getElementById(`modal-${property}`).value = value;
+      })
     });
 </script>
