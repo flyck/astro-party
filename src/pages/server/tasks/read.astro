@@ -8,6 +8,7 @@ import Modal from "../../../layouts/Modal.astro"
 import Input from "../../../components/mini/input.astro"
 import SubmitButton from "../../../components/submitButton.astro"
 import DeleteButton from "../../../components/deleteButton.astro"
+import StatusDropdown from "../../../components/statusDropdown.astro"
 
 const { request } = Astro
 
@@ -42,7 +43,7 @@ try {
     <Input id="modal-id" name="id" title="Id" class="hidden" type="text" value="init"></Input>
     <Input id="modal-title" name="title" title="Title" type="text" value="init"></Input>
     <Input id="modal-assignee" name="assignee" title="Assignee" type="text" value="init" ></Input>
-    <Input id="modal-status" name="status" title="Status" type="text" value="init" ></Input>
+    <StatusDropdown id="modal-status" selected="" />
     <Input id="modal-description" name="description" title="Description" type="text" value="init" ></Input>
 
     <DeleteButton url="/server/task/delete" />
@@ -59,9 +60,11 @@ try {
       const properties = ["id", "title", "assignee", "status", "description"];
 
       // transfer the task properties from the button metadata into the modal inputs
+      // BUGBUG if i click on the badge this fails
       properties.forEach((property) => {
         var value = e.target.getAttribute(`data-${property}`);
         document.getElementById(`modal-${property}`).value = value;
+        document.getElementById(`modal-${property}`).dataset[property] = value;
       })
     });
 </script>

@@ -1,0 +1,47 @@
+---
+interface Props {
+  class?: string
+  selected: string
+  id: string
+}
+
+const { class: className, selected, id } = Astro.props;
+---
+<div class="border-b border-gray-500 p-2" id={id}>
+  <div class="text-sm">Status:</div>
+  <select id="taskStatusSelect" name="status"
+          class="w-full px-2 text-sm rounded dark:bg-gray-800 text-gray-600 dark:text-gray-100 bg-white hover:border-gray-400 focus:outline-none">
+    <option value="TODO">Todo</option>
+    <option value="PENDING">Pending</option>
+    <option value="DONE">Done</option>
+  </select>
+</div>
+
+<script is:inline define:vars={{ id }}>
+ // Select the given option from the dropdown
+ function selectOptionByDataStatus(dataStatus) {
+   console.log("Trying to select the option")
+    const selectElement = document.getElementById("taskStatusSelect");
+    const options = Array.from(selectElement.options);
+    const selectedOption = options.find((option) => option.value === dataStatus);
+    if (selectedOption) {
+      selectElement.value = selectedOption.value;
+      console.log("Option selected")
+      console.log(selectedOption.value)
+    }
+  }
+
+
+ // wait for the data-status to be set to be updated and select that value accordingly
+ // this allows sharing of one modal and one dropdown between multiple
+  const div = document.getElementById(id);
+  const observer = new MutationObserver(() => {
+    const dataStatus = div.getAttribute('data-status');
+    selectOptionByDataStatus(dataStatus);
+  });
+
+  observer.observe(div, {
+    attributes: true,
+    attributeFilter: ['data-status']
+  });
+</script>
