@@ -4,8 +4,8 @@ const { request } = Astro;
 import Input from "../../../components/mini/input.astro"
 import SubmitButton from "../../../components/submitButton.astro"
 import DeleteButton from "../../../components/deleteButton.astro"
-import {toastResponse, ToastError} from "../../../components/toast.astro"
-import { getPartyIdOrThrowToast } from "../../../utils/input.astro"
+import {toastResponse, ToastError} from "../../../utils/toast"
+import { getPartyIdOrThrowToast } from "../../../utils/utils"
 import Modal from "../../../layouts/Modal.astro"
 
 let participants = []
