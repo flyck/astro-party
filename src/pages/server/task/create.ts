@@ -9,6 +9,7 @@ export const POST: APIRoute = async ({ params, request }) => {
   const inputSchema = z.object({
     title: z.string().min(1).max(100),
     description: z.string().max(100),
+    assignee: z.string().transform((val) => parseInt(val))
   });
 
   try {
@@ -31,9 +32,10 @@ export const POST: APIRoute = async ({ params, request }) => {
       },
     })
   } catch (error) {
+    console.log(error)
     if (error instanceof ToastError) {
       return toastResponse(error)
     }
-    return toastResponse(new ToastError("error", "Something went wrong. :(", 500))
+    return toastResponse(new ToastError("danger", "Something went wrong. :(", 500))
   }
 }

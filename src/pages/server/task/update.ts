@@ -11,6 +11,7 @@ export const POST: APIRoute = async ({ params, request }) => {
     title: z.string().min(1).max(100),
     description: z.string().max(100),
     status: z.string().max(100),
+    assignee: z.string().transform(p => p.length > 0 ? parseInt(p) : null),
   });
 
   try {
@@ -18,6 +19,8 @@ export const POST: APIRoute = async ({ params, request }) => {
     const parsedInput = await validateFormOrThrowToast(request, inputSchema)
 
     console.info("Updating task: " + JSON.stringify(parsedInput))
+
+    // TODO: check if participant id exists
 
     const insertResult = await db.update(Tasks).set(
       { ...parsedInput }
@@ -32,6 +35,7 @@ export const POST: APIRoute = async ({ params, request }) => {
       },
     })
   } catch (error) {
+    console.log(error)
     if (error instanceof ToastError) {
       return toastResponse(error)
     }

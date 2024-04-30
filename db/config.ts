@@ -24,6 +24,7 @@ const Tasks = defineTable({
   columns: {
     id: column.number({ primaryKey: true, unique: true }),
     partyId: column.text({ references: () => Parties.columns.id }),
+    assignee: column.number({ references: () => Participants.columns.id, optional: true }),
     title: column.text({ optional: false }),
     description: column.text(),
     status: column.text(),

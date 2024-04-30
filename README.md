@@ -29,9 +29,9 @@ V1 Release:
   - [x] Delete
 - [ ] Create, Edit, List and Delete Task
   - [x] List
-  - [ ] Create
-  - [ ] Edit
-  - [ ] Delete
+  - [x] Create
+  - [x] Edit
+  - [x] Delete
 - [x] Astro DB auth for netlify
 - [x] Deploy Astro frontend to Netlify
   - https://docs.astro.build/en/guides/deploy/netlify/
@@ -44,7 +44,9 @@ V1 Release:
   - [x] Move from query-params to dynamic routing (astro ssr)
   - [x] Have party ids be uuids instead of an incremental counter (astro db)
   - [x] Figure out error handling & displaying (htmx)
+  - [ ] Clean up dangling ids, make sure code is easy to understand and not too losely coupled.
   - [ ] How to display toast messages caused by a Modal?
+    - [ ] Fix deleting of an participant which still has tasks assigned
   - [ ] Recover the lost types in the utils function (zod)
 - In general
   - [ ] Check that .astro backend sites wont expose secrets (astro ssr)
@@ -63,6 +65,7 @@ Later Releases:
   - [ ] Modal gets closed when outside-area is clicked (escape & close button already work)
   - [ ] Do frontend input validation (not super relevant for this app)
   - [ ] Have better toast messages with a proper library ([js-snackbar](https://www.michaelmickelson.com/js-snackbar/)?)
+  - [ ] Navigate left-right on desktop via arrow keys
 - Github Actions
   - [ ] Biome Linting
   - [ ] Nice releases

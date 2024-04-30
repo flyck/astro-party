@@ -53,7 +53,6 @@ const { left, right, title } = Astro.props;
 document.addEventListener(
   "astro:after-swap",
   () => {
-    console.log("loading after transition")
     htmx.process(document.body || null)
   },
   { once: false }

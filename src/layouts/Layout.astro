@@ -25,7 +25,6 @@ import { ViewTransitions } from 'astro:transitions';
 <!-- based on: https://www.kevinzunigacuellar.com/blog/dark-mode-in-astro/ -->
 <script is:inline>
   const theme = (() => {
-    console.log(window.matchMedia("(prefers-color-scheme: dark)"))
     if (window.matchMedia("(prefers-color-scheme: dark)").matches) {
       return "dark";
     }

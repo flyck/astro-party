@@ -1,5 +1,5 @@
 ---
-import {db, Tasks, eq} from "astro:db";
+import {db, Tasks, eq, Participants} from "astro:db";
 import {toastResponse, ToastError} from "../../../utils/toast"
 import { getPartyIdOrThrowToast } from "../../../utils/utils"
 import StatusBadge from "../../../components/statusBadge.astro"
@@ -9,14 +9,19 @@ import Input from "../../../components/mini/input.astro"
 import SubmitButton from "../../../components/submitButton.astro"
 import DeleteButton from "../../../components/deleteButton.astro"
 import StatusDropdown from "../../../components/statusDropdown.astro"
+import AssigneeDropdown from "../../../components/assigneeDropdown.astro";
+import CreateTaskModal from "../../../components/modals/createTask.astro"
+import { openModalId } from "../../[partyId]/tasks.astro";
 
 const { request } = Astro
 
 let tasks = []
+let participants = []
 try {
   const id = getPartyIdOrThrowToast(request)
 
   tasks = await db.select().from(Tasks).where(eq(Tasks.partyId, id));
+  participants = await db.select().from(Participants).where(eq(Participants.partyId, id));
 } catch(error) {
   if (error instanceof ToastError) {
     return toastResponse(error.level, error.message)
@@ -28,12 +33,15 @@ try {
   {tasks.map((t, index) =>
   <div id={index.toString()} class="flex items-center justify-between border-b border-gray-500 p-2 cursor-pointer"
        data-id={t.id.toString()} data-title={t.title.toString()}
-       data-status={t.status} data-description={t.description}>
-    <div class="text-sm">{t.title || "?"}</div>
+       data-status={t.status} data-description={t.description} data-assignee={t.assignee}>
+    <div class="text-sm">{t.title || "?"}{t.assignee ? ` (${participants.find(participant => participant.id == t.assignee)!.name})` : ''}</div>
     <StatusBadge status={t.status as Status} />
   </div>
   )}
 </ul>
+
+
+<CreateTaskModal buttonId={openModalId} assignees={participants.map((p) => ({id: p.id ,name: p.name}))}/>
 
 <Modal title="Edit Task" buttonId="openEditTaskModal">
   <form
@@ -42,7 +50,7 @@ try {
     >
     <Input id="modal-id" name="id" title="Id" class="hidden" type="text" value="init"></Input>
     <Input id="modal-title" name="title" title="Title" type="text" value="init"></Input>
-    <Input id="modal-assignee" name="assignee" title="Assignee" type="text" value="init" ></Input>
+    <AssigneeDropdown id="modal-assignee" selected="" assignees={participants.map((p) => ({id: p.id ,name: p.name}))}/>
     <StatusDropdown id="modal-status" selected="" />
     <Input id="modal-description" name="description" title="Description" type="text" value="init" ></Input>
 
@@ -59,10 +67,18 @@ try {
     itemList.addEventListener('click', function(e) {
       const properties = ["id", "title", "assignee", "status", "description"];
 
+      // as data-attributes are not inherited, find the data-holding parent if a child-div was clicked.
+      let target = e.target;
+      while (target) {
+        if (target.dataset.assignee) {
+          break;
+        }
+        target = target.parentNode;
+      }
+
       // transfer the task properties from the button metadata into the modal inputs
-      // BUGBUG if i click on the badge this fails
       properties.forEach((property) => {
-        var value = e.target.getAttribute(`data-${property}`);
+        var value = target.getAttribute(`data-${property}`);
         document.getElementById(`modal-${property}`).value = value;
         document.getElementById(`modal-${property}`).dataset[property] = value;
       })
