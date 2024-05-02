@@ -48,7 +48,7 @@ try {
 
 <CreateTaskModal buttonId={openModalId} assignees={participants.map((p) => ({id: p.id ,name: p.name}))}/>
 
-<Modal title="Edit Task" buttonId="openEditTaskModal">
+<Modal title="Edit Task" openModalId="openEditTaskModal">
   <form
     hx-post="/server/task/update"
     hx-swap="none"
@@ -75,7 +75,7 @@ try {
       // as data-attributes are not inherited, find the data-holding parent if a child-div was clicked.
       let target = e.target;
       while (target) {
-        if (target.dataset.assignee) {
+        if (target.dataset.id) {
           break;
         }
         target = target.parentNode;
