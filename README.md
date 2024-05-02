@@ -27,7 +27,7 @@ V1 Release:
   - [x] List
   - [x] Edit
   - [x] Delete
-- [ ] Create, Edit, List and Delete Task
+- [x] Create, Edit, List and Delete Task
   - [x] List
   - [x] Create
   - [x] Edit
@@ -43,16 +43,19 @@ V1 Release:
   - [x] Fix Dark Mode corner cases
   - [x] Move from query-params to dynamic routing (astro ssr)
   - [x] Have party ids be uuids instead of an incremental counter (astro db)
-  - [x] Figure out error handling & displaying (htmx)
+  - [x] Figure out basic error handling & displaying (htmx)
+  - [ ] bug: view transitions dont update assignee with my data-flow modals (is my approach wrong?)
   - [ ] Clean up dangling ids, make sure code is easy to understand and not too losely coupled.
+    - look into data flow in raw js / outside out react without the ID mess
   - [ ] How to display toast messages caused by a Modal?
     - [ ] Fix deleting of an participant which still has tasks assigned
   - [ ] Recover the lost types in the utils function (zod)
 - In general
   - [ ] Check that .astro backend sites wont expose secrets (astro ssr)
-  - [ ] View transition for fancy slide-in of the whole menu
+  - [x] View transitions (+for fancy slide-in of the whole menu+)
   - [x] Make the html easier to read by introducing views / encapsulation
   - [x] Have a decent 404 page
+  - [x] Biome linting
 
 Later Releases:
 - Layout
@@ -66,6 +69,7 @@ Later Releases:
   - [ ] Do frontend input validation (not super relevant for this app)
   - [ ] Have better toast messages with a proper library ([js-snackbar](https://www.michaelmickelson.com/js-snackbar/)?)
   - [ ] Navigate left-right on desktop via arrow keys
+  - [ ] Pagination (average party wont have hundreds of guests / tasks, for bigger lists we have the scrollable area)
 - Github Actions
   - [ ] Biome Linting
   - [ ] Nice releases
