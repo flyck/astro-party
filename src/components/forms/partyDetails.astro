@@ -1,15 +1,15 @@
 ---
-import Input from "../mini/input.astro"
+import Input from "../mini/input.astro";
 
 interface Props {
-  loading: boolean
-  title?: string
-  location?: string
-  date?: string
-  description?: string
+  loading: boolean;
+  title?: string;
+  location?: string;
+  date?: string;
+  description?: string;
 }
 
-const { loading, title, location, date, description } = Astro.props
+const { loading, title, location, date, description } = Astro.props;
 ---
 <Input name="title" title="Title" type="text" value={title} loading={loading}></Input>
 <Input name="location" title="Where" type="text" value={location} loading={loading}></Input>

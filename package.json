@@ -21,6 +21,7 @@
   },
   "devDependencies": {
     "@astrojs/check": "^0.5.8",
+    "@biomejs/biome": "1.7.2",
     "netlify-cli": "^17.19.4",
     "typescript": "^5.4.2"
   },

@@ -1,15 +1,15 @@
 ---
-import Modal from  "../../layouts/Modal.astro"
-import Input from "../mini/input.astro"
-import SubmitButton from "../submitButton.astro"
+import Modal from "../../layouts/Modal.astro";
+import Input from "../mini/input.astro";
+import SubmitButton from "../submitButton.astro";
 
 interface Props {
-  buttonId: string
+  buttonId: string;
 }
 
 const { buttonId } = Astro.props;
 ---
-<Modal title="Create Participant" buttonId={buttonId}>
+<Modal title="Create Participant" openModalId={buttonId}>
     <form
       hx-post="/server/participant/create"
       hx-swap="none"

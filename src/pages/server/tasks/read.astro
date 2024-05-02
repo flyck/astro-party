@@ -1,37 +1,42 @@
 ---
-import {db, Tasks, eq, Participants, Parties} from "astro:db";
-import {toastResponse, ToastError} from "../../../utils/toast"
-import { getPartyIdOrThrowToast } from "../../../utils/utils"
-import StatusBadge from "../../../components/statusBadge.astro"
-import type {Status} from "../../../components/statusBadge.astro"
-import Modal from "../../../layouts/Modal.astro"
-import Input from "../../../components/mini/input.astro"
-import SubmitButton from "../../../components/submitButton.astro"
-import DeleteButton from "../../../components/deleteButton.astro"
-import StatusDropdown from "../../../components/statusDropdown.astro"
+import { db, Tasks, eq, Participants, Parties } from "astro:db";
+import { toastResponse, ToastError } from "../../../utils/toast";
+import { getPartyIdOrThrowToast } from "../../../utils/utils";
+import StatusBadge from "../../../components/statusBadge.astro";
+import type { Status } from "../../../components/statusBadge.astro";
+import Modal from "../../../layouts/Modal.astro";
+import Input from "../../../components/mini/input.astro";
+import SubmitButton from "../../../components/submitButton.astro";
+import DeleteButton from "../../../components/deleteButton.astro";
+import StatusDropdown from "../../../components/statusDropdown.astro";
 import AssigneeDropdown from "../../../components/assigneeDropdown.astro";
-import CreateTaskModal from "../../../components/modals/createTask.astro"
+import CreateTaskModal from "../../../components/modals/createTask.astro";
 import { openModalId } from "../../[partyId]/tasks.astro";
 
-const { request } = Astro
+const { request } = Astro;
 
-let tasks = []
-let participants = []
+let tasks = [];
+let participants = [];
 try {
-  const id = getPartyIdOrThrowToast(request)
+  const id = getPartyIdOrThrowToast(request);
 
   const party = await db.select().from(Parties).where(eq(Parties.id, id));
-  if (party.length == 0) {
-    throw new ToastError("danger", "Party does not exist.", 400)
+  if (party.length === 0) {
+    throw new ToastError("danger", "Party does not exist.", 400);
   }
 
   tasks = await db.select().from(Tasks).where(eq(Tasks.partyId, id));
-  participants = await db.select().from(Participants).where(eq(Participants.partyId, id));
-} catch(error) {
+  participants = await db
+    .select()
+    .from(Participants)
+    .where(eq(Participants.partyId, id));
+} catch (error) {
   if (error instanceof ToastError) {
-    return toastResponse(error)
+    return toastResponse(error);
   }
-  return toastResponse(new ToastError("danger", "Something went wrong. :(", 500))
+  return toastResponse(
+    new ToastError("danger", "Something went wrong. :(", 500),
+  );
 }
 ---
 <ul id="openEditTaskModal">

@@ -1,13 +1,13 @@
 ---
 interface Props {
-  title: string
-  buttonId: string
-  id?: string
+  title: string;
+  openModalId: string;
+  id?: string;
 }
 
-const { title, buttonId } = Astro.props;
+const { title, openModalId: buttonId } = Astro.props;
 
-const id = Astro.props.id || `${title.replaceAll(" ", "")}Modal`
+const id = Astro.props.id || `${title.replaceAll(" ", "")}Modal`;
 ---
 <dialog data-modal class="backdrop:bg-white bg-white dark:backdrop:bg-black dark:bg-black" id={id}>
   <div class="mb-4 flex w-80 my-auto mx-auto">

@@ -1,19 +1,19 @@
 ---
-import Badge from "./mini/badge.astro"
-import type { BadgeColor } from "./mini/badge.astro"
+import Badge from "./mini/badge.astro";
+import type { BadgeColor } from "./mini/badge.astro";
 
 interface Props {
   class?: string;
-  status: Status
+  status: Status;
 }
 
-export type Status = "TODO" | "PENDING" | "DONE"
+export type Status = "TODO" | "PENDING" | "DONE";
 
-const config: {[key in Status]: BadgeColor} = {
-  "TODO": "red",
-  "PENDING": "yellow",
-  "DONE": "green"
-}
+const config: { [key in Status]: BadgeColor } = {
+  TODO: "red",
+  PENDING: "yellow",
+  DONE: "green",
+};
 
 function capitalizeFirstLetter(str: string): string {
   return str.charAt(0).toUpperCase() + str.slice(1);

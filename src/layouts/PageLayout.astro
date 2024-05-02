@@ -1,15 +1,16 @@
 ---
-import Layout from "./Layout.astro"
-import ChevronLeftIcon from "../components/mini/arrowLeft.astro"
-import ChevronRightIcon from "../components/mini/arrowRight.astro"
-import Toast from "../components/toast.astro"
-import { fade } from 'astro:transitions';
+import Layout from "./Layout.astro";
+import ChevronLeftIcon from "../components/mini/arrowLeft.astro";
+import ChevronRightIcon from "../components/mini/arrowRight.astro";
+import Toast from "../components/toast.astro";
+import { fade } from "astro:transitions";
 
 interface Props {
   left?: string;
   right?: string;
-  title: string
-  children: any[]
+  title: string;
+  // biome-ignore lint/suspicious/noExplicitAny: <explanation>
+  children: any[];
 }
 
 const { left, right, title } = Astro.props;

@@ -1,17 +1,19 @@
 ---
 interface Props {
   class?: string;
-  color: BadgeColor
+  color: BadgeColor;
 }
 
-export type BadgeColor = "red" | "yellow" | "green"
+export type BadgeColor = "red" | "yellow" | "green";
 
 const colors = {
-  "red": "bg-red-500 dark:bg-red-500 hover:bg-red-600 dark:hover:bg-red-600",
-  "yellow": "bg-yellow-500 dark:bg-yellow-400 hover:bg-yellow-600 dark:hover:bg-yellow-500",
-  "green": "bg-green-500 dark:bg-green-400 hover:bg-green-600 dark:hover:bg-green-500",
-  "gray": "bg-gray-900 dark:bg-gray-50",
-}
+  red: "bg-red-500 dark:bg-red-500 hover:bg-red-600 dark:hover:bg-red-600",
+  yellow:
+    "bg-yellow-500 dark:bg-yellow-400 hover:bg-yellow-600 dark:hover:bg-yellow-500",
+  green:
+    "bg-green-500 dark:bg-green-400 hover:bg-green-600 dark:hover:bg-green-500",
+  gray: "bg-gray-900 dark:bg-gray-50",
+};
 
 const { class: className, color } = Astro.props;
 ---

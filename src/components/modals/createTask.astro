@@ -1,17 +1,17 @@
 ---
-import Modal from  "../../layouts/Modal.astro"
-import Input from "../mini/input.astro"
-import SubmitButton from "../submitButton.astro"
-import VirginDropdown from "../virginDropdown.astro"
+import Modal from "../../layouts/Modal.astro";
+import Input from "../mini/input.astro";
+import SubmitButton from "../submitButton.astro";
+import VirginDropdown from "../virginDropdown.astro";
 
 interface Props {
-  buttonId: string
-  assignees: {name: string, id: number}[]
+  buttonId: string;
+  assignees: { name: string; id: number }[];
 }
 
 const { buttonId, assignees } = Astro.props;
 ---
-<Modal title="Create Task" buttonId={buttonId}>
+<Modal title="Create Task" openModalId={buttonId}>
   <form
     hx-post="/server/task/create"
     hx-target="#action-feedback"
