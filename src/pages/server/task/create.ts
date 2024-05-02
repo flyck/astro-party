@@ -9,7 +9,7 @@ export const POST: APIRoute = async ({ params, request }) => {
   const inputSchema = z.object({
     title: z.string().min(1).max(100),
     description: z.string().max(100),
-    assignee: z.string().transform((val) => parseInt(val))
+    assignee: z.string().transform(p => p.length > 0 ? parseInt(p) : null)
   });
 
   try {
