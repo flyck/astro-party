@@ -1,5 +1,5 @@
 ---
-import {db, Participants, eq} from "astro:db";
+import {db, Participants, eq, Parties} from "astro:db";
 const { request } = Astro;
 import Input from "../../../components/mini/input.astro"
 import SubmitButton from "../../../components/submitButton.astro"
@@ -11,6 +11,11 @@ import Modal from "../../../layouts/Modal.astro"
 let participants = []
 try {
   const id = getPartyIdOrThrowToast(request)
+
+  const party = await db.select().from(Parties).where(eq(Parties.id, id));
+  if (party.length == 0) {
+    throw new ToastError("danger", "Party does not exist.", 400)
+  }
 
   participants = await db.select().from(Participants).where(eq(Participants.partyId, id));
 } catch(error) {
@@ -30,7 +35,7 @@ try {
   )}
 </ul>
 
-<Modal title="Edit Participant" buttonId="openEditParticipantModal">
+<Modal title="Edit Participant" openModalId="openEditParticipantModal">
   <form
     hx-post="/server/participant/update"
     hx-swap="none"

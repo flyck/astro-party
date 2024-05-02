@@ -70,4 +70,11 @@ class Toast {
    toast.show();
  }
  document.body.addEventListener("makeToast", onMakeToast);
+ document.addEventListener(
+  "astro:after-swap",
+  () => {
+    document.body.addEventListener("makeToast", onMakeToast);
+  },
+  { once: false }
+);
 </script>
