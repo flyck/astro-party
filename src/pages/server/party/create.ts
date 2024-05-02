@@ -1,12 +1,12 @@
-import * as z from "zod";
-import { db, Parties } from "astro:db";
+import { Parties, db } from "astro:db";
+import type { APIRoute } from "astro";
 import { customAlphabet } from "nanoid";
-import { toastResponse, ToastError } from "./../../../utils/toast";
+import * as z from "zod";
+import { ToastError, toastResponse } from "./../../../utils/toast";
 import {
   getPartyIdOrThrowToast,
   validateFormOrThrowToast,
 } from "./../../../utils/utils";
-import type { APIRoute } from "astro";
 
 export const POST: APIRoute = async ({ params, request }) => {
   // "beautiful" ids without special characters

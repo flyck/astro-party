@@ -1,5 +1,5 @@
-import { ToastError } from "./toast";
 import type { ZodSchema } from "zod";
+import { ToastError } from "./toast";
 
 export function getPartyIdOrThrowToast(request: Request) {
   const url = new URL(request.headers.get("Hx-Current-Url") || "");

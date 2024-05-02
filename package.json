@@ -4,6 +4,8 @@
   "version": "0.0.1",
   "scripts": {
     "dev": "astro dev",
+    "lint": "biome check src",
+    "lint:fix": "biome check --apply src",
     "start": "astro dev",
     "build": "astro build",
     "preview": "astro preview",

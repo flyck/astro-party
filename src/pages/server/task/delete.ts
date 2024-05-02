@@ -1,11 +1,11 @@
+import { Tasks, and, db, eq } from "astro:db";
+import type { APIRoute } from "astro";
 import * as z from "zod";
-import { db, eq, and, Tasks } from "astro:db";
-import { toastResponse, ToastError } from "./../../../utils/toast";
+import { ToastError, toastResponse } from "./../../../utils/toast";
 import {
   getPartyIdOrThrowToast,
   validateFormOrThrowToast,
 } from "./../../../utils/utils";
-import type { APIRoute } from "astro";
 
 export const POST: APIRoute = async ({ params, request }) => {
   const inputSchema = z.object({
@@ -29,7 +29,7 @@ export const POST: APIRoute = async ({ params, request }) => {
     return new Response(JSON.stringify({ ok: true }), {
       status: 200,
       headers: {
-        "hx-redirect": `tasks`,
+        "hx-redirect": "tasks",
       },
     });
   } catch (error) {

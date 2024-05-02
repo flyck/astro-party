@@ -1,7 +1,7 @@
-import { db, eq, Parties, Participants, Tasks } from "astro:db";
-import { toastResponse, ToastError } from "./../../../utils/toast";
-import { getPartyIdOrThrowToast } from "./../../../utils/utils";
+import { Participants, Parties, Tasks, db, eq } from "astro:db";
 import type { APIRoute } from "astro";
+import { ToastError, toastResponse } from "./../../../utils/toast";
+import { getPartyIdOrThrowToast } from "./../../../utils/utils";
 
 export const POST: APIRoute = async ({ params, request }) => {
   try {
@@ -19,7 +19,7 @@ export const POST: APIRoute = async ({ params, request }) => {
 
     console.info("Party deleted: " + JSON.stringify(partyDeletionResult));
 
-    if (partyDeletionResult[0].id != id) {
+    if (partyDeletionResult[0].id !== id) {
       // TODO should be 404, but toast is not showing for 404s
       throw new ToastError("warning", "Party not found", 400);
     }
@@ -27,7 +27,7 @@ export const POST: APIRoute = async ({ params, request }) => {
     return new Response(JSON.stringify({ ok: true }), {
       status: 200,
       headers: {
-        "hx-redirect": `/`,
+        "hx-redirect": "/",
       },
     });
   } catch (error) {

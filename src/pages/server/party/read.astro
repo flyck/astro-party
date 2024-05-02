@@ -1,19 +1,20 @@
 ---
-import { db, eq, Parties } from "astro:db";
+import { Parties, db, eq } from "astro:db";
+import type { Parties as Party } from "astro:db";
 import PartyDetails from "../../../components/forms/partyDetails.astro";
-import { toastResponse, ToastError } from "../../../utils/toast";
+import { ToastError, toastResponse } from "../../../utils/toast";
 import { getPartyIdOrThrowToast } from "../../../utils/utils";
 
 const { request } = Astro;
 
-let party: any[] = [];
+let party = undefined;
 
 try {
   const id = getPartyIdOrThrowToast(request);
 
-  party = await db.select().from(Parties).where(eq(Parties.id, id));
+  party = (await db.select().from(Parties).where(eq(Parties.id, id)))[0];
 
-  if (party.length == 0) {
+  if (!party) {
     // TODO should be a 404, but somehow the toast is not displayed then.
     // only a few days ago, custom 404s didnt work at all: https://github.com/withastro/astro/issues/10590
     throw new ToastError("danger", "Party doesnt exist.", 400);
@@ -27,7 +28,7 @@ try {
   );
 }
 
-const { title, location, description, date } = party[0] || {};
+const { title, location, description, date } = party || {};
 ---
 <!-- In a seperate components so we can have load skeletons -->
 <PartyDetails title={title} location={location} date={date} description={description} loading={false} />
