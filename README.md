@@ -23,15 +23,7 @@ V1 Release:
 - [x] Basic Layout
 - [x] Create, Edit, List and Delete Party
 - [x] Create, Edit, List and Delete Participant
-  - [x] Create
-  - [x] List
-  - [x] Edit
-  - [x] Delete
 - [x] Create, Edit, List and Delete Task
-  - [x] List
-  - [x] Create
-  - [x] Edit
-  - [x] Delete
 - [x] Astro DB auth for netlify
 - [x] Deploy Astro frontend to Netlify
   - https://docs.astro.build/en/guides/deploy/netlify/
@@ -39,23 +31,24 @@ V1 Release:
   - [x] On delete cascade (astro-db)
   - [x] Loading Skeletons (htmx)
   - [x] Loading Spinners (htmx)
-  - [x] Remove date type from party date
-  - [x] Fix Dark Mode corner cases
   - [x] Move from query-params to dynamic routing (astro ssr)
   - [x] Have party ids be uuids instead of an incremental counter (astro db)
   - [x] Figure out basic error handling & displaying (htmx)
-  - [ ] bug: view transitions dont update assignee with my data-flow modals (is my approach wrong?)
-  - [ ] Clean up dangling ids, make sure code is easy to understand and not too losely coupled.
-    - look into data flow in raw js / outside out react without the ID mess
-  - [ ] How to display toast messages caused by a Modal?
+  - [ ] How to display toast messages within a Modal? (html forms)
     - [ ] Fix deleting of an participant which still has tasks assigned
-  - [ ] Recover the lost types in the utils function (zod)
 - In general
-  - [ ] Check that .astro backend sites wont expose secrets (astro ssr)
   - [x] View transitions (+for fancy slide-in of the whole menu+)
   - [x] Make the html easier to read by introducing views / encapsulation
   - [x] Have a decent 404 page
   - [x] Biome linting
+- bugs:
+  - [x] Fix Dark Mode corner cases
+  - [x] Remove date type from party date
+  - [ ] view transitions dont update assignee with my data-flow modals (is that approach wrong?)
+  - [ ] Clean up dangling ids, make sure code is easy to understand and not too losely coupled.
+    - look into data flow in raw js / outside out react without the ID mess
+  - [ ] Recover the lost types in the utils function (zod)
+  - [ ] Fix dialog focus properly
 
 Later Releases:
 - Layout
