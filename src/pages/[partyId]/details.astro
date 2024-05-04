@@ -1,4 +1,5 @@
 ---
+import DeleteButton from "../../components/deleteButton.astro";
 import PartyDetails from "../../components/forms/partyDetails.astro";
 import SubmitButton from "../../components/submitButton.astro";
 import Layout from "../../layouts/PageLayout.astro";
@@ -6,33 +7,22 @@ import Scrollable from "../../layouts/Scrollable.astro";
 ---
 
 <Layout title="Details" right="participants">
-  <div
-    hx-trigger="load"
-    hx-get="/server/party/read"
-    hx-target="#content"
-  >
-  </div>
-
   <form
     hx-post="/server/party/update"
     hx-swap="none"
   >
     <Scrollable>
+      <div
+        hx-trigger="load"
+        hx-get="/server/party/read"
+        hx-target="#content"
+        hx-swap="inner"
+      ></div>
       <div id="content">
-         <PartyDetails loading={true}>
+        <PartyDetails loading={true}>
       </div>
 
-      <div class="p-2">
-        <button
-          aria-label="Delete Party"
-          class="bg-red-600 text-gray-100 rounded-sm w-full"
-          hx-post="/server/party/delete"
-          hx-swap="none"
-          type="button"
-        >
-          Delete
-        </button>
-      </div>
+      <DeleteButton url="/server/party/delete" />
     </Scrollable>
 
     <SubmitButton>

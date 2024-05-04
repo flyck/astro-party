@@ -10,14 +10,13 @@ export const prerender = true;
 <PageLayout title="Create Party">
   <form
     hx-post="/server/party/create"
-    hx-target="#action-response"
+    hx-swap="none"
   >
     <Scrollable>
-      <Input name="title" title="Title" class="w-full rounded-sm dark:bg-gray-800" type="text" value="25th Birthday"></Input>
-      <Input name="description" title="Description" class="w-full rounded-sm dark:bg-gray-800" type="text" value="Lets go hard"></Input>
-      <Input name="location" title="Where" class="w-full rounded-sm dark:bg-gray-800" type="text" value="Dunenberg"></Input>
-      <Input name="date" title="When" class="w-full rounded-sm dark:bg-gray-800" type="text" value="2022-05-05"></Input>
-      <div id="action-response" class ="m-2"></div>
+      <Input name="title" title="Title" value="25th Birthday" />
+      <Input name="description" title="Description" value="Lets go hard" />
+      <Input name="location" title="Where" value="Dunenberg" />
+      <Input name="date" title="When" value="2022-05-05" />
     </Scrollable>
 
     <SubmitButton>

@@ -10,12 +10,12 @@ interface Props {
 const { buttonId } = Astro.props;
 ---
 <Modal title="Create Participant" openModalId={buttonId}>
-    <form
-      hx-post="/server/participant/create"
-      hx-swap="none"
-    >
-        <Input name="name" title="Name" type="text" value="Johnny B"></Input>
-        <Input name="email" title="Email" type="text" value="john@john.de"></Input>
-        <SubmitButton>Ok</SubmitButton>
-    <form>
+  <form
+    hx-post="/server/participant/create"
+    hx-swap="none"
+  >
+      <Input name="name" title="Name" value="Johnny B"></Input>
+      <Input name="email" title="Email" value="john@john.de"></Input>
+      <SubmitButton>Ok</SubmitButton>
+  <form>
 </Modal>

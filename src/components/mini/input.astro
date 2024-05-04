@@ -4,7 +4,7 @@ import Skeleton from "./skeleton.astro";
 interface Props {
   title: string;
   class?: string;
-  type: astroHTML.JSX.HTMLInputTypeAttribute;
+  type?: astroHTML.JSX.HTMLInputTypeAttribute;
   id?: string;
   name?: string;
   loading?: boolean;
@@ -17,6 +17,6 @@ const { class: className, title, loading, type, ...rest } = Astro.props;
     <div class="text-sm">{title}:</div>
     { loading ?
     <div class="mt-1"><Skeleton class="rounded-sm" /></div> :
-    <input aria-label={title} type={type} class="w-full text-sm dark:bg-gray-800 px-2 rounded-sm" {...rest} autofocus />
+    <input aria-label={title} type={type || "text"} class="w-full text-sm dark:bg-gray-800 px-2 rounded-sm" {...rest} autofocus />
     }
 </div>

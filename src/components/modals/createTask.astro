@@ -14,13 +14,11 @@ const { buttonId, assignees } = Astro.props;
 <Modal title="Create Task" openModalId={buttonId}>
   <form
     hx-post="/server/task/create"
-    hx-target="#action-feedback"
+    hx-swap="none"
   >
-    <Input name="title" title="Title" type="text" value="Buy Beer"></Input>
+    <Input name="title" title="Title" value="Buy Beer"></Input>
     <VirginDropdown assignees={assignees.map((p) => ({id: p.id ,name: p.name}))}/>
-    <Input name="description" title="Description" type="text" value=""></Input>
-    <div id="action-feedback" />
-
+    <Input name="description" title="Description" value=""></Input>
     <SubmitButton>Ok</SubmitButton>
     <form>
 </Modal>
