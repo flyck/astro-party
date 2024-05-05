@@ -9,14 +9,15 @@ interface Props {
   name?: string;
   loading?: boolean;
   value?: string;
+  autofocus?: boolean;
 }
 
-const { class: className, title, loading, type, ...rest } = Astro.props;
+const { class: className, title, loading, type, autofocus, ...rest } = Astro.props;
 ---
 <div class:list={[className, "border-b border-gray-500 p-2 dark:bg-gray-900"]}>
     <div class="text-sm">{title}:</div>
     { loading ?
     <div class="mt-1"><Skeleton class="rounded-sm" /></div> :
-    <input aria-label={title} type={type || "text"} class="w-full text-sm dark:bg-gray-800 px-2 rounded-sm" {...rest} autofocus />
+    <input aria-label={title} type={type || "text"} class="w-full text-sm dark:bg-gray-800 px-2 rounded-sm" {...rest} autofocus={autofocus || false} />
     }
 </div>
