@@ -4,7 +4,6 @@ import { customAlphabet } from "nanoid";
 import * as z from "zod";
 import { ToastError, toastResponse } from "./../../../utils/toast";
 import {
-  getPartyIdOrThrowToast,
   validateFormOrThrowToast,
 } from "./../../../utils/utils";
 

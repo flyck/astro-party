@@ -1,4 +1,4 @@
-import type { ZodSchema } from "zod";
+import type { ZodObject, ZodRawShape, ZodSchema } from "zod";
 import { ToastError } from "./toast";
 
 export function getPartyIdOrThrowToast(request: Request) {
@@ -11,9 +11,9 @@ export function getPartyIdOrThrowToast(request: Request) {
   return id;
 }
 
-export async function validateFormOrThrowToast(
+export async function validateFormOrThrowToast<T extends ZodRawShape>(
   request: Request,
-  schema: ZodSchema,
+  schema: ZodObject<T>,
 ) {
   const data = await request.formData();
   const inputJson: { [key: string]: unknown } = {};
