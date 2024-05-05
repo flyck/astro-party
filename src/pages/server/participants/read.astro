@@ -7,6 +7,7 @@ import SubmitButton from "../../../components/submitButton.astro";
 import Modal from "../../../layouts/Modal.astro";
 import { ToastError, toastResponse } from "../../../utils/toast";
 import { getPartyIdOrThrowToast } from "../../../utils/utils";
+import ParticipantList from "../../../components/content/participantList.astro";
 
 let participants = [];
 try {
@@ -30,42 +31,4 @@ try {
   );
 }
 ---
-<ul id="openEditParticipantModal">
-  {participants.map((p) =>
-  <button id={p.id.toString()} class="border-b border-gray-500 p-2 w-full text-left text-sm"
-          data-id={p.id.toString()} data-name={p.name} data-email={p.email}
-  >
-    {p.name} ({p.email || "?"})
-  </button>
-  )}
-</ul>
-
-<Modal title="Edit Participant" openModalId="openEditParticipantModal">
-  <form
-    hx-post="/server/participant/update"
-    hx-swap="none"
-    >
-    <Input id="modal-id" name="id" title="Id" class="hidden" type="text" value="init"></Input>
-    <Input id="modal-name" name="name" title="Name" type="text" value="init"></Input>
-    <Input id="modal-email" name="email" title="Email" type="text" value="init" ></Input>
-
-    <DeleteButton url="/server/participant/delete" />
-    <SubmitButton>Ok</SubmitButton>
-  </form>
-</Modal>
-
-<script is:inline>
-    // Get the item list
-    var itemList = document.getElementById('openEditParticipantModal');
-
-    // When a list item is clicked, open the modal with the corresponding content
-    itemList.addEventListener('click', function(e) {
-      const properties = ["id", "name", "email"];
-
-      // transfer the task properties from the button metadata into the modal inputs
-      properties.forEach((property) => {
-        var value = e.target.getAttribute(`data-${property}`);
-        document.getElementById(`modal-${property}`).value = value;
-      })
-    });
-</script>
+<ParticipantList participants={participants} />

@@ -1,17 +1,8 @@
 ---
 import { Participants, Parties, Tasks, db, eq } from "astro:db";
-import AssigneeDropdown from "../../../components/assigneeDropdown.astro";
-import DeleteButton from "../../../components/deleteButton.astro";
-import Input from "../../../components/mini/input.astro";
-import CreateTaskModal from "../../../components/modals/createTask.astro";
-import StatusBadge from "../../../components/statusBadge.astro";
-import type { Status } from "../../../components/statusBadge.astro";
-import StatusDropdown from "../../../components/statusDropdown.astro";
-import SubmitButton from "../../../components/submitButton.astro";
-import Modal from "../../../layouts/Modal.astro";
 import { ToastError, toastResponse } from "../../../utils/toast";
 import { getPartyIdOrThrowToast } from "../../../utils/utils";
-import { openModalId } from "../../[partyId]/tasks.astro";
+import TaskList from "../../../components/content/taskList.astro";
 
 const { request } = Astro;
 
@@ -39,58 +30,4 @@ try {
   );
 }
 ---
-<ul id="openEditTaskModal">
-  {tasks.map((t, index) =>
-  <div id={index.toString()} class="flex items-center justify-between border-b border-gray-500 p-2 cursor-pointer"
-       data-id={t.id.toString()} data-title={t.title.toString()}
-       data-status={t.status} data-description={t.description} data-assignee={t.assignee}>
-    <div class="text-sm">{t.title || "?"}{t.assignee ? ` (${participants.find(participant => participant.id == t.assignee)!.name})` : ''}</div>
-    <StatusBadge status={t.status as Status} />
-  </div>
-  )}
-</ul>
-
-
-<CreateTaskModal buttonId={openModalId} assignees={participants.map((p) => ({id: p.id ,name: p.name}))}/>
-
-<Modal title="Edit Task" openModalId="openEditTaskModal">
-  <form
-    hx-post="/server/task/update"
-    hx-swap="none"
-    >
-    <Input id="modal-id" name="id" title="Id" class="hidden" type="text" value="init"></Input>
-    <Input id="modal-title" name="title" title="Title" type="text" value="init"></Input>
-    <AssigneeDropdown id="modal-assignee" selected="" assignees={participants.map((p) => ({id: p.id ,name: p.name}))}/>
-    <StatusDropdown id="modal-status" selected="" />
-    <Input id="modal-description" name="description" title="Description" type="text" value="init" ></Input>
-
-    <DeleteButton url="/server/task/delete" />
-    <SubmitButton>Ok</SubmitButton>
-  </form>
-</Modal>
-
-<script is:inline>
-    // Get the item list
-    var itemList = document.getElementById('openEditTaskModal');
-
-    // When a list item is clicked, open the modal with the corresponding content
-    itemList.addEventListener('click', function(e) {
-      const properties = ["id", "title", "assignee", "status", "description"];
-
-      // as data-attributes are not inherited, find the data-holding parent if a child-div was clicked.
-      let target = e.target;
-      while (target) {
-        if (target.dataset.id) {
-          break;
-        }
-        target = target.parentNode;
-      }
-
-      // transfer the task properties from the button metadata into the modal inputs
-      properties.forEach((property) => {
-        var value = target.getAttribute(`data-${property}`);
-        document.getElementById(`modal-${property}`).value = value;
-        document.getElementById(`modal-${property}`).dataset[property] = value;
-      })
-    });
-</script>
+<TaskList participants={participants} tasks={tasks} />
