@@ -36,19 +36,22 @@ V1 Release:
   - [x] Figure out basic error handling & displaying (htmx)
   - [ ] How to display toast messages within a Modal? (html forms)
     - [ ] Fix deleting of an participant which still has tasks assigned
+    - official approach: https://htmx.org/examples/inline-validation/
 - In general
   - [x] View transitions (+for fancy slide-in of the whole menu+)
   - [x] Make the html easier to read by introducing views / encapsulation
   - [x] Have a decent 404 page
   - [x] Biome linting
+  - [ ] Move DB to netlify region to avoid double-roundtrip from EU
 - bugs:
   - [x] Fix Dark Mode corner cases
   - [x] Remove date type from party date
+  - [x] Fix dialog focus properly
+  - [x] loading animation corners bug
   - [ ] view transitions dont update assignee with my data-flow modals (is that approach wrong?)
   - [ ] Clean up dangling ids, make sure code is easy to understand and not too losely coupled.
     - look into data flow in raw js / outside out react without the ID mess
-  - [ ] Recover the lost types in the utils function (zod)
-  - [ ] Fix dialog focus properly
+  - [x] Recover the lost types in the utils function (zod)
 
 Later Releases:
 - Layout
