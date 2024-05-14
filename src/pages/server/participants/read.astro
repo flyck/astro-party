@@ -1,13 +1,13 @@
 ---
 import { Participants, Parties, db, eq } from "astro:db";
 const { request } = Astro;
+import ParticipantList from "../../../components/content/participantList.astro";
 import DeleteButton from "../../../components/deleteButton.astro";
 import Input from "../../../components/mini/input.astro";
 import SubmitButton from "../../../components/submitButton.astro";
 import Modal from "../../../layouts/Modal.astro";
 import { ToastError, toastResponse } from "../../../utils/toast";
 import { getPartyIdOrThrowToast } from "../../../utils/utils";
-import ParticipantList from "../../../components/content/participantList.astro";
 
 let participants = [];
 try {

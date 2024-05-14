@@ -1,20 +1,19 @@
 ---
-import { Participants, Parties, Tasks, db, eq } from "astro:db";
+import type { Participants, Tasks } from "astro:db";
+import Modal from "../../layouts/Modal.astro";
+import { openModalId } from "../../pages/[partyId]/tasks.astro";
 import AssigneeDropdown from "../assigneeDropdown.astro";
+import CreateTaskModal from "../content/createTask.astro";
 import DeleteButton from "../deleteButton.astro";
 import Input from "../mini/input.astro";
-import CreateTaskModal from "../content/createTask.astro";
 import StatusBadge from "../statusBadge.astro";
 import type { Status } from "../statusBadge.astro";
 import StatusDropdown from "../statusDropdown.astro";
 import SubmitButton from "../submitButton.astro";
-import Modal from "../../layouts/Modal.astro";
-import { openModalId } from "../../pages/[partyId]/tasks.astro";
-
 
 interface Props {
-  tasks:  typeof Tasks.$inferSelect[],
-  participants:  typeof Participants.$inferSelect[]
+  tasks: (typeof Tasks.$inferSelect)[];
+  participants: (typeof Participants.$inferSelect)[];
 }
 
 const { tasks, participants } = Astro.props;
@@ -40,8 +39,8 @@ const { tasks, participants } = Astro.props;
       >
       <Input id="modal-id" name="id" title="Id" class="hidden" type="text" value="init"></Input>
       <Input id="modal-title" name="title" title="Title" type="text" value="init"></Input>
-      <AssigneeDropdown id="modal-assignee" selected="" assignees={participants.map((p) => ({id: p.id ,name: p.name}))}/>
-      <StatusDropdown id="modal-status" selected="" />
+      <AssigneeDropdown id="modal-assignee" assignees={participants.map((p) => ({id: p.id ,name: p.name}))}/>
+      <StatusDropdown id="modal-status" />
       <Input id="modal-description" name="description" title="Description" type="text" value="init" ></Input>
   
       <DeleteButton url="/server/task/delete" />

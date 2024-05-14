@@ -1,8 +1,8 @@
 ---
 import { Participants, Parties, Tasks, db, eq } from "astro:db";
+import TaskList from "../../../components/content/taskList.astro";
 import { ToastError, toastResponse } from "../../../utils/toast";
 import { getPartyIdOrThrowToast } from "../../../utils/utils";
-import TaskList from "../../../components/content/taskList.astro";
 
 const { request } = Astro;
 

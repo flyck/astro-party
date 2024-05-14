@@ -3,9 +3,7 @@ import type { APIRoute } from "astro";
 import { customAlphabet } from "nanoid";
 import * as z from "zod";
 import { ToastError, toastResponse } from "./../../../utils/toast";
-import {
-  validateFormOrThrowToast,
-} from "./../../../utils/utils";
+import { validateFormOrThrowToast } from "./../../../utils/utils";
 
 export const POST: APIRoute = async ({ params, request }) => {
   // "beautiful" ids without special characters

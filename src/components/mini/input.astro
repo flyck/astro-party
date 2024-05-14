@@ -12,7 +12,14 @@ interface Props {
   autofocus?: boolean;
 }
 
-const { class: className, title, loading, type, autofocus, ...rest } = Astro.props;
+const {
+  class: className,
+  title,
+  loading,
+  type,
+  autofocus,
+  ...rest
+} = Astro.props;
 ---
 <div class:list={[className, "border-b border-gray-500 p-2 dark:bg-gray-900"]}>
     <div class="text-sm">{title}:</div>

@@ -1,12 +1,12 @@
 ---
-import { Participants, Parties, db, eq } from "astro:db";
+import type { Participants } from "astro:db";
 import DeleteButton from "../../components/deleteButton.astro";
 import Input from "../../components/mini/input.astro";
 import SubmitButton from "../../components/submitButton.astro";
 import Modal from "../../layouts/Modal.astro";
 
 interface Props {
-  participants:  typeof Participants.$inferSelect[]
+  participants: (typeof Participants.$inferSelect)[];
 }
 
 const { participants } = Astro.props;

@@ -1,11 +1,10 @@
 ---
 interface Props {
   class?: string;
-  selected: string;
   id: string;
 }
 
-const { class: className, selected, id } = Astro.props;
+const { class: className, id } = Astro.props;
 ---
 <div class="border-b border-gray-500 p-2" id={id}>
   <div class="text-sm">Status:</div>

@@ -1,16 +1,16 @@
 ---
-import VirginDropdown from './virginDropdown.astro';
+import VirginDropdown from "./virginDropdown.astro";
 
 interface Props {
   class?: string;
   assignees: { id: number; name: string }[];
-  id: string
+  id: string;
 }
 
-// we need the main id to read the data-attribute from, and we need the selectId 
+// we need the main id to read the data-attribute from, and we need the selectId
 // so we can target it and pass on the data-assignee value to it.
 
-const selectId = "taskAssigneeSelect"
+const selectId = "taskAssigneeSelect";
 
 const { class: className, id, assignees } = Astro.props;
 ---
