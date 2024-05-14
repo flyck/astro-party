@@ -3,7 +3,6 @@ import VirginDropdown from './virginDropdown.astro';
 
 interface Props {
   class?: string;
-  selected: string;
   assignees: { id: number; name: string }[];
   id: string
 }
@@ -13,7 +12,7 @@ interface Props {
 
 const selectId = "taskAssigneeSelect"
 
-const { class: className, selected, id, assignees } = Astro.props;
+const { class: className, id, assignees } = Astro.props;
 ---
 <VirginDropdown assignees={assignees} mainId={id} selectId={selectId} />
 
