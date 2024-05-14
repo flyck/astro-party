@@ -42,7 +42,7 @@ V1 Release:
   - [x] Make the html easier to read by introducing views / encapsulation
   - [x] Have a decent 404 page
   - [x] Biome linting
-  - [ ] Move DB to netlify region to avoid double-roundtrip from EU
+  - [x] Move astro DB to netlify region to avoid double-roundtrip from EU
 - bugs:
   - [x] Fix Dark Mode corner cases
   - [x] Remove date type from party date
