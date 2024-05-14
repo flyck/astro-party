@@ -50,12 +50,24 @@ const { left, right, title } = Astro.props;
   </div>
 </Layout>
 
-<script is:inline>
-document.addEventListener(
-  "astro:after-swap",
-  () => {
-    htmx.process(document.body || null)
-  },
-  { once: false }
-);
+<script is:inline define:vars={{ left, right }}>
+  function activateKeypressNavigation() {
+  document.addEventListener('keydown', (event) => {
+    if (event.key === 'ArrowLeft' && left) {
+      window.location.href = left;
+    }
+    if (event.key === 'ArrowRight' && right) {
+      window.location.href = right;
+    }
+  });
+  }
+  activateKeypressNavigation()
+  document.addEventListener(
+    "astro:after-swap",
+    () => {
+      htmx.process(document.body || null);
+      activateKeypressNavigation();
+    },
+    { once: false }
+  );
 </script>
