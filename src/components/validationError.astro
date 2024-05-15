@@ -1,0 +1,8 @@
+---
+interface Props {
+  error?: string;
+}
+
+const { error } = Astro.props;
+---
+<div class="text-xs text-red-400">{error ? `(${error})` : undefined}</div> 

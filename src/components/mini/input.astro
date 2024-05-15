@@ -6,25 +6,48 @@ interface Props {
   class?: string;
   type?: astroHTML.JSX.HTMLInputTypeAttribute;
   id?: string;
-  name?: string;
+  name: string;
   loading?: boolean;
   value?: string;
   autofocus?: boolean;
+  validateUrl?: string;
 }
 
 const {
   class: className,
   title,
+  name,
   loading,
   type,
   autofocus,
+  validateUrl,
+  id,
   ...rest
 } = Astro.props;
+
+const validationResultId = name + Math.random().toString(16).slice(2);
 ---
 <div class:list={[className, "border-b border-gray-500 p-2 dark:bg-gray-900"]}>
-    <div class="text-sm">{title}:</div>
+    <div class="text-sm flex items-center">
+      {title}: <div class="ml-2" id={validationResultId}></div>
+    </div>
     { loading ?
     <div class="mt-1"><Skeleton class="rounded-sm" /></div> :
-    <input aria-label={title} type={type || "text"} class="w-full text-sm dark:bg-gray-800 px-2 rounded-sm" {...rest} autofocus={autofocus || false} />
+    <input aria-label={title} type={type || "text"} name={name} class="w-full text-sm dark:bg-gray-800 px-2 rounded-sm" {...rest}
+      autofocus={autofocus || false}
+      id={id}
+      hx-trigger="keyup changed delay:0.8s, change delay:0.8s"
+      hx-post={validateUrl}
+      hx-params={name}
+      hx-swap="innerHTML"
+      hx-target={"#" + validationResultId}
+      />
     }
 </div>
+
+<script is:inline define:vars={{responseId: validationResultId}}>
+  const elem = document.getElementById(responseId)
+  document.addEventListener('form-reset', function() {
+    elem.innerHTML = '';
+  });
+</script>

@@ -7,13 +7,13 @@ import {
   validateFormOrThrowToast,
 } from "./../../../utils/utils";
 
-export const POST: APIRoute = async ({ params, request }) => {
-  const inputSchema = z.object({
-    id: z.string().transform((p) => parseInt(p)),
-    name: z.string().min(1).max(100),
-    email: z.string().max(100),
-  });
+export const inputSchema = z.object({
+  id: z.string().transform((p) => parseInt(p)),
+  name: z.string().min(1, "cannot be empty").max(100),
+  email: z.string().max(100),
+});
 
+export const POST: APIRoute = async ({ params, request }) => {
   try {
     const partyId = getPartyIdOrThrowToast(request);
     const parsedInput = await validateFormOrThrowToast(request, inputSchema);

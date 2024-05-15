@@ -7,15 +7,15 @@ import {
   validateFormOrThrowToast,
 } from "./../../../utils/utils";
 
-export const POST: APIRoute = async ({ params, request }) => {
-  const inputSchema = z.object({
-    id: z.string().transform((p) => parseInt(p)),
-    title: z.string().min(1).max(100),
-    description: z.string().max(100),
-    status: z.string().max(100),
-    assignee: z.string().transform((p) => (p.length > 0 ? parseInt(p) : null)),
-  });
+export const inputSchema = z.object({
+  id: z.string().transform((p) => parseInt(p)),
+  title: z.string().min(1, "cannot be empty").max(100, "too long"),
+  description: z.string().max(100, "too long"),
+  status: z.string().max(100),
+  assignee: z.string().transform((p) => (p.length > 0 ? parseInt(p) : null)),
+});
 
+export const POST: APIRoute = async ({ params, request }) => {
   try {
     const partyId = getPartyIdOrThrowToast(request);
     const parsedInput = await validateFormOrThrowToast(request, inputSchema);

@@ -1,0 +1,9 @@
+---
+import ValidationError from "../../../components/validationError.astro";
+import { validateFormInput } from "../../../utils/utils";
+import { inputSchema } from "./update";
+const { request } = Astro;
+
+const error = await validateFormInput(request, inputSchema);
+---
+<ValidationError error={error} />

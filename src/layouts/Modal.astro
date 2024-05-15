@@ -37,6 +37,7 @@ const id = Astro.props.id || `${title.replaceAll(" ", "")}Modal`;
  const modal = document.getElementById(id);
 
  document.getElementById(buttonId).addEventListener('click', () => {
+   htmx.trigger("body", "form-reset");
    modal?.showModal()
  });
  document.getElementById("closeModalButton").addEventListener('click', () => {

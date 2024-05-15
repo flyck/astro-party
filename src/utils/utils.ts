@@ -32,3 +32,30 @@ export async function validateFormOrThrowToast<T extends ZodRawShape>(
 
   return parsedInput.data;
 }
+
+export async function validateFormInput(
+  request: Request,
+  schema: ZodObject<ZodRawShape>,
+) {
+  let error: string | undefined;
+  try {
+    const data = await request.formData();
+    const inputJson: { [key: string]: unknown } = {};
+    data.forEach((value, key: string) => {
+      inputJson[key] = value;
+    });
+
+    const parsedInput = schema.partial().safeParse(inputJson);
+
+    console.info("Input correct: " + parsedInput.success);
+
+    if (!parsedInput.success) {
+      error = parsedInput.error.errors[0].message;
+    }
+  } catch (err) {
+    console.error("Unexpected error while validating: " + err);
+    error = "internal error";
+  }
+
+  return error;
+}

@@ -38,10 +38,10 @@ const { tasks, participants } = Astro.props;
       hx-swap="none"
       >
       <Input id="modal-id" name="id" title="Id" class="hidden" type="text" value="init"></Input>
-      <Input id="modal-title" name="title" title="Title" type="text" value="init"></Input>
+      <Input id="modal-title" name="title" title="Title" type="text" value="init" autofocus={true} validateUrl="/server/task/validate"></Input>
       <AssigneeDropdown id="modal-assignee" assignees={participants.map((p) => ({id: p.id ,name: p.name}))}/>
       <StatusDropdown id="modal-status" />
-      <Input id="modal-description" name="description" title="Description" type="text" value="init" ></Input>
+      <Input id="modal-description" name="description" title="Description" type="text" value="init" validateUrl="/server/task/validate"></Input>
   
       <DeleteButton url="/server/task/delete" />
       <SubmitButton>Ok</SubmitButton>

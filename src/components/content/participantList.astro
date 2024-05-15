@@ -26,9 +26,9 @@ const { participants } = Astro.props;
     hx-post="/server/participant/update"
     hx-swap="none"
     >
-    <Input id="modal-id" name="id" title="Id" class="hidden" type="text" value="init"></Input>
-    <Input id="modal-name" name="name" title="Name" type="text" value="init"></Input>
-    <Input id="modal-email" name="email" title="Email" type="text" value="init" ></Input>
+    <Input id="modal-id" name="id" title="Id" class="hidden" type="text" value="init" />
+    <Input id="modal-name" name="name" title="Name" type="text" value="init" validateUrl="/server/participant/validate" />
+    <Input id="modal-email" name="email" title="Email" type="text" value="init" validateUrl="/server/participant/validate" />
 
     <DeleteButton url="/server/participant/delete" />
     <SubmitButton>Ok</SubmitButton>
@@ -36,17 +36,15 @@ const { participants } = Astro.props;
 </Modal>
 
 <script is:inline>
-    // Get the item list
-    var itemList = document.getElementById('openEditParticipantModal');
+  var itemList = document.getElementById('openEditParticipantModal');
 
-    // When a list item is clicked, open the modal with the corresponding content
-    itemList.addEventListener('click', function(e) {
-      const properties = ["id", "name", "email"];
+  itemList.addEventListener('click', function(e) {
+    const properties = ["id", "name", "email"];
 
-      // transfer the task properties from the button metadata into the modal inputs
-      properties.forEach((property) => {
-        var value = e.target.getAttribute(`data-${property}`);
-        document.getElementById(`modal-${property}`).value = value;
-      })
-    });
+    // transfer the task properties from the button metadata into the modal inputs
+    properties.forEach((property) => {
+      var value = e.target.getAttribute(`data-${property}`);
+      document.getElementById(`modal-${property}`).value = value;
+    })
+  });
 </script>

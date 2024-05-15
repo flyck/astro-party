@@ -1,8 +1,16 @@
 ---
+import PartyDetails from "../components/content/partyDetails.astro";
 import Input from "../components/mini/input.astro";
 import SubmitButton from "../components/submitButton.astro";
 import PageLayout from "../layouts/PageLayout.astro";
 import Scrollable from "../layouts/Scrollable.astro";
+
+const defaultValues = {
+  title: "25th Birthday",
+  description: "Lets go hard",
+  location: "Dunenberg",
+  date: "2022-05-05",
+};
 
 export const prerender = true;
 ---
@@ -13,10 +21,7 @@ export const prerender = true;
     hx-swap="none"
   >
     <Scrollable>
-      <Input name="title" title="Title" value="25th Birthday" />
-      <Input name="description" title="Description" value="Lets go hard" />
-      <Input name="location" title="Where" value="Dunenberg" />
-      <Input name="date" title="When" value="2022-05-05" />
+      <PartyDetails loading={false} {...defaultValues} />
     </Scrollable>
 
     <SubmitButton>
