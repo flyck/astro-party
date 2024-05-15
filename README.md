@@ -6,20 +6,29 @@ An experiment with the new astro db to re-implement the
 [party-task-planner](https://github.com/flyck/party-task-planner) with astro, astro server, astro
 db and htmx.
 
-## New Tech
+With this stack CRUD apps can be created without react, which can be a dread at times. All
+frontend actions can be implemented via the htmx abstraction, the templates come from the astro
+server, and the data is in a simple astro database which has a great integration with astro db and
+drizzle ORM.
 
-In this app I need to figure this out in htmx + astro:
+## Learnings
+
+### Learning Htmx
+
+In this app I needed to figure these out in htmx + astro:
 - [x] Loading spinners
 - [x] Inline form validation
 - [x] Reusable Modals and data-flow without react
 - [x] Skeletons
 - [ ] Toast Messages
 - [x] Astro View transitions with htmx
+
+### New Technologies
 - [x] Astro DB
 - [x] Astro SSR
 - [x] Netlify
 
-I'll also have explained these in a blog over at [double-trouble.dev]
+I'll also have explained these in a blog over at ![double-trouble.dev]
 
 ## Powered by Astro
 
