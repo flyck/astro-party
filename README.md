@@ -6,9 +6,20 @@ An experiment with the new astro db to re-implement the
 [party-task-planner](https://github.com/flyck/party-task-planner) with astro, astro server, astro
 db and htmx.
 
-With this stack (hopefully) CRUD apps can be created easily, as all frontend actions can be
-implemented via the htmx abstraction, the templates come from the astro server, and the data is in
-a simple astro database which has a great integration with astro db and drizzle ORM.
+## New Tech
+
+In this app I need to figure this out in htmx + astro:
+- [x] Loading spinners
+- [x] Inline form validation
+- [x] Reusable Modals and data-flow without react
+- [x] Skeletons
+- [ ] Toast Messages
+- [x] Astro View transitions with htmx
+- [x] Astro DB
+- [x] Astro SSR
+- [x] Netlify
+
+I'll also have explained these in a blog over at [double-trouble.dev]
 
 ## Powered by Astro
 
@@ -36,21 +47,21 @@ V1 Release:
   - [x] Figure out basic error handling & displaying (htmx)
   - [ ] How to display toast messages within a Modal? (html forms)
     - [ ] Fix deleting of an participant which still has tasks assigned
-    - official approach: https://htmx.org/examples/inline-validation/
 - In general
   - [x] View transitions (+for fancy slide-in of the whole menu+)
   - [x] Make the html easier to read by introducing views / encapsulation
   - [x] Have a decent 404 page
   - [x] Biome linting
   - [x] Move astro DB to netlify region to avoid double-roundtrip from EU
+  - [x] Do from inline validation (htmx)
+    - official approach: https://htmx.org/examples/inline-validation/
 - bugs:
   - [x] Fix Dark Mode corner cases
   - [x] Remove date type from party date
   - [x] Fix dialog focus properly
   - [x] loading animation corners bug
-  - [ ] view transitions dont update assignee with my data-flow modals (is that approach wrong?)
   - [ ] Clean up dangling ids, make sure code is easy to understand and not too losely coupled.
-    - look into data flow in raw js / outside out react without the ID mess
+    - check out golang htmx project structure
   - [x] Recover the lost types in the utils function (zod)
 
 Later Releases:
@@ -62,7 +73,6 @@ Later Releases:
   - [ ] 404 page doesnt work in subdirectories
 - Nice things
   - [ ] Modal gets closed when outside-area is clicked (escape & close button already work)
-  - [ ] Do frontend input validation (not super relevant for this app)
   - [ ] Have better toast messages with a proper library ([js-snackbar](https://www.michaelmickelson.com/js-snackbar/)?)
   - [ ] Navigate left-right on desktop via arrow keys
   - [ ] Pagination (average party wont have hundreds of guests / tasks, for bigger lists we have the scrollable area)
