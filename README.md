@@ -20,7 +20,7 @@ In this app I needed to figure these out in htmx + astro:
 - [x] Inline form validation
 - [x] Reusable Modals and data-flow without react
 - [x] Skeletons
-- [ ] Toast Messages
+- [x] Toast Messages
 - [x] Astro View transitions with htmx
 
 ### New Technologies
@@ -39,39 +39,7 @@ npm create astro@latest -- --template minimal
 
 ## Plan
 
-V1 Release:
-- [x] Basic Layout
-- [x] Create, Edit, List and Delete Party
-- [x] Create, Edit, List and Delete Participant
-- [x] Create, Edit, List and Delete Task
-- [x] Astro DB auth for netlify
-- [x] Deploy Astro frontend to Netlify
-  - https://docs.astro.build/en/guides/deploy/netlify/
-- Issues
-  - [x] On delete cascade (astro-db)
-  - [x] Loading Skeletons (htmx)
-  - [x] Loading Spinners (htmx)
-  - [x] Move from query-params to dynamic routing (astro ssr)
-  - [x] Have party ids be uuids instead of an incremental counter (astro db)
-  - [x] Figure out basic error handling & displaying (htmx)
-  - [ ] How to display toast messages within a Modal? (html forms)
-    - [ ] Fix deleting of an participant which still has tasks assigned
-- In general
-  - [x] View transitions (+for fancy slide-in of the whole menu+)
-  - [x] Make the html easier to read by introducing views / encapsulation
-  - [x] Have a decent 404 page
-  - [x] Biome linting
-  - [x] Move astro DB to netlify region to avoid double-roundtrip from EU
-  - [x] Do from inline validation (htmx)
-    - official approach: https://htmx.org/examples/inline-validation/
-- bugs:
-  - [x] Fix Dark Mode corner cases
-  - [x] Remove date type from party date
-  - [x] Fix dialog focus properly
-  - [x] loading animation corners bug
-  - [ ] Clean up dangling ids, make sure code is easy to understand and not too losely coupled.
-    - check out golang htmx project structure
-  - [x] Recover the lost types in the utils function (zod)
+V1 Release: Basic App functionality with all the goodies.
 
 Later Releases:
 - Layout
@@ -80,6 +48,7 @@ Later Releases:
 - Issues
   - [ ] Fix all type-errors
   - [ ] 404 page doesnt work in subdirectories
+  - [ ] Fix deleting of an participant which still has tasks assigned
 - Nice things
   - [ ] Modal gets closed when outside-area is clicked (escape & close button already work)
   - [ ] Have better toast messages with a proper library ([js-snackbar](https://www.michaelmickelson.com/js-snackbar/)?)
