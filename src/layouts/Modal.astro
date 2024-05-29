@@ -7,6 +7,9 @@ interface Props {
 
 const { title, openModalId: buttonId } = Astro.props;
 
+const closeButtonId =
+  title + "ModalClose" + Math.random().toString(16).slice(2);
+
 const id = Astro.props.id || `${title.replaceAll(" ", "")}Modal`;
 ---
 <dialog data-modal class="backdrop:bg-white bg-white dark:backdrop:bg-black dark:bg-black" id={id}>
@@ -18,7 +21,7 @@ const id = Astro.props.id || `${title.replaceAll(" ", "")}Modal`;
         <div class="w-full dark:bg-gray-900 bg-gray-100 dark:border-gray-800 p-2 rounded-lg text-center border">
           <div class="flex justify-between">
             <>{title}</>
-            <button class="" id="closeModalButton">
+            <button class="" id={closeButtonId}>
               ✖
             </button>
           </div>
@@ -33,20 +36,20 @@ const id = Astro.props.id || `${title.replaceAll(" ", "")}Modal`;
   </div>
 </dialog>
 
-<script is:inline define:vars={{ buttonId, id }}>
- const modal = document.getElementById(id);
+<script is:inline define:vars={{ buttonId, id, closeButtonId }}>
+  const modal = document.getElementById(id);
 
- document.getElementById(buttonId).addEventListener('click', () => {
-   htmx.trigger("body", "form-reset");
-   modal?.showModal()
- });
- document.getElementById("closeModalButton").addEventListener('click', () => {
-   modal?.close()
- });
+  document.getElementById(buttonId).addEventListener('click', () => {
+    htmx.trigger("body", "form-reset");
+    modal?.showModal()
+  });
+  document.getElementById(closeButtonId).addEventListener('click', () => {
+    modal?.close()
+  });
 
- window.onclick = function(event) {
-  if (event.target == modal) {
-    modal?.close();
+  window.onclick = function(event) {
+    if (event.target == modal) {
+      modal?.close();
+    }
   }
- }
 </script>
