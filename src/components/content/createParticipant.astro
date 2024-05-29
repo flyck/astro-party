@@ -14,7 +14,7 @@ const { buttonId } = Astro.props;
     hx-post="/server/participant/create"
     hx-swap="none"
   >
-    <Input name="name" title="Name" value="Johnny B" autofocus={true}></Input>
+    <Input class="rounded-t-lg" name="name" title="Name" value="Johnny B" autofocus={true}></Input>
     <Input name="email" title="Email" value="john@john.de"></Input>
     <SubmitButton>Ok</SubmitButton>
   <form>

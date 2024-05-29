@@ -11,7 +11,7 @@ interface Props {
 
 const { loading, title, location, date, description } = Astro.props;
 ---
-<Input name="title" title="Title" value={title} loading={loading} validateUrl="/server/party/validate" />
+<Input class="rounded-t-lg" name="title" title="Title" value={title} loading={loading} validateUrl="/server/party/validate" />
 <Input name="location" title="Where" value={location} loading={loading} validateUrl="/server/party/validate" />
 <Input name="date" title="When" value={date} loading={loading} validateUrl="/server/party/validate" />
 <Input name="description" title="Description" value={description} loading={loading} validateUrl="/server/party/validate" />

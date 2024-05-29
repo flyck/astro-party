@@ -27,7 +27,7 @@ const { participants } = Astro.props;
     hx-swap="none"
     >
     <Input id="modal-id" name="id" title="Id" class="hidden" type="text" value="init" />
-    <Input id="modal-name" name="name" title="Name" type="text" value="init" validateUrl="/server/participant/validate" />
+    <Input class="rounded-t-lg" id="modal-name" name="name" title="Name" type="text" value="init" validateUrl="/server/participant/validate" />
     <Input id="modal-email" name="email" title="Email" type="text" value="init" validateUrl="/server/participant/validate" />
 
     <DeleteButton url="/server/participant/delete" />

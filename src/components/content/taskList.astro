@@ -28,34 +28,34 @@ const { tasks, participants } = Astro.props;
     </div>
     )}
   </ul>
-  
-  
+
+
   <CreateTaskModal buttonId={openModalId} assignees={participants.map((p) => ({id: p.id ,name: p.name}))}/>
-  
+
   <Modal title="Edit Task" openModalId="openEditTaskModal">
     <form
       hx-post="/server/task/update"
       hx-swap="none"
       >
       <Input id="modal-id" name="id" title="Id" class="hidden" type="text" value="init"></Input>
-      <Input id="modal-title" name="title" title="Title" type="text" value="init" autofocus={true} validateUrl="/server/task/validate"></Input>
+      <Input class="rounded-t-lg" id="modal-title" name="title" title="Title" type="text" value="init" autofocus={true} validateUrl="/server/task/validate"></Input>
       <AssigneeDropdown id="modal-assignee" assignees={participants.map((p) => ({id: p.id ,name: p.name}))}/>
       <StatusDropdown id="modal-status" />
       <Input id="modal-description" name="description" title="Description" type="text" value="init" validateUrl="/server/task/validate"></Input>
-  
+
       <DeleteButton url="/server/task/delete" />
       <SubmitButton>Ok</SubmitButton>
     </form>
   </Modal>
-  
+
   <script is:inline>
       // Get the item list
       var itemList = document.getElementById('openEditTaskModal');
-  
+
       // When a list item is clicked, open the modal with the corresponding content
       itemList.addEventListener('click', function(e) {
         const properties = ["id", "title", "assignee", "status", "description"];
-  
+
         // as data-attributes are not inherited, find the data-holding parent if a child-div was clicked.
         let target = e.target;
         while (target) {
@@ -64,7 +64,7 @@ const { tasks, participants } = Astro.props;
           }
           target = target.parentNode;
         }
-  
+
         // transfer the task properties from the button metadata into the modal inputs
         properties.forEach((property) => {
           var value = target.getAttribute(`data-${property}`);
@@ -73,4 +73,3 @@ const { tasks, participants } = Astro.props;
         })
       });
   </script>
-  
