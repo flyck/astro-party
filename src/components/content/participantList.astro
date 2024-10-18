@@ -13,7 +13,7 @@ const { participants } = Astro.props;
 ---
 <ul id="openEditParticipantModal">
   {participants.map((p) =>
-  <button id={p.id.toString()} class="border-b border-gray-500 p-2 w-full text-left text-sm"
+  <button id={p.id.toString()} class="border-b border-gray-500 p-2 w-full text-left text-sm select-none"
           data-id={p.id.toString()} data-name={p.name} data-email={p.email}
   >
     {p.name} ({p.email || "?"})

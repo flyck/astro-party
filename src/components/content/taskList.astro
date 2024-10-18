@@ -20,7 +20,7 @@ const { tasks, participants } = Astro.props;
 ---
 <ul id="openEditTaskModal">
     {tasks.map((t, index) =>
-    <div id={index.toString()} class="flex items-center justify-between border-b border-gray-500 p-2 cursor-pointer"
+    <div id={index.toString()} class="flex items-center justify-between border-b border-gray-500 p-2 cursor-pointer select-none"
          data-id={t.id.toString()} data-title={t.title.toString()}
          data-status={t.status} data-description={t.description} data-assignee={t.assignee}>
       <div class="text-sm">{t.title || "?"}{t.assignee ? ` (${participants.find(participant => participant.id == t.assignee)!.name})` : ''}</div>

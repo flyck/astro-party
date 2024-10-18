@@ -18,7 +18,7 @@ const id = Astro.props.id || `${title.replaceAll(" ", "")}Modal`;
     <div class="flex w-7 mr-2" />
     <div class="w-full modal-content h-96">
       <div class="mb-4">
-        <div class="w-full dark:bg-gray-900 bg-gray-100 dark:border-gray-800 p-2 rounded-lg text-center border">
+        <div class="w-full dark:bg-gray-900 bg-gray-100 dark:border-gray-800 p-2 rounded-lg text-center border select-none">
           <div class="flex justify-between">
             <>{title}</>
             <button class="" id={closeButtonId}>
