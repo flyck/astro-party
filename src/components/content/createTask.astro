@@ -16,9 +16,9 @@ const { buttonId, assignees } = Astro.props;
     hx-post="/server/task/create"
     hx-swap="none"
   >
-    <Input class="rounded-t-lg" name="title" title="Title" value="Buy Beer" autofocus={true} />
+    <Input class="rounded-t-lg" name="title" title="Title" value="Buy Beer" autofocus={true} validateUrl="/server/task/validate"  />
     <VirginDropdown assignees={assignees.map((p) => ({id: p.id ,name: p.name}))}/>
-    <Input name="description" title="Description" value="" />
+    <Input name="description" title="Description" value="" validateUrl="/server/task/validate" />
     <SubmitButton>Ok</SubmitButton>
   </form>
 </Modal>

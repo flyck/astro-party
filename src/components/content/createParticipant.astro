@@ -14,8 +14,8 @@ const { buttonId } = Astro.props;
     hx-post="/server/participant/create"
     hx-swap="none"
   >
-    <Input class="rounded-t-lg" name="name" title="Name" value="Johnny B" autofocus={true}></Input>
-    <Input name="email" title="Email" value="john@john.de"></Input>
+    <Input class="rounded-t-lg" name="name" title="Name" value="Johnny B" autofocus={true} validateUrl="/server/participant/validate" />
+    <Input name="email" title="Email" value="john@john.de" validateUrl="/server/participant/validate" />
     <SubmitButton>Ok</SubmitButton>
   <form>
 </Modal>
