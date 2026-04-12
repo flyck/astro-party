@@ -3,7 +3,6 @@ import Skeleton from "../../components/mini/skeleton.astro";
 import Layout from "../../layouts/PageLayout.astro";
 import Scrollable from "../../layouts/Scrollable.astro";
 
-export const openModalId = "openModal";
 ---
 <Layout title="Tasks" left="participants">
     <div
@@ -19,7 +18,7 @@ export const openModalId = "openModal";
         </div>
     </Scrollable>
 
-    <button id={openModalId} class="disabled:bg-gray-800 bg-blue-700 text-gray-200 rounded-b-lg w-full h-8 flex justify-center items-center">
+    <button x-data x-on:click="$dispatch('open-modal', 'CreateTaskModal')" class="disabled:bg-gray-800 bg-blue-700 text-gray-200 rounded-b-lg w-full h-8 flex justify-center items-center">
         +
     </button>
 </Layout>

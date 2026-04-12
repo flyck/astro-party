@@ -29,7 +29,7 @@ const validationResultId = name + Math.random().toString(16).slice(2);
 ---
 <div class:list={[className, "border-b border-gray-500 p-2 dark:bg-gray-900"]}>
     <div class="text-sm flex items-center">
-      {title}: <div class="ml-2" id={validationResultId}></div>
+      {title}: <div class="ml-2" id={validationResultId} x-data x-on:form-reset.window="$el.innerHTML = ''"></div>
     </div>
     { loading ?
     <div class="mt-1"><Skeleton class="rounded-sm" /></div> :
@@ -45,9 +45,3 @@ const validationResultId = name + Math.random().toString(16).slice(2);
     }
 </div>
 
-<script is:inline define:vars={{responseId: validationResultId}}>
-  const elem = document.getElementById(responseId)
-  document.addEventListener('form-reset', function() {
-    elem.innerHTML = '';
-  });
-</script>

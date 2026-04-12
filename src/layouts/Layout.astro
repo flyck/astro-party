@@ -12,6 +12,9 @@ import { ViewTransitions } from "astro:transitions";
 		<meta name="generator" content={Astro.generator} />
 		<title>Astro Party</title>
                 <ViewTransitions />
+		<script>
+			import "../scripts/alpine-init.ts";
+		</script>
 	</head>
 	<body>
 		<slot />

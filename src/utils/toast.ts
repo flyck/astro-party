@@ -13,7 +13,7 @@ export class ToastError extends Error {
 
 export function createToast(level: ToastType, message: string) {
   return {
-    makeToast: {
+    "make-toast": {
       level,
       message,
     },

@@ -11,7 +11,15 @@ interface Props {
 
 const { participants } = Astro.props;
 ---
-<ul id="openEditParticipantModal">
+<ul id="openEditParticipantModal"
+    x-data
+    x-on:click="
+      ['id','name','email'].forEach(p => {
+        const el = document.getElementById('modal-' + p);
+        if (el) el.value = $event.target.dataset[p] || '';
+      });
+      $dispatch('open-modal', 'EditParticipantModal');
+    ">
   {participants.map((p) =>
   <button id={p.id.toString()} class="border-b border-gray-500 p-2 w-full text-left text-sm select-none"
           data-id={p.id.toString()} data-name={p.name} data-email={p.email}
@@ -35,16 +43,3 @@ const { participants } = Astro.props;
   </form>
 </Modal>
 
-<script is:inline>
-  var itemList = document.getElementById('openEditParticipantModal');
-
-  itemList.addEventListener('click', function(e) {
-    const properties = ["id", "name", "email"];
-
-    // transfer the task properties from the button metadata into the modal inputs
-    properties.forEach((property) => {
-      var value = e.target.getAttribute(`data-${property}`);
-      document.getElementById(`modal-${property}`).value = value;
-    })
-  });
-</script>

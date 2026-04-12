@@ -16,28 +16,3 @@ const { class: className, id } = Astro.props;
   </select>
 </div>
 
-<script is:inline define:vars={{ id }}>
- // Select the given option from the dropdown
- function selectOptionByDataStatus(dataStatus) {
-    const selectElement = document.getElementById("taskStatusSelect");
-    const options = Array.from(selectElement.options);
-    const selectedOption = options.find((option) => option.value === dataStatus);
-    if (selectedOption) {
-      selectElement.value = selectedOption.value;
-    }
-  }
-
-
- // wait for the data-status to be set to be updated and select that value accordingly
- // this allows sharing of one modal and one dropdown between multiple
-  const div = document.getElementById(id);
-  const observer = new MutationObserver(() => {
-    const dataStatus = div.getAttribute('data-status');
-    selectOptionByDataStatus(dataStatus);
-  });
-
-  observer.observe(div, {
-    attributes: true,
-    attributeFilter: ['data-status']
-  });
-</script>

@@ -1,7 +1,6 @@
 ---
 import type { Participants, Tasks } from "astro:db";
 import Modal from "../../layouts/Modal.astro";
-import { openModalId } from "../../pages/[partyId]/tasks.astro";
 import AssigneeDropdown from "../assigneeDropdown.astro";
 import CreateTaskModal from "../content/createTask.astro";
 import DeleteButton from "../deleteButton.astro";
@@ -18,7 +17,20 @@ interface Props {
 
 const { tasks, participants } = Astro.props;
 ---
-<ul id="openEditTaskModal">
+<ul id="openEditTaskModal"
+    x-data
+    x-on:click="
+      let target = $event.target;
+      while (target && !target.dataset.id) target = target.parentNode;
+      if (!target) return;
+      ['id','title','assignee','status','description'].forEach(p => {
+        const el = document.getElementById('modal-' + p);
+        if (el) { el.value = target.dataset[p] || ''; el.dataset[p] = target.dataset[p] || ''; }
+      });
+      document.getElementById('taskAssigneeSelect').value = target.dataset.assignee || '';
+      document.getElementById('taskStatusSelect').value = target.dataset.status || '';
+      $dispatch('open-modal', 'EditTaskModal');
+    ">
     {tasks.map((t, index) =>
     <div id={index.toString()} class="flex items-center justify-between border-b border-gray-500 p-2 cursor-pointer select-none"
          data-id={t.id.toString()} data-title={t.title.toString()}
@@ -30,7 +42,7 @@ const { tasks, participants } = Astro.props;
   </ul>
 
 
-  <CreateTaskModal buttonId={openModalId} assignees={participants.map((p) => ({id: p.id ,name: p.name}))}/>
+  <CreateTaskModal assignees={participants.map((p) => ({id: p.id ,name: p.name}))}/>
 
   <Modal title="Edit Task" openModalId="openEditTaskModal">
     <form
@@ -48,28 +60,3 @@ const { tasks, participants } = Astro.props;
     </form>
   </Modal>
 
-  <script is:inline>
-      // Get the item list
-      var itemList = document.getElementById('openEditTaskModal');
-
-      // When a list item is clicked, open the modal with the corresponding content
-      itemList.addEventListener('click', function(e) {
-        const properties = ["id", "title", "assignee", "status", "description"];
-
-        // as data-attributes are not inherited, find the data-holding parent if a child-div was clicked.
-        let target = e.target;
-        while (target) {
-          if (target.dataset.id) {
-            break;
-          }
-          target = target.parentNode;
-        }
-
-        // transfer the task properties from the button metadata into the modal inputs
-        properties.forEach((property) => {
-          var value = target.getAttribute(`data-${property}`);
-          document.getElementById(`modal-${property}`).value = value;
-          document.getElementById(`modal-${property}`).dataset[property] = value;
-        })
-      });
-  </script>

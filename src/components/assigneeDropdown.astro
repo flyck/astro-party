@@ -16,27 +16,3 @@ const { class: className, id, assignees } = Astro.props;
 ---
 <VirginDropdown assignees={assignees} mainId={id} selectId={selectId} />
 
-<script is:inline define:vars={{ id, selectId }}>
-    // Select the given option from the dropdown
-    function selectOptionByDataValue(newOption) {
-       const selectElement = document.getElementById(selectId);
-       const options = Array.from(selectElement.options);
-       const selectedOption = options.find((option) => option.value === newOption);
-       if (selectedOption) {
-         selectElement.value = selectedOption.value;
-       }
-    }
-
-    // wait for the data-assignee to be set to be updated and select that value accordingly
-    // this allows sharing of one modal and one dropdown between multiple
-     const div = document.getElementById(id);
-     const observer = new MutationObserver(() => {
-       const dataAssignee = div.getAttribute('data-assignee');
-       selectOptionByDataValue(dataAssignee);
-     });
-   
-     observer.observe(div, {
-       attributes: true,
-       attributeFilter: ['data-assignee']
-     });
-</script>

@@ -5,13 +5,12 @@ import SubmitButton from "../submitButton.astro";
 import VirginDropdown from "../virginDropdown.astro";
 
 interface Props {
-  buttonId: string;
   assignees: { name: string; id: number }[];
 }
 
-const { buttonId, assignees } = Astro.props;
+const { assignees } = Astro.props;
 ---
-<Modal title="Create Task" openModalId={buttonId}>
+<Modal title="Create Task">
   <form
     hx-post="/server/task/create"
     hx-swap="none"

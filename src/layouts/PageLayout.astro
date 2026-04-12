@@ -17,7 +17,10 @@ const { left, right, title } = Astro.props;
 ---
 <script src="https://unpkg.com/htmx.org@1.9.12/dist/htmx.min.js"></script>
 <Layout>
-  <div class="flex min-h-screen items-center" transition:animate="none">
+  <div class="flex min-h-screen items-center" transition:animate="none"
+       x-data
+       x-on:keydown.left.window={left ? `window.location.href = '${left}'` : ''}
+       x-on:keydown.right.window={right ? `window.location.href = '${right}'` : ''}>
       <div class="mx-auto my-auto">
       <div class="mb-4 flex w-96 sm:w-80">
         {left ? <a id="leftId" href={left} class="flex" aria-label="Go Left">
@@ -50,24 +53,3 @@ const { left, right, title } = Astro.props;
   </div>
 </Layout>
 
-<script is:inline define:vars={{ left, right }}>
-  function activateKeypressNavigation() {
-  document.addEventListener('keydown', (event) => {
-    if (event.key === 'ArrowLeft' && left) {
-      window.location.href = left;
-    }
-    if (event.key === 'ArrowRight' && right) {
-      window.location.href = right;
-    }
-  });
-  }
-  activateKeypressNavigation()
-  document.addEventListener(
-    "astro:after-swap",
-    () => {
-      htmx.process(document.body || null);
-      activateKeypressNavigation();
-    },
-    { once: false }
-  );
-</script>
